@@ -4,6 +4,8 @@ import model.Coordinate;
 
 public class MainP1 {
 
+	/* Comentario metido por Paco Moreno (se puede borrar) */
+	
 	public static void main(String[] args) {
 		Coordinate c1 = new Coordinate(5,4);
 		Coordinate c2 = new Coordinate(c1);
