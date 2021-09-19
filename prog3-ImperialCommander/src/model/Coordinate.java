@@ -2,7 +2,7 @@ package model;
 
 /**
  *	@author drizo
- *
+ *	@version 1.8 2011
  * 
  **/
 
