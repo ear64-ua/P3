@@ -6,7 +6,6 @@ package model;
  * 
  **/
 
-
 public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	
 	int x, y;
