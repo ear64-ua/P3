@@ -31,7 +31,6 @@ public class CoordinatePreTest {
 		for (int i=0; i<DIM-1; i++) {
 			lcoor.add(new Coordinate(vcoor[i],vcoor[i+1]));
 		}
-		
 	}
 
 	/* Se comprueba que cuando dos Coordinate son iguales, el resultado del hash ha 
