@@ -9,13 +9,21 @@ package model;
 public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	
 	int x, y;
+	/** Se crea un constructor con dos argumentos enteros 
+	 *	@param x es la primera coordenada del constructor
+	 *  @param y es la segunda coordenada del constructor 
+	 * 
+	 */
 	
-	public Coordinate(int x,int y) {	/** Se crea un constructor con dos argumentos enteros **/
+	
+	public Coordinate(int x,int y) {	
 		this.x = x;
 		this.y = y;
 	}
-	
-	public Coordinate(Coordinate c) {	/** Se crea un constructor de copia **/
+	/** Se crea un constructor de copia 
+	 * @param c Es el objeto del constructor
+	 */
+	public Coordinate(Coordinate c) {	
 		x = c.x;
 		y = c.y;
 	}
@@ -39,18 +47,20 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	/**
    	* Comparamos dos coordinadas con lógica boleana y el operador equals
    	* @param c Es la segunda coordenada que se compara con el primero
+   	* @return true si ambas coordenadas son iguales y false si son distintas
    	*/
 
 	final public Boolean equals(Coordinate c) {
-		return x == c.x && y == c.y;
+		return x==c.x && y == c.y;
 	}
 	
 	/**
    	* @return un string del formato "[ x , y ]"
    	*/
-	public String to_string() {
-		String concatenation = "[" + x + "," + y + "]";
-		return concatenation;
+	
+	@Override
+	public String toString() {
+		return "[" + x + "," + y + "]";
 	}
 	
 	/**
