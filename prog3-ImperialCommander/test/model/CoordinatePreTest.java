@@ -30,9 +30,10 @@ public class CoordinatePreTest {
 		//Se crean las Coordinates (0,0),(0,-70), (-70,-2),(-2,20);
 		for (int i=0; i<DIM-1; i++) {
 			lcoor.add(new Coordinate(vcoor[i],vcoor[i+1]));
+			//hola
 		}
 	}
-
+	
 	/* Se comprueba que cuando dos Coordinate son iguales, el resultado del hash ha 
 	 * de ser el mismo. 
 	 * Si los Coordinate son distintos el hashCode puede ser igual o no.
