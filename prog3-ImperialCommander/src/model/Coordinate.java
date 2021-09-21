@@ -1,25 +1,27 @@
 package model;
 
+import java.util.Objects;
+
 /**
- *	@author drizo
+ *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  * 
  **/
 
 public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	
-	int x, y;
+	private int x, y;
 	/** Se crea un constructor con dos argumentos enteros 
 	 *	@param x es la primera coordenada del constructor
 	 *  @param y es la segunda coordenada del constructor 
 	 * 
 	 */
 	
-	
 	public Coordinate(int x,int y) {	
 		this.x = x;
 		this.y = y;
 	}
+	
 	/** Se crea un constructor de copia 
 	 * @param c Es el objeto del constructor
 	 */
@@ -44,20 +46,26 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 		return this.y;
 	}
 	
-	/**
-   	* Comparamos dos coordinadas con lógica boleana y el operador equals
-   	* @param c Es la segunda coordenada que se compara con el primero
-   	* @return true si ambas coordenadas son iguales y false si son distintas
-   	*/
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y);
+	}
 
-	final public Boolean equals(Coordinate c) {
-		return x==c.x && y == c.y;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Coordinate other = (Coordinate) obj;
+		return x == other.x && y == other.y;
 	}
 	
 	/**
    	* @return un string del formato "[ x , y ]"
    	*/
-	
 	@Override
 	public String toString() {
 		return "[" + x + "," + y + "]";
@@ -76,7 +84,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	/**
    	* Comparamos dos coordinadas con lógica boleana
    	* @param x Es el primer valor de una coordenada para poder sumarla con su equivalente de otro objeto
-   	* @param y Es el primer valor de una coordenada para poder sumarla con su equivalente de otro objeto
+   	* @param y Es el segundo valor de una coordenada para poder sumarla con su equivalente de otro objeto
    	* @return Se devuelve la coordenada resultante de la suma
    	*/
 	public Coordinate add(int x, int y) {
@@ -84,4 +92,11 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 		return new_c;
 	}
 	
+	
 }
+
+
+
+
+
+
