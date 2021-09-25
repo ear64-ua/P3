@@ -32,7 +32,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	
 	/**
     * Getter.
-    * @return un valor siempre mayor que cero...
+    * @return el valor x...
     */
 	public int getX() {
 		return this.x;
@@ -40,7 +40,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	
 	/**
     * Getter.
-    * @return un valor siempre mayor que cero...
+    * @return el valor y...
     */
 	public int getY() {
 		return this.y;
@@ -51,6 +51,13 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 		return Objects.hash(x, y);
 	}
 
+	/**
+	 * Equals
+	 * @param obj
+	 * @return TRUE: si es el mismo objeto o si las coordenadas 'x' e 'y' son iguales                      
+	 *         FALSE: si el parametro es nulo o si el nombre de la clase es diferente
+	 * 			o si las coordenadas 'x' e 'y' son diferentes
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
