@@ -84,8 +84,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
    	* @return Se devuelve la coordenada resultante de la suma
    	*/
 	public Coordinate add(Coordinate c) {
-		Coordinate new_c = new Coordinate(x + c.x, y + c.y);
-		return new_c;
+		return new Coordinate(x + c.x, y + c.y);
 	}
 
 	/**
@@ -95,10 +94,8 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
    	* @return Se devuelve la coordenada resultante de la suma
    	*/
 	public Coordinate add(int x, int y) {
-		Coordinate new_c = new Coordinate(this.x+x , this.y+y);
-		return new_c;
+		return new Coordinate(this.x+x , this.y+y);
 	}
-	
 	
 }
 
