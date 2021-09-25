@@ -31,7 +31,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	}
 	
 	/**
-    * Getter.
+    * Getter de x
     * @return el valor x...
     */
 	public int getX() {
@@ -39,24 +39,28 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	}
 	
 	/**
-    * Getter.
+    * Getter de y
     * @return el valor y...
     */
 	public int getY() {
 		return this.y;
 	}
 	
+	/**
+	 * hashCode() nos permite localizar el objeto en un mapa
+	 * @return un valor hash code del objeto 
+	 */
 	@Override
+	
 	public int hashCode() {
 		return Objects.hash(x, y);
 	}
 
 	/**
 	 * Equals
-	 * @param obj
-	 * @return TRUE: si es el mismo objeto o si las coordenadas 'x' e 'y' son iguales                      
-	 *         FALSE: si el parametro es nulo o si el nombre de la clase es diferente
-	 * 			o si las coordenadas 'x' e 'y' son diferentes
+	 * @param obj es la referencia objeto el cual vamos a comparar
+	 * @return TRUE: si este objeto es el mismo que el argumento obj                 
+	 *         FALSE: en caso contrario
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -71,6 +75,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	}
 	
 	/**
+	 * Convierte la coordenada en String
    	* @return un string del formato "[ x , y ]"
    	*/
 	@Override
@@ -79,7 +84,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	}
 	
 	/**
-   	* Sumamos dos coordenadas
+   	* Sumamos dos coordenadas, el del objeto actual con el parámetro pasado
    	* @param c Es la coordenada con la que se va a sumar el constructor de suma
    	* @return Se devuelve la coordenada resultante de la suma
    	*/
@@ -88,7 +93,7 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 	}
 
 	/**
-   	* Comparamos dos coordinadas con lógica boleana
+   	* Sumamos dos coordenadas el del objeto actual con los dos enteros pasados por parámetro
    	* @param x Es el primer valor de una coordenada para poder sumarla con su equivalente de otro objeto
    	* @param y Es el segundo valor de una coordenada para poder sumarla con su equivalente de otro objeto
    	* @return Se devuelve la coordenada resultante de la suma
