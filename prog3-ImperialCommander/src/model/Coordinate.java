@@ -8,7 +8,7 @@ import java.util.Objects;
  * 
  **/
 
-public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
+public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creando nuestra clase Coordinate **/
 	
 	private int x, y;
 	/** Se crea un constructor con dos argumentos enteros 
@@ -102,6 +102,33 @@ public class Coordinate{	/** Empezamos creando nuestra clase Coordinate **/
 		return new Coordinate(this.x+x , this.y+y);
 	}
 	
+	/**
+	 * Comparamos dos coordenadas
+	 * @param	otra objeto de tipo Coordinate para comparar
+	 * @return  devuelve un valor negativo si la x de la coordenada es menor que la x 
+	 * 		    de otra, un valor positivo si x es mayor, y si ambas x son iguales debe proceder 
+	 * 			de la misma forma con las y; si ambas componentes, x e y, son iguales, debe devolver 0
+	 */
+	 @Override
+	 public int compareTo(Coordinate otra) {
+		 
+		 if (this.x < otra.getX())
+			 return -1;
+		 
+		 else if (this.x > otra.getX())
+			 return 1;
+		 
+		 else if (this.x == otra.getX() && this.y < otra.getY())
+			 return -1;
+		 
+		 else if (this.x == otra.getX() && this.y > otra.getY())
+			 return 1;
+		 
+		 else 
+			 return 0;
+	 }
+	 
+	 
 }
 
 
