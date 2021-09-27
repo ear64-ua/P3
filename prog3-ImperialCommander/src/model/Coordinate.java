@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *	@author Enrique Abma Romero X9853366M
@@ -126,6 +128,26 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 		 
 		 else 
 			 return 0;
+	 }
+	 
+	 /**
+	  * Recorremos dos bucles en los que obtendremos las coordenadas próximas a nuestra coordenada 
+	  * @return var: conjunto de valores que rodean a la coordenada
+	  */
+	 public Set<Coordinate> getNeighborhood(){
+		 
+		 TreeSet<Coordinate> var = new TreeSet<Coordinate>();
+		 
+		 for (int i = -1; i < 2; i++)
+		 {
+			 for(int j = -1; j < 2; j++) {
+				 if ((i != 0) && (j!=0))
+					 var.add(new Coordinate (this.getX()+i,this.getY()+j));
+			 }
+		 }
+		
+		 return var;
+		 
 	 }
 	 
 	 
