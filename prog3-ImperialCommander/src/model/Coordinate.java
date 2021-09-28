@@ -78,7 +78,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	
 	/**
 	 * Convierte la coordenada en String
-   	* @return un string del formato "[ x , y ]"
+   	* @return un string del formato "[ x , y ]" 
    	*/
 	@Override
 	public String toString() {
@@ -86,7 +86,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	}
 	
 	/**
-   	* Sumamos dos coordenadas, el del objeto actual con el parámetro pasado
+   	* Sumamos dos coordenadas, el del objeto actual con el parametro pasado
    	* @param c Es la coordenada con la que se va a sumar el constructor de suma
    	* @return Se devuelve la coordenada resultante de la suma
    	*/
@@ -95,7 +95,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	}
 
 	/**
-   	* Sumamos dos coordenadas el del objeto actual con los dos enteros pasados por parámetro
+   	* Sumamos dos coordenadas el del objeto actual con los dos enteros pasados por parametro
    	* @param x Es el primer valor de una coordenada para poder sumarla con su equivalente de otro objeto
    	* @param y Es el segundo valor de una coordenada para poder sumarla con su equivalente de otro objeto
    	* @return Se devuelve la coordenada resultante de la suma
@@ -131,22 +131,23 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	 }
 	 
 	 /**
-	  * Recorremos dos bucles en los que obtendremos las coordenadas próximas a nuestra coordenada 
-	  * @return var: conjunto de valores que rodean a la coordenada
+	  * Recorremos dos bucles en los que obtendremos las coordenadas proximas a nuestra coordenada.
+	  * Para ello hacemos uso del atributo conjunto que devuelve un grupo de coordenadas de tipo TreeSet
+	  * @return conjunto  de valores que rodean a la coordenada
 	  */
 	 public Set<Coordinate> getNeighborhood(){
 		 
-		 TreeSet<Coordinate> var = new TreeSet<Coordinate>();
+		 TreeSet<Coordinate> conjunto = new TreeSet<Coordinate>();
 		 
 		 for (int i = -1; i < 2; i++)
 		 {
 			 for(int j = -1; j < 2; j++) {
 				 if ((i != 0) && (j!=0))
-					 var.add(new Coordinate (this.getX()+i,this.getY()+j));
+					 conjunto.add(new Coordinate (this.getX()+i,this.getY()+j));
 			 }
 		 }
 		
-		 return var;
+		 return conjunto;
 		 
 	 }
 	 
