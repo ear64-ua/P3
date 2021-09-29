@@ -10,41 +10,52 @@ public class Fighter {
 	
 	private static int nextId = 1;
 	
-	private Coordinate position;
+	// Ship motherShip = new Ship();
 	
-	// Fighter(String type, Ship mother)
+	private Coordinate position = new Coordinate(null);
+	
+	/* Fighter(String type, Ship mother){
+	 * 
+	 * this.velocity = 100;
+	 * this.attack = 80;
+	 * this.shield = 80;
+	 * type = this.type;
+	 * this.id = nextId;
+	 * nextId++;
+	 * 
+	 * }
+	 */
 
 	public Fighter(Fighter f) {
 		
-		f.id  = this.id;
 		f.velocity  = this.velocity;
 		f.attack  = this.attack;
 		f.shield  = this.shield;
 		f.type = this.type;
 		f.position = this.position;
+		f.id  = id;
 		
+		f.position = this.position;
+		//f.motherShip= this.motherShip;
 	}
 	
 	public static void resetNextId() {
 		nextId = 1;
 	}
 	
-	public void getType() {
-		
+	public String getType() {
+		return this.type;
 	}
 	
 	public int getId() {
-		
 		return this.id;
 	}
 	
 	public int getVelocity() {
-		
 		return this.velocity;
 	}
 	
 	public int getShield() {
-		
 		return this.shield;
 	}
 	
@@ -88,6 +99,10 @@ public class Fighter {
 			return false;
 	}
 	
+	public Side getSide() {
+		return side;
+	}
+	
 	public int getDamage(int n, Fighter enemy) {
 		return (n*enemy.attack)/300;
 		
@@ -95,8 +110,7 @@ public class Fighter {
 	
 	public int fight(Fighter enemy) {
 		
-		//int n = new RandomNumber.randomNumber();
-		
+		int n;
 		
 		if (enemy.shield <= 0 || this.shield <= 0)
 			return 0;
@@ -104,10 +118,20 @@ public class Fighter {
 		else {
 			do {
 				
-			}while(!(enemy.shield <= 0 || this.shield <= 0));
-		}
-		
-		return 0;
+				n = RandomNumber.newRandomNumber(99);
+				
+				if ((this.velocity*100)/(this.velocity+enemy.velocity) <= n)
+					enemy.shield = enemy.shield - getDamage(n,enemy);
+				else
+					this.shield = this.shield - enemy.getDamage(100-n,enemy);
+				
+			}while(enemy.shield > 0 && this.shield > 0);
+			
+			if (enemy.shield <= 0)
+				return 1;
+			else 
+				return -1;
+		}		
 	}
 	
 	/**
