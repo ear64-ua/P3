@@ -14,30 +14,28 @@ public class Fighter {
 	
 	private Coordinate position = new Coordinate(null);
 	
-	/* Fighter(String type, Ship mother){
-	 * 
-	 * this.velocity = 100;
-	 * this.attack = 80;
-	 * this.shield = 80;
-	 * type = this.type;
-	 * this.id = nextId;
-	 * nextId++;
-	 * 
-	 * motherShip = mother;
-	 * }
-	 */
+	Fighter(String type, Ship mother){
+	  
+		this.velocity = 100;
+		this.attack = 80;
+		this.shield = 80;
+		type = this.type;
+		this.id = nextId;
+		nextId++;
+	  
+		motherShip = mother;
+	  }
+	 
 
 	public Fighter(Fighter f) {
 		
 		this.velocity = f.velocity;
 		this.attack = f.attack;
-		f.shield  = this.shield;
-		f.type = this.type;
-		f.position = this.position;
-		f.id  = id;
-		
-		f.position = this.position;
-		//f.motherShip= this.motherShip;
+		this.shield = f.shield;
+		this.type = f.type;
+		this.position = f.position;
+		this.id = f.id;
+		this.motherShip = f.motherShip;
 	}
 	
 	public static void resetNextId() {
@@ -60,9 +58,8 @@ public class Fighter {
 		return this.shield;
 	}
 	
-	public int getSide() {
+	public Side getSide() {
 		return motherShip.getSide();
-		//return this.side;
 	}
 	
 	public Coordinate getPosition() {
@@ -70,9 +67,9 @@ public class Fighter {
 		return new Coordinate(position);
 	}
 	
-	//public Ship getShip() {
-		
-	//}
+	public Ship getMotherShip() {
+		return motherShip;
+	}
 	
 	public void addAtack(int at) {
 		this.attack =+ at;
@@ -100,10 +97,6 @@ public class Fighter {
 			return false;
 	}
 	
-	public Side getSide() {
-		return side;
-	}
-	
 	public int getDamage(int n, Fighter enemy) {
 		return (n*enemy.attack)/300;
 		
@@ -126,7 +119,7 @@ public class Fighter {
 				else
 					this.shield = this.shield - enemy.getDamage(100-n,enemy);
 				
-			}while(enemy.isDestroyed() > 0 && this.isDestroyed() > 0);
+			}while(enemy.isDestroyed() && this.isDestroyed());
 			
 			if (enemy.shield <= 0)
 				return 1;
@@ -140,7 +133,7 @@ public class Fighter {
 	 */
 	@Override
 	public String toString() {
-		return "(" + this.type + " " + this.id + " REBEL" + position 
+		return "(" + this.type + " " + this.id + this.getSide() + position 
 				+ "{" + this.velocity + "," + this.attack + "," + this.shield + "})";
 	}
 
