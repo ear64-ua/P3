@@ -10,7 +10,7 @@ public class Fighter {
 	
 	private static int nextId = 1;
 	
-	// Ship motherShip = new Ship();
+	private Ship motherShip;
 	
 	private Coordinate position = new Coordinate(null);
 	
@@ -23,13 +23,14 @@ public class Fighter {
 	 * this.id = nextId;
 	 * nextId++;
 	 * 
+	 * motherShip = mother;
 	 * }
 	 */
 
 	public Fighter(Fighter f) {
 		
-		f.velocity  = this.velocity;
-		f.attack  = this.attack;
+		this.velocity = f.velocity;
+		this.attack = f.attack;
 		f.shield  = this.shield;
 		f.type = this.type;
 		f.position = this.position;
@@ -60,7 +61,7 @@ public class Fighter {
 	}
 	
 	public int getSide() {
-		return 0;
+		return motherShip.getSide();
 		//return this.side;
 	}
 	
@@ -125,7 +126,7 @@ public class Fighter {
 				else
 					this.shield = this.shield - enemy.getDamage(100-n,enemy);
 				
-			}while(enemy.shield > 0 && this.shield > 0);
+			}while(enemy.isDestroyed() > 0 && this.isDestroyed() > 0);
 			
 			if (enemy.shield <= 0)
 				return 1;
@@ -139,8 +140,8 @@ public class Fighter {
 	 */
 	@Override
 	public String toString() {
-		return "(" + this.type + " " + this.id + " REBEL [" + position.getX() + ","  + 
-				position.getY() + "{" + this.velocity + "," + this.attack + "," + this.shield + "})";
+		return "(" + this.type + " " + this.id + " REBEL" + position 
+				+ "{" + this.velocity + "," + this.attack + "," + this.shield + "})";
 	}
 
 	@Override
