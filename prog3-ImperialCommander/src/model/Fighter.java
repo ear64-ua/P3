@@ -12,14 +12,14 @@ public class Fighter {
 	
 	private Ship motherShip;
 	
-	private Coordinate position = new Coordinate(null);
-	
-	Fighter(String type, Ship mother){
+	private Coordinate position; 
+	//quitar public
+	public Fighter(String type, Ship mother){
 	  
 		this.velocity = 100;
 		this.attack = 80;
 		this.shield = 80;
-		type = this.type;
+		this.type = type;
 		this.id = nextId;
 		nextId++;
 	  
@@ -71,22 +71,22 @@ public class Fighter {
 		return motherShip;
 	}
 	
-	public void addAtack(int at) {
-		this.attack =+ at;
+	public void addAttack(int at) {
+		this.attack += at;
 		
 		if (this.attack < 0)
 			this.attack = 0;
 	}
 
 	public void addVelocity(int vel) {
-		this.velocity =+ vel;
+		this.velocity += vel;
 		
 		if (this.velocity < 0)
 			this.velocity = 0;
 	}
 	
 	public void addShield(int sh) {
-		this.shield = sh;
+		this.shield += sh;
 	}
 	
 	public Boolean isDestroyed() {
@@ -105,23 +105,24 @@ public class Fighter {
 	public int fight(Fighter enemy) {
 		
 		int n;
-		
-		if (enemy.shield <= 0 || this.shield <= 0)
+				
+		if (enemy.isDestroyed() || this.isDestroyed())
 			return 0;
 		
 		else {
 			do {
 				
 				n = RandomNumber.newRandomNumber(99);
-				
-				if ((this.velocity*100)/(this.velocity+enemy.velocity) <= n)
+
+				if (((this.velocity*100)/(this.velocity+enemy.velocity)) <= n) 
 					enemy.shield = enemy.shield - getDamage(n,enemy);
+				
 				else
 					this.shield = this.shield - enemy.getDamage(100-n,enemy);
 				
-			}while(enemy.isDestroyed() && this.isDestroyed());
+			}while(!enemy.isDestroyed() && !this.isDestroyed());
 			
-			if (enemy.shield <= 0)
+			if (enemy.isDestroyed())
 				return 1;
 			else 
 				return -1;
@@ -133,8 +134,8 @@ public class Fighter {
 	 */
 	@Override
 	public String toString() {
-		return "(" + this.type + " " + this.id + this.getSide() + position 
-				+ "{" + this.velocity + "," + this.attack + "," + this.shield + "})";
+		return "(" + this.type + " " + this.id + " " + this.getSide() + " " + position 
+				+ " {" + this.velocity + "," + this.attack + "," + this.shield + "})";
 	}
 
 	@Override
