@@ -23,6 +23,10 @@ public class MainP1 {
 		System.out.println(f1);
 		System.out.println(f2);
 		
+		f2.addAttack(-20);
+		f2.addShield(100);
+		System.out.println("f2 info " + f2.getAttack() + " " + f2.getShield() + " " + f2.getVelocity());
+		System.out.println("f1 info " + f1.getAttack() + " " + f1.getShield() + " " + f1.getVelocity());
 		int lucha = f1.fight(f2);
 		
 		if (lucha == 1)

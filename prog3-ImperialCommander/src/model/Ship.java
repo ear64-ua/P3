@@ -24,4 +24,25 @@ public class Ship {
 		return side;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public int getWins() {
+		return wins;
+	}
+
+	public int getLosses() {
+		return losses;
+	}
+
+	/*
+	 * updateResults(int r)
+	 * getFighterAvailable(String type)
+	 * purgeFleet()
+	 * showFleet()
+	 * myFleet()
+	 * toString()
+	 */
+	
 }

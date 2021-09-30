@@ -58,6 +58,10 @@ public class Fighter {
 		return this.shield;
 	}
 	
+	public int getAttack() {
+		return this.attack;
+	}
+	
 	public Side getSide() {
 		return motherShip.getSide();
 	}
@@ -115,10 +119,10 @@ public class Fighter {
 				n = RandomNumber.newRandomNumber(99);
 
 				if (((this.velocity*100)/(this.velocity+enemy.velocity)) <= n) 
-					enemy.shield = enemy.shield - getDamage(n,enemy);
+					enemy.shield = enemy.shield - getDamage(n,this);
 				
 				else
-					this.shield = this.shield - enemy.getDamage(100-n,enemy);
+					this.shield = this.shield - getDamage(100-n,enemy);
 				
 			}while(!enemy.isDestroyed() && !this.isDestroyed());
 			
