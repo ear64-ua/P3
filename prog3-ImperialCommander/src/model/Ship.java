@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.LinkedHashSet;
 
 public class Ship {
 	
@@ -66,13 +68,93 @@ public class Ship {
 		}
 	}
 
-	/*
-	 * updateResults(int r)
-	 * getFighterAvailable(String type)
-	 * purgeFleet()
-	 * showFleet()
-	 * myFleet()
-	 * toString()
+	public void updateResults(int r) {
+		
+		if(r == 1)
+			this.wins++;
+		
+		else if(r == -1)
+			this.losses++;
+	}
+	
+	
+	public Fighter getFighterAvailable(String type) {
+		
+		for(int i = 0; i < fleet.size(); i++) {
+			if(fleet.get(i).getType().equals(type) && !fleet.get(i).isDestroyed())
+				return fleet.get(i);
+			else if(type.equals(""))
+				return fleet.get(i);
+		}
+		
+		//for(Fighter f : fleet)
+		// if(f.getType().equals(type) && !f.isDestroyed())
+		//return f;
+		//else if(type.equals(""))
+		//return f;
+		
+		return null;
+	}
+	
+	public void purgeFleet() {
+		for(int i = 0; i < fleet.size(); i++) {
+			if(fleet.get(i).isDestroyed())
+				fleet.remove(i);
+			
+		}
+	}
+	
+	
+	public String showFleet() {
+		
+		String s = "";
+		
+		for(Fighter f : fleet) {
+			s = s + f;
+			if(f.isDestroyed())
+				s = s + " (X)\n";
+		}
+		
+		return s;
+	}
+	
+	
+	/**
+	 * myFleet usa la clase LinkedHashSet, que crea un mapa con valores 
+	 * únicos y se ordenan de la forma en la que se añaden sus elementos.
+	 * Usamos un contador de iteracción y de duplicados para lograr que nuestra
+	 * función funcione correctamente
+	 * @return un String con el formato "duplicados/tipo:*"
 	 */
+	public String myFleet() {
+		
+		Set<String> mapa = new LinkedHashSet<>();
+		String s = "";
+		int duplicates;
+		int iteration = 0;
+		
+		for(Fighter f: fleet) {
+			mapa.add(f.getType());
+		}
+		
+		for(String m: mapa) {
+			duplicates = 0;
+			iteration++;
+			for(Fighter f: fleet) {
+				if(f.getType().equals(m) && !f.isDestroyed())
+					duplicates++;		
+			}
+			s = s + duplicates + "/" + m;
+			if (mapa.size() != iteration)
+				s = s + ":";
+		}
+		
+		return s;
+	}
+	
+	public String toString() {
+		return super.toString() + " [" + this.name + " " + this.wins + "/" 
+				+ this.losses + "] " + this.myFleet();
+	}
 	
 }
