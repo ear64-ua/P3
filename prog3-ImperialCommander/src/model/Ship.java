@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ship {
 	
@@ -20,7 +21,7 @@ public class Ship {
 		fleet =new ArrayList<Fighter>();
 	}
 	
-	public Side getSide(){
+	public Side getSide() {
 		return side;
 	}
 
@@ -34,6 +35,35 @@ public class Ship {
 
 	public int getLosses() {
 		return losses;
+	}
+	
+	public List<Fighter>  getFleetTest() {
+		return fleet;
+	}
+	
+	public void addFighters(String fd) {
+		
+		if (fd.contains(":")) { 
+			String saux1[] = fd.split(":");
+			
+			for (int i = 0; i < saux1.length; i++ ) {
+				
+				String saux2[] = saux1[i].split("/");
+				for(int j = 0; j < Integer.parseInt(saux2[0]); j++) {
+					Fighter f1 = new Fighter(saux2[1],this);
+					fleet.add(f1);
+				}
+			}
+		}
+			
+		else {
+			String saux1[] = fd.split("/");
+			
+			for (int i = 0; i < Integer.parseInt(saux1[0]); i++) {
+				Fighter f1 = new Fighter(saux1[1],this);
+				fleet.add(f1);
+			}
+		}
 	}
 
 	/*

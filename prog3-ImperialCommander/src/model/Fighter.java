@@ -13,8 +13,8 @@ public class Fighter {
 	private Ship motherShip;
 	
 	private Coordinate position; 
-	//quitar public
-	public Fighter(String type, Ship mother){
+		
+	Fighter(String type, Ship mother){
 	  
 		this.velocity = 100;
 		this.attack = 80;
