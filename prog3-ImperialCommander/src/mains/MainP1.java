@@ -24,7 +24,7 @@ public class MainP1 {
 		s2.updateResults(-1);
 		s2.updateResults(4);
 		
-		System.out.println(s1.getFighterAvailable("BWing"));
+		System.out.println(s1.getFirstAvailableFighter("BWing"));
 		
 		System.out.println(s1);
 		System.out.println(s2);

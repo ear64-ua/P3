@@ -16,7 +16,7 @@ public class MainP2 {
 		Board b = new Board(10);  // 10x10
 		
 		System.out.println("getNeighborhood (5,5)");
-		Set<Coordinate> sc = b.getNeighborhood(new Coordinate(5,5));
+		Set<Coordinate> sc = b.getNeighborhood(new Coordinate(3,3));
 		for (Coordinate c:sc)
 			System.out.println(c);
 

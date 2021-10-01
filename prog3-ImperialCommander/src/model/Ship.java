@@ -122,20 +122,21 @@ public class Ship {
 	 * @return {@code .null} si el parametro esta vacio, o 
 	 * 		   la flota que coincide
 	 */
-	public Fighter getFighterAvailable(String type) {
+	public Fighter getFirstAvailableFighter(String type) {
 		
-		for(int i = 0; i < fleet.size(); i++) {
-			if(fleet.get(i).getType().equals(type) && !fleet.get(i).isDestroyed())
-				return fleet.get(i);
-			else if(type.equals(""))
-				return fleet.get(i);
+		if(type.equals("")) {
+			for(Fighter f : fleet) {
+				if (!f.isDestroyed())
+					return f;
+			}
 		}
 		
-		//for(Fighter f : fleet)
-		// if(f.getType().equals(type) && !f.isDestroyed())
-		//return f;
-		//else if(type.equals(""))
-		//return f;
+		else {
+			for(Fighter f : fleet) {
+				if(f.getType().equals(type) && !f.isDestroyed())
+					return f;
+			}
+		}
 		
 		return null;
 	}
@@ -205,8 +206,9 @@ public class Ship {
 	/**
 	 * @return un string del formato  Ship [nombre victorias/derrotas miFlota]
 	 */
+	@Override
 	public String toString() {
-		return super.toString() + " [" + this.name + " " + this.wins + "/" 
+		return Ship.class.getSimpleName() + " [" + this.name + " " + this.wins + "/" 
 				+ this.losses + "] " + this.myFleet();
 	}
 	

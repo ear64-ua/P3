@@ -1,7 +1,8 @@
 package model;
 
 import java.util.Objects;
-import java.util.TreeSet;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -13,14 +14,18 @@ import java.util.Set;
 public class Board {
 	
 	private int size;
+	Map<Coordinate, Fighter> board;
 	
 	public Board(int size) {
-		
+		board = new HashMap<Coordinate,Fighter>();
 	}
 	
 	public Fighter getFighter(Coordinate c) {
 		Objects.requireNonNull(c);
-		
+		if (board.containsKey(c))
+			return new Fighter (board.get(c));
+		else
+			return null;
 	}
 	
 	public int getSize() {
@@ -31,21 +36,31 @@ public class Board {
 		
 		Objects.requireNonNull(f);
 		
-		return new Fighter(f);
-		
+		if (board.get(f.getPosition()).equals(f)) {
+			board.remove(f.getPosition());
+			return true;
+		}
+		else 
+			return false;
 	}
 	
 	public Boolean inside(Coordinate c) {
 		
 		Objects.requireNonNull(c);
+		Set<Coordinate> coordenadas = board.keySet();
+		
+		for (Coordinate caux : coordenadas) {
+			
+			if (caux.equals(c))
+				return true;
+		}
 		
 		return true;
 		
 	}
 	
 	 /**
-	  * Recorremos dos bucles en los que obtendremos las coordenadas proximas a nuestra coordenada.
-	  * Para ello hacemos uso del atributo conjunto que devuelve un grupo de coordenadas de tipo TreeSet
+	  * getNeighborhood() deviuelve las coordenadas que le rodean
 	  * @param c es la coordenada de la que sacaremos sus coordenadas vecinas
 	  * @return conjunto  de valores que rodean a la coordenada
 	  */
@@ -53,25 +68,46 @@ public class Board {
 	public Set<Coordinate> getNeighborhood(Coordinate c) {
 		
 		Objects.requireNonNull(c);
-		
-		TreeSet<Coordinate> conjunto = new TreeSet<Coordinate>();
-		
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				if ((i != 0) && (j!=0))
-					conjunto.add(new Coordinate(c.getX(),c.getY()));
-			}
-		}
 
-		return conjunto;
+		return c.getNeighborhood();
 	}
 	
 	public int launch(Coordinate c, Fighter f) {
+		Objects.requireNonNull(c);
+		Objects.requireNonNull(f);
 		
+		int resultado = 0;
+		
+		if (this.getFighter(c).equals(null))
+			board.put(c, f);
+		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
+			resultado = board.get(c).fight(f);
+			
+			if (resultado == -1) {
+				board.get(c).getMotherShip().updateResults(-1);
+				f.getMotherShip().updateResults(1);
+				this.removeFighter(board.get(c));
+				if (!board.containsValue(f))
+					board.put(c, f);
+			}
+			
+			else if (resultado == 1) {
+				f.getMotherShip().updateResults(-1);
+				board.get(c).getMotherShip().updateResults(1);
+			}
+		}
+		
+		return resultado;
 	}
 	
 	public void patrol(Fighter f) {
+		Objects.requireNonNull(f);
 		
+		if (board.containsValue(f)) {
+			for (Coordinate c : this.getNeighborhood(f.getPosition())) {
+				this.launch(c,f);
+			}
+		}
 	}
 	
 	
