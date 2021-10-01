@@ -13,12 +13,12 @@ import java.util.TreeSet;
 public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creando nuestra clase Coordinate **/
 	
 	private int x, y;
+	
 	/** Se crea un constructor con dos argumentos enteros 
 	 *	@param x es la primera coordenada del constructor
 	 *  @param y es la segunda coordenada del constructor 
 	 * 
 	 */
-	
 	public Coordinate(int x,int y) {	
 		this.x = x;
 		this.y = y;
@@ -59,7 +59,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	}
 
 	/**
-	 * Equals
+	 * Equals con atributos x e y
 	 * @param obj es la referencia objeto el cual vamos a comparar
 	 * @return TRUE: si este objeto es el mismo que el argumento obj                 
 	 *         FALSE: en caso contrario

@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.LinkedHashSet;
 
+/**
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ * 
+ **/
+
 public class Ship {
 	
 	private String name;
@@ -15,6 +21,12 @@ public class Ship {
 	
 	private Side side;
 	
+	/**
+	 * Constructor de la clase Ship en el que pone a cero las estadisticas
+	 * y crea una lista de Luchadores(fleet) que inicialmente esta vacia
+	 * @param name es el nombre asignado al objeto
+	 * @param side es el lado al que se le asigna al objeto
+	 */
 	public Ship(String name, Side side) {
 		this.wins = 0;
 		this.losses = 0;
