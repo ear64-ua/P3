@@ -23,26 +23,47 @@ public class Ship {
 		fleet =new ArrayList<Fighter>();
 	}
 	
+	/**
+	 * @return el lado por el que pertenece la nave
+	 */
 	public Side getSide() {
 		return side;
 	}
 
+	/**
+	 * @return el nombre de la nave
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return victorias de la nave
+	 */
 	public int getWins() {
 		return wins;
 	}
 
+	/**
+	 * @return derrotas de la nave
+	 */
 	public int getLosses() {
 		return losses;
 	}
 	
+	/**
+	 * @return la flota por la que esta formada la nave
+	 */
 	public List<Fighter>  getFleetTest() {
 		return fleet;
 	}
 	
+	
+	/**
+	 * addFighters se encarga de separar el string leido y contenerlo 
+	 * en sus respectivos campos
+	 * @param fd  esta formado por un string del formato "duplicados/tipo:*"
+	 */
 	public void addFighters(String fd) {
 		
 		if (fd.contains(":")) { 
@@ -67,7 +88,12 @@ public class Ship {
 			}
 		}
 	}
-
+	
+	/**
+	 * actualiza las derrotas o victorias de cada nave
+	 * @param r	si obtiene el valor de 1, se suma uno a las victorias,
+	 * 		  	y lo equivalente a las derrotas si le llega -1
+	 */
 	public void updateResults(int r) {
 		
 		if(r == 1)
@@ -77,7 +103,13 @@ public class Ship {
 			this.losses++;
 	}
 	
-	
+	/**
+	 * getFighterAvailable realiza una busqueda de una nave 
+	 * no destruida
+	 * @param type	va a ser el tipo objetivo nuestra busqueda
+	 * @return {@code .null} si el parametro esta vacio, o 
+	 * 		   la flota que coincide
+	 */
 	public Fighter getFighterAvailable(String type) {
 		
 		for(int i = 0; i < fleet.size(); i++) {
@@ -96,15 +128,21 @@ public class Ship {
 		return null;
 	}
 	
+	
+	/**
+	 * recorre el la flota y elimina de ella, las naves destruidas
+	 */
 	public void purgeFleet() {
 		for(int i = 0; i < fleet.size(); i++) {
 			if(fleet.get(i).isDestroyed())
-				fleet.remove(i);
-			
+				fleet.remove(i);	
 		}
 	}
 	
 	
+	/**
+	 * @return un string con la informacion de cada luchador y si esta destruido o no
+	 */
 	public String showFleet() {
 		
 		String s = "";
@@ -121,9 +159,9 @@ public class Ship {
 	
 	/**
 	 * myFleet usa la clase LinkedHashSet, que crea un mapa con valores 
-	 * únicos y se ordenan de la forma en la que se añaden sus elementos.
-	 * Usamos un contador de iteracción y de duplicados para lograr que nuestra
-	 * función funcione correctamente
+	 * unicos y se ordenan de la forma en la que se agregan sus elementos.
+	 * Usamos un contador de iteraccion y de duplicados para lograr que nuestra
+	 * funcion funcione correctamente
 	 * @return un String con el formato "duplicados/tipo:*"
 	 */
 	public String myFleet() {
@@ -152,6 +190,9 @@ public class Ship {
 		return s;
 	}
 	
+	/**
+	 * @return un string del formato  Ship [nombre victorias/derrotas miFlota]
+	 */
 	public String toString() {
 		return super.toString() + " [" + this.name + " " + this.wins + "/" 
 				+ this.losses + "] " + this.myFleet();

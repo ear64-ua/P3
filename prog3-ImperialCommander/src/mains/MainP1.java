@@ -1,20 +1,39 @@
 package mains;
 
-import java.util.ArrayList;
-
-import model.Fighter;
+import model.Ship;
+import model.Side;
 
 public class MainP1 {
 
 	/* Comentario metido por Paco Moreno (se puede borrar) */
 	
 	public static void main(String[] args) {
-		/*
-		Ship s1 = new Ship("Nave",Side.IMPERIAL);
-		Ship s2 = new Ship("Nave",Side.REBEL);
-		Coordinate c1 = new Coordinate(5,4);
-		//Coordinate c2 = new Coordinate(5,4);
 		
+		Ship s1 = new Ship("N1",Side.IMPERIAL);
+		Ship s2 = new Ship("N2",Side.REBEL);
+				
+		s1.addFighters("4/AWing:2/BWing");
+		
+		s2.addFighters("2/XWing:3/YWing");
+		
+		s1.updateResults(1);
+		s1.updateResults(1);
+		s2.updateResults(1);
+		s1.updateResults(-1);
+		
+		s2.updateResults(-1);
+		s2.updateResults(4);
+		
+		System.out.println(s1.getFighterAvailable("BWing"));
+		
+		System.out.println(s1);
+		System.out.println(s2);
+		
+		
+		
+		
+		
+		/*
 		Fighter f1 = new Fighter("XWing",s1);
 		
 		Fighter f2 = new Fighter("XPaladin",s2);
@@ -34,28 +53,7 @@ public class MainP1 {
 			System.out.println("f2 ha ganado");
 		*/
 		
-		ArrayList<String> flota = new ArrayList<String>();
 		
-		String s1 = "5/XWing:12/AWing:3/YWing:2/XWing";
-		if (s1.contains(":")) { 
-			String s2[] = s1.split(":");
-			
-			for (int i = 0; i < s2.length; i++ ) {
-				
-				String saux1[] = s2[i].split("/");
-				for(int j = 0; j < Integer.parseInt(saux1[0]); j++) {
-					flota.add(saux1[1]);
-				}
-			}
-		}
-			
-		else {
-			String s2[] = s1.split("/");
-			
-			for (int i = 0; i < Integer.parseInt(s2[0]); i++) {
-				flota.add(s2[1]);
-			}
-		}
 		
 	}
 }
