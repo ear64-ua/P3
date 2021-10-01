@@ -37,10 +37,11 @@ public class MainP2 {
 		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
 		Fighter fi = imperialCommander.getFirstAvailableFighter("TIEFighter");
 		b.launch(new Coordinate(1,1), fi);
-		
 		Fighter fr = rebel.getFirstAvailableFighter("");
 		b.launch(new Coordinate(0,1), fr);
 		
+
+
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		System.out.println(rebel+"\n"+rebel.showFleet());
 		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());

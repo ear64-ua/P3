@@ -70,7 +70,6 @@ public class Ship {
 		return fleet;
 	}
 	
-	
 	/**
 	 * addFighters se encarga de separar el string leido y contenerlo 
 	 * en sus respectivos campos

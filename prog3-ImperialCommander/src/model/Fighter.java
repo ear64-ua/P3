@@ -33,7 +33,8 @@ public class Fighter {
 		this.type = type;
 		this.id = nextId;
 		nextId++;
-	  
+		
+		
 		motherShip = mother;
 	  }
 	 
@@ -107,6 +108,14 @@ public class Fighter {
 	public Coordinate getPosition() {
 		
 		return new Coordinate(position);
+	}
+	
+	/**
+	 * setter de position
+	 * @param c coordenada a la que se le va a asignar
+	 */
+	public void setPosition(Coordinate c) {
+		this.position = c;
 	}
 	
 	/**

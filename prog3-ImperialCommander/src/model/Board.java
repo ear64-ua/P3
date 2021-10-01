@@ -32,6 +32,13 @@ public class Board {
 		return size;
 	}
 	
+	/**
+	 * RemoveFighter compara la posicion del caza
+	 * dentro del tablero con el caza y lo elimina 
+	 * @param f caza que va a ser removido
+	 * @return true si se ha podido remover, o false en caso 
+	 * 	contrario
+	 */
 	public Boolean removeFighter(Fighter f) {
 		
 		Objects.requireNonNull(f);
@@ -78,8 +85,11 @@ public class Board {
 		
 		int resultado = 0;
 		
-		if (this.getFighter(c).equals(null))
+		if (this.getFighter(c) == null) {
 			board.put(c, f);
+			f.setPosition(c);
+		}
+		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
 			resultado = board.get(c).fight(f);
 			
@@ -87,8 +97,10 @@ public class Board {
 				board.get(c).getMotherShip().updateResults(-1);
 				f.getMotherShip().updateResults(1);
 				this.removeFighter(board.get(c));
-				if (!board.containsValue(f))
+				if (!board.containsValue(f)) {
 					board.put(c, f);
+					f.setPosition(c);
+				}
 			}
 			
 			else if (resultado == 1) {
