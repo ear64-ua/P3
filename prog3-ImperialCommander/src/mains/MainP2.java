@@ -16,7 +16,7 @@ public class MainP2 {
 		Board b = new Board(10);  // 10x10
 		
 		System.out.println("getNeighborhood (5,5)");
-		Set<Coordinate> sc = b.getNeighborhood(new Coordinate(3,3));
+		Set<Coordinate> sc = b.getNeighborhood(new Coordinate(5,5));
 		for (Coordinate c:sc)
 			System.out.println(c);
 
@@ -39,7 +39,6 @@ public class MainP2 {
 		b.launch(new Coordinate(1,1), fi);
 		Fighter fr = rebel.getFirstAvailableFighter("");
 		b.launch(new Coordinate(0,1), fr);
-		
 
 
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());

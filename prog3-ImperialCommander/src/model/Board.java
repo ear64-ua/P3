@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *	@author Enrique Abma Romero X9853366M
@@ -14,9 +15,10 @@ import java.util.Set;
 public class Board {
 	
 	private int size;
-	Map<Coordinate, Fighter> board;
+	private Map<Coordinate, Fighter> board;
 	
 	public Board(int size) {
+		this.size=size;
 		board = new HashMap<Coordinate,Fighter>();
 	}
 	
@@ -54,16 +56,15 @@ public class Board {
 	public Boolean inside(Coordinate c) {
 		
 		Objects.requireNonNull(c);
-		Set<Coordinate> coordenadas = board.keySet();
 		
-		for (Coordinate caux : coordenadas) {
+		for (int i = 0; i < this.size;i++) {
 			
-			if (caux.equals(c))
+			for (int j = 0; j < this.size; j++) {
+				if (c.equals(new Coordinate(i,j)))
 				return true;
+			}
 		}
-		
-		return true;
-		
+		return false;
 	}
 	
 	 /**
@@ -76,7 +77,15 @@ public class Board {
 		
 		Objects.requireNonNull(c);
 
-		return c.getNeighborhood();
+		TreeSet<Coordinate> conjunto = new TreeSet<Coordinate>();
+		
+		for (Coordinate caux : c.getNeighborhood()) {
+			//revisar inside
+			if (this.inside(caux))
+				conjunto.add(caux);
+		}	
+			
+		return conjunto;
 	}
 	
 	public int launch(Coordinate c, Fighter f) {

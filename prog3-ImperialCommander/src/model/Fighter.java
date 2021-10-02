@@ -186,7 +186,7 @@ public class Fighter {
 	 * @param enemy en el contrincante del objeto actual
 	 * @return 1 si el objeto actual gana, y -1 si ha perdido
 	 */
-	public int fight(Fighter enemy) {
+	public int fight(Fighter enemy) {//revisar si la batalla es correcta con profe
 		
 		int n;
 				

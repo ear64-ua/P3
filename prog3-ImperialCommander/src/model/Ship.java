@@ -162,7 +162,8 @@ public class Ship {
 		for(Fighter f : fleet) {
 			s = s + f;
 			if(f.isDestroyed())
-				s = s + " (X)\n";
+				s = s + " (X)";
+			s = s + "\n";
 		}
 		
 		return s;
