@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ *  Clave para almacenar las posiciones de nuestras piezas
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  * 
@@ -51,7 +52,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	/**
 	 * hashCode() nos permite localizar el objeto en un mapa
 	 * @return un valor hash code del objeto 
-	 * @see Objects#hash(Object)  hash(x,y)
+	 * @see Objects#hash hash(x,y)
 	 */
 	@Override
 	
@@ -136,8 +137,8 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	  * Recorremos dos bucles en los que obtendremos las coordenadas proximas a nuestra coordenada.
 	  * Para ello hacemos uso del atributo conjunto que devuelve un grupo de coordenadas de tipo TreeSet
 	  * @return conjunto  de valores que rodean a la coordenada
-	  * @see TreeSet#Set() TreeSet
-	  * @see Set#Set() Set
+	  * @see TreeSet
+	  * @see Set
 	  */
 	 public Set<Coordinate> getNeighborhood(){
 		 

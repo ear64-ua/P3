@@ -3,6 +3,7 @@ package model;
 import java.util.Objects;
 
 /**
+ *  Representa cada caza que forma la flota
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  * 
@@ -226,7 +227,7 @@ public class Fighter {
 	/**
 	 * hashCode() nos permite localizar el objeto en un mapa
 	 * @return un valor hash code del objeto
-	 * @see Objects#hash(Object) hash(Object) 
+	 * @see Objects#hash 
 	 */
 	@Override
 	public int hashCode() {

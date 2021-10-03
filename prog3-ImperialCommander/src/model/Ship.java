@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.LinkedHashSet;
 
 /**
- * La clase Ship tiene como objetivo almacenar la 
+ * Tiene como objetivo almacenar la 
  * flota junto con sus derrotas y victorias
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
@@ -28,7 +28,7 @@ public class Ship {
 	 * y crea una lista de Luchadores(fleet) que inicialmente esta vacia
 	 * @param name es el nombre asignado al objeto
 	 * @param side es el lado al que se le asigna al objeto
-	 * @see List#ArrayList() ArrayList
+	 * @see ArrayList
 	 */
 	public Ship(String name, Side side) {
 		this.wins = 0;
@@ -177,7 +177,7 @@ public class Ship {
 	 * Usamos un contador de iteraccion y de duplicados para lograr que nuestra
 	 * funcion funcione correctamente
 	 * @return un String con el formato "duplicados/tipo:*"
-	 * @see LinkedHashSet#Set() LinkedHashSet
+	 * @see LinkedHashSet
 	 */
 	public String myFleet() {
 		

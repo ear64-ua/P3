@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * La clase Board esta diseñada para contener en un mapa, 
+ *  Esta diseñada para contener en un mapa, 
  *  nuestros cazas.
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
@@ -22,7 +22,7 @@ public class Board {
 	 * Es el constructor que inicializa el tamaño 
 	 * y crea la instancia de un HashMap
 	 * @param size dimension del cual se va a crear el tablero (size x size)
-	 * @see Map#HashMap(Object) HashMap()
+	 * @see HashMap
 	 */
 	public Board(int size) {
 		this.size=size;
@@ -75,8 +75,8 @@ public class Board {
 	/**
 	 * inside se encarga de controlar que la coordenada se
 	 * encuentra dentro del tablero
-	 * @param c 
-	 * @return
+	 * @param c Coordenada a analizar dentro del tablero
+	 * @return true si se encuentra dentro, y false si no
 	 */
 	public Boolean inside(Coordinate c) {
 		
@@ -97,7 +97,7 @@ public class Board {
 	  * @param c es la coordenada de la que sacaremos sus coordenadas vecinas
 	  * @return conjunto  de valores que rodean a la coordenada
 	  * @see Coordinate#getNeighborhood() getNeighborhood from Coordinate
-	  * @see TreeSet#Set() TreeSet
+	  * @see TreeSet
 	  */
 	
 	public Set<Coordinate> getNeighborhood(Coordinate c) {

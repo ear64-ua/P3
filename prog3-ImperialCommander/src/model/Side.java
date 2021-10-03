@@ -6,5 +6,12 @@ package model;
  * @version 1.8 2011
  */
 public enum Side {
-	IMPERIAL,REBEL
+	/**
+	 * El lado imperial
+	 */
+	IMPERIAL,
+	/**
+	 * El lado rebelde
+	 */
+	REBEL
 }
