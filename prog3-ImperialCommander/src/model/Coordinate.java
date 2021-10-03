@@ -140,12 +140,11 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	  * @see TreeSet
 	  * @see Set
 	  */
-	 public Set<Coordinate> getNeighborhood(){
+	 public Set<Coordinate> getNeighborhood() {
 		 
 		 TreeSet<Coordinate> conjunto = new TreeSet<Coordinate>();
 		 
-		 for (int i = -1; i < 2; i++)
-		 {
+		 for (int i = -1; i < 2; i++) {
 			 for(int j = -1; j < 2; j++) {
 				 if ((i != 0) || (j!=0))
 					 conjunto.add(new Coordinate (this.getX()+i,this.getY()+j));
@@ -155,8 +154,6 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 		 return conjunto;
 		 
 	 }
-	 
-	 
 }
 
 
