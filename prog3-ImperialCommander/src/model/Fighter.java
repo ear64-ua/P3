@@ -184,7 +184,8 @@ public class Fighter {
 	/**
 	 * fight() simula la lucha entre dos luchadores
 	 * @param enemy en el contrincante del objeto actual
-	 * @return 1 si el objeto actual gana, y -1 si ha perdido
+	 * @return 1 si el objeto actual gana, -1 si ha perdido o 0 si ya hay uno destruido
+	 * @see RandomNumber#newRandomNumber(int) newRandomNumber
 	 */
 	public int fight(Fighter enemy) {//revisar si la batalla es correcta con profe
 		
@@ -224,7 +225,8 @@ public class Fighter {
 	
 	/**
 	 * hashCode() nos permite localizar el objeto en un mapa
-	 * @return un valor hash code del objeto 
+	 * @return un valor hash code del objeto
+	 * @see Objects#hash(Object) hash(Object) 
 	 */
 	@Override
 	public int hashCode() {
@@ -236,6 +238,7 @@ public class Fighter {
 	 * @param obj es la referencia objeto el cual vamos a comparar
 	 * @return TRUE: si este objeto es el mismo que el argumento obj                 
 	 *         FALSE: en caso contrario
+	 * @see Object#equals(Object) 
 	 */
 	@Override
 	public boolean equals(Object obj) {

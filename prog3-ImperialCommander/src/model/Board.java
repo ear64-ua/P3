@@ -7,9 +7,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ * La clase Board esta diseñada para contener en un mapa, 
+ *  nuestros cazas.
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
- * 
  **/
 
 public class Board {
@@ -17,11 +18,26 @@ public class Board {
 	private int size;
 	private Map<Coordinate, Fighter> board;
 	
+	/**
+	 * Es el constructor que inicializa el tamaño 
+	 * y crea la instancia de un HashMap
+	 * @param size dimension del cual se va a crear el tablero (size x size)
+	 * @see Map#HashMap(Object) HashMap()
+	 */
 	public Board(int size) {
 		this.size=size;
 		board = new HashMap<Coordinate,Fighter>();
 	}
 	
+	/**
+	 * getFighter es un getter del objeto Fighter 
+	 * en el cual hace una copia defensiva de dicho objeto 
+	 * contenido en el tablero
+	 * @param c Coordenada en la que buscaremos si tiene valor 
+	 * @return {@code .null} si no se encuentra en el tablero,
+	 * 	y una copia del caza que lo ocupa en caso contrario
+	 * @see Map#containsKey(Object) containsKey(Object)
+	 */
 	public Fighter getFighter(Coordinate c) {
 		Objects.requireNonNull(c);
 		if (board.containsKey(c))
@@ -30,6 +46,9 @@ public class Board {
 			return null;
 	}
 	
+	/**
+	 * @return la dimension del tablero
+	 */
 	public int getSize() {
 		return size;
 	}
@@ -53,6 +72,12 @@ public class Board {
 			return false;
 	}
 	
+	/**
+	 * inside se encarga de controlar que la coordenada se
+	 * encuentra dentro del tablero
+	 * @param c 
+	 * @return
+	 */
 	public Boolean inside(Coordinate c) {
 		
 		Objects.requireNonNull(c);
@@ -68,9 +93,11 @@ public class Board {
 	}
 	
 	 /**
-	  * getNeighborhood() deviuelve las coordenadas que le rodean
+	  * getNeighborhood() deviuelve las coordenadas que le rodean y que estan dentro del tablero
 	  * @param c es la coordenada de la que sacaremos sus coordenadas vecinas
 	  * @return conjunto  de valores que rodean a la coordenada
+	  * @see Coordinate#getNeighborhood() getNeighborhood from Coordinate
+	  * @see TreeSet#Set() TreeSet
 	  */
 	
 	public Set<Coordinate> getNeighborhood(Coordinate c) {
@@ -88,15 +115,31 @@ public class Board {
 		return conjunto;
 	}
 	
+	/**
+	 * launch() lanza un caza al tablero y entra en conflicto dependiendo la casilla y 
+	 * el caza que la ocupa. Si el caza ya esta en el tablero, es decir que esta patrullando,
+	 * no se le asignara ninguna casilla nueva.
+	 * @param c coordenada donde el caza va a intentar colocarse
+	 * @param f caza que va a ser lanzado
+	 * @return el resultado del conflicto llamando al
+	 * 		   metodo fight de la clase Fighter, y cero si c esta fuera del tablero 
+	 * @see Fighter#fight(Fighter) fight(Fighter)
+	 * @see Map#containsValue(Object) containsValue(Object)
+	 */
 	public int launch(Coordinate c, Fighter f) {
 		Objects.requireNonNull(c);
 		Objects.requireNonNull(f);
 		
 		int resultado = 0;
 		
+		if (!this.inside(c))
+			return 0;
+		
 		if (this.getFighter(c) == null) {
-			board.put(c, f);
-			f.setPosition(c);
+			if (!board.containsValue(f)) {
+				board.put(c, f);
+				f.setPosition(c);
+			}
 		}
 		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
@@ -121,6 +164,13 @@ public class Board {
 		return resultado;
 	}
 	
+	/**
+	 * patrol realiza movimientos alrededor suya intentando 
+	 * encontrar contrincantes con los que luchar
+	 * @param f caza que va a realizar la patrulla
+	 * @see #launch(Coordinate,Fighter) launch
+	 * @see Map#containsValue(Object) containsValue(Object)
+	 */
 	public void patrol(Fighter f) {
 		Objects.requireNonNull(f);
 		
@@ -130,7 +180,4 @@ public class Board {
 			}
 		}
 	}
-	
-	
-
 }

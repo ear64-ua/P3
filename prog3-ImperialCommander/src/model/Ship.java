@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.LinkedHashSet;
 
 /**
+ * La clase Ship tiene como objetivo almacenar la 
+ * flota junto con sus derrotas y victorias
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  * 
@@ -26,6 +28,7 @@ public class Ship {
 	 * y crea una lista de Luchadores(fleet) que inicialmente esta vacia
 	 * @param name es el nombre asignado al objeto
 	 * @param side es el lado al que se le asigna al objeto
+	 * @see List#ArrayList() ArrayList
 	 */
 	public Ship(String name, Side side) {
 		this.wins = 0;
@@ -74,6 +77,8 @@ public class Ship {
 	 * addFighters se encarga de separar el string leido y contenerlo 
 	 * en sus respectivos campos
 	 * @param fd  esta formado por un string del formato "duplicados/tipo:*"
+	 * @see Integer#parseInt(String) parseInt(String)
+	 * @see String#split(String)
 	 */
 	public void addFighters(String fd) {
 		
@@ -157,14 +162,10 @@ public class Ship {
 	 */
 	public String showFleet() {
 		
-		String s = "";
+		String s = new String("");
 		
-		for(Fighter f : fleet) {
-			s = s + f;
-			if(f.isDestroyed())
-				s = s + " (X)";
-			s = s + "\n";
-		}
+		for(Fighter f : fleet)
+			s = s + f + (f.isDestroyed() ? "(X)" : "") + "\n";
 		
 		return s;
 	}
@@ -176,6 +177,7 @@ public class Ship {
 	 * Usamos un contador de iteraccion y de duplicados para lograr que nuestra
 	 * funcion funcione correctamente
 	 * @return un String con el formato "duplicados/tipo:*"
+	 * @see LinkedHashSet#Set() LinkedHashSet
 	 */
 	public String myFleet() {
 		
@@ -205,6 +207,7 @@ public class Ship {
 	
 	/**
 	 * @return un string del formato  Ship [nombre victorias/derrotas miFlota]
+	 * @see Class#getSimpleName() getSimpleName
 	 */
 	@Override
 	public String toString() {

@@ -51,6 +51,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	/**
 	 * hashCode() nos permite localizar el objeto en un mapa
 	 * @return un valor hash code del objeto 
+	 * @see Objects#hash(Object)  hash(x,y)
 	 */
 	@Override
 	
@@ -63,6 +64,7 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	 * @param obj es la referencia objeto el cual vamos a comparar
 	 * @return TRUE: si este objeto es el mismo que el argumento obj                 
 	 *         FALSE: en caso contrario
+	 * @see Object#equals(Object) 
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -134,6 +136,8 @@ public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creand
 	  * Recorremos dos bucles en los que obtendremos las coordenadas proximas a nuestra coordenada.
 	  * Para ello hacemos uso del atributo conjunto que devuelve un grupo de coordenadas de tipo TreeSet
 	  * @return conjunto  de valores que rodean a la coordenada
+	  * @see TreeSet#Set() TreeSet
+	  * @see Set#Set() Set
 	  */
 	 public Set<Coordinate> getNeighborhood(){
 		 
