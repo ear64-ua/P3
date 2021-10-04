@@ -33,6 +33,7 @@ public class Fighter {
 		this.shield = 80;
 		this.type = type;
 		this.id = nextId;
+		this.position = null;
 		nextId++;
 		
 		
@@ -108,7 +109,7 @@ public class Fighter {
 	 */
 	public Coordinate getPosition() {
 		
-		return new Coordinate(position);
+		return position;
 	}
 	
 	/**
@@ -178,7 +179,7 @@ public class Fighter {
 	 * @return el valor resultante de la formula
 	 */
 	public int getDamage(int n, Fighter enemy) {
-		return (n*enemy.attack)/300;
+		return (n*this.attack)/300;
 		
 	}
 	
@@ -201,10 +202,10 @@ public class Fighter {
 				n = RandomNumber.newRandomNumber(99);
 
 				if (((this.velocity*100)/(this.velocity+enemy.velocity)) <= n) 
-					enemy.shield = enemy.shield - getDamage(n,this);
+					enemy.shield = enemy.shield - getDamage(n,enemy);
 				
 				else
-					this.shield = this.shield - getDamage(100-n,enemy);
+					this.shield = this.shield - enemy.getDamage(100-n,this);
 				
 			}while(!enemy.isDestroyed() && !this.isDestroyed());
 			

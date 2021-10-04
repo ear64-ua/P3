@@ -64,12 +64,18 @@ public class Board {
 		
 		Objects.requireNonNull(f);
 		
-		if (board.get(f.getPosition()).equals(f)) {
-			board.remove(f.getPosition());
-			return true;
+		if(f.getPosition()!=null) {
+			if (this.inside(f.getPosition())){
+				if (board.containsKey(f.getPosition())){
+					if (board.get(f.getPosition()).equals(f)) {
+						board.remove(f.getPosition());
+						return true;
+					}
+				}
+			}	
 		}
-		else 
-			return false;
+		 
+		return false;
 	}
 	
 	/**
@@ -139,8 +145,9 @@ public class Board {
 			if (!board.containsValue(f)) {
 				board.put(c, f);
 				f.setPosition(c);
+				return 0;
 			}
-		}
+		} 
 		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
 			resultado = board.get(c).fight(f);

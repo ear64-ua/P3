@@ -130,14 +130,14 @@ public class Ship {
 		
 		if(type.equals("")) {
 			for(Fighter f : fleet) {
-				if (!f.isDestroyed())
+				if (!f.isDestroyed() && f.getPosition()==null)
 					return f;
 			}
 		}
 		
 		else {
 			for(Fighter f : fleet) {
-				if(f.getType().equals(type) && !f.isDestroyed())
+				if(f.getType().equals(type) && !f.isDestroyed() && f.getPosition()==null)
 					return f;
 			}
 		}
