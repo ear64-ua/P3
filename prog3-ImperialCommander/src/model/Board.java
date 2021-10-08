@@ -152,8 +152,8 @@ public class Board {
 		} 
 		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
-			
-			if (board.get(c).fight(f) == -1) {
+			resultado = f.fight(board.get(c));
+			if (resultado == 1) {
 				board.get(c).getMotherShip().updateResults(-1);
 				f.getMotherShip().updateResults(1);
 				this.removeFighter(board.get(c));
@@ -164,7 +164,7 @@ public class Board {
 				}
 			}
 			
-			else {
+			else if (resultado == -1){
 				f.getMotherShip().updateResults(-1);
 				board.get(c).getMotherShip().updateResults(1);
 				this.removeFighter(f);

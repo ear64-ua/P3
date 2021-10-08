@@ -147,13 +147,16 @@ public class Ship {
 	
 	
 	/**
-	 * recorre el la flota y elimina de ella, las naves destruidas
+	 * recorre el la flota y elimina de ella, las navesdestruidas
 	 */
 	public void purgeFleet() {
-		for(int i = 0; i < fleet.size(); i++) {
-			if(fleet.get(i).isDestroyed())
-				fleet.remove(i);	
+		List<Fighter> toRemove = new ArrayList<Fighter>();
+		for(Fighter f : fleet) {
+			if(f.isDestroyed())
+				toRemove.add(f);
 		}
+		
+		fleet.removeAll(toRemove);
 	}
 	
 	
@@ -165,7 +168,7 @@ public class Ship {
 		String s = new String("");
 		
 		for(Fighter f : fleet)
-			s = s + f + (f.isDestroyed() ? "(X)" : "") + "\n";
+			s = s + f + (f.isDestroyed() ? " (X)" : "") + "\n";
 		
 		return s;
 	}

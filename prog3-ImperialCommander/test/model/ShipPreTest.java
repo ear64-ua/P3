@@ -12,7 +12,7 @@ public class ShipPreTest {
 	Ship ship;
 	final String kFleet1 = "5/XWing:12/AWing:3/YWing:2/XWing";
 	final String kFleet2 = "40/XWing:10/AWing:30/YWing:25/XWing:35/TIEFighter:55/TIEBomber:45/TIEShuttle:100/ZWing";
-
+	final String kFleet0 = "1/XWing:1/AWing:1/YWing:1/ZWing:1/XWing:1/AWing:1/YWing:1/ZWing";
 	final String kFleet21 = "45/XWing:3/AWing:30/YWing:1/TIEBomber:10/TIEShuttle";
 	final String kFleet22 = "65/XWing:10/AWing:30/YWing:35/TIEFighter:55/TIEBomber:45/TIEShuttle:100/ZWing";
 	final String kToString1 = "Ship [Tydirium 0/0] 7/XWing:12/AWing:3/YWing";
@@ -39,6 +39,7 @@ public class ShipPreTest {
 			"(YWing 20 REBEL null {100,80,80})\n" + 
 			"(XWing 21 REBEL null {100,80,-120}) (X)\n" + 
 			"(XWing 22 REBEL null {100,80,-120}) (X)\n";
+	final String kToString0 = "Ship [Tydirium 0/0] 2/XWing:2/AWing:2/YWing:2/ZWing"; 
 	
 	List<Fighter>fleet ;
 	
@@ -127,7 +128,9 @@ public class ShipPreTest {
 	/* Se comprueba que UpdateResults(-1) incrementa wins en 1 */
 	@Test
 	public void testUpdateResults2() {
-		fail("completa el test");
+		ship.updateResults(-1);
+		assertEquals(0,ship.getWins());
+		assertEquals(1, ship.getLosses());
 	}
 	
 	
@@ -179,6 +182,7 @@ public class ShipPreTest {
 	}
 	
 	
+	
 	/* Se crean los cazas de la constante kFleet1 en una nave. Se destruyen todos 
 	 * del tipo 'XWing' excepto el último (se usa el método auxiliar destroy(String, int) 
 	 * para ello) y se intenta obtener el primer caza no destruído de la nave. 
@@ -190,11 +194,8 @@ public class ShipPreTest {
 		destroy("XWing",6);
 		Fighter fighter = ship.getFirstAvailableFighter("XWing");
 		assertNotNull(fighter);
-		/*
-		 * comprueba que fighter es un XWing y es el que ocupa la posición 21 de la flota
-		 */
-		
-		fail("completa el test como se indica en el comentario");
+		assertEquals("XWing",fighter.getType());
+		assertEquals(ship.getFleetTest().get(21),fighter);
 	}
 	
 	
@@ -219,23 +220,22 @@ public class ShipPreTest {
 	public void testPurgeFleet2() {
 		ship.addFighters(kFleet2);
 		
-		destroy("XWing", 20);
+		destroy("XWing", 2);
+		destroy("ZWing", 100);
 		destroy("AWing",7);
-		// completa el test con algunos destroy(...) más
-		// destroy(...)
 		
 		ship.purgeFleet();
+		
 		//Comprobamos total Fighters en ship
 		 
 		List<Fighter> auxFleet = ship.getFleetTest();
-		// assertEquals( ?? , auxFleet.size());
+		assertEquals( 231 , auxFleet.size());
 		//Comprobamos que coinciden las cantidades con cada tipo
-		assertEquals(45, numberOfFightersOk("XWing"));
+		assertEquals(63, numberOfFightersOk("XWing"));
 		assertEquals (3, numberOfFightersOk("AWing"));
-		// haz las mismas comprobaciones para otros cazas que hayas destruido 
-		//assertEquals (??, numberOfFightersOk("?????"));
+		assertEquals (30, numberOfFightersOk("YWing")); 
+		assertEquals (0, numberOfFightersOk("ZWing"));
 		
-		fail("completa el test");
 	}
 	
 	 
@@ -288,7 +288,10 @@ public class ShipPreTest {
 	 */
 	@Test
 	public void testMyFleet3() {
-		fail("completa el test");
+		ship.addFighters(kFleet1);
+		destroy("",22);
+		ship.purgeFleet();
+		assertEquals("",ship.showFleet());
 	}
 	
 	/* Crea cazas en una nave. Destruye muchos y comprueba que showFleet solo devuelve
@@ -296,7 +299,13 @@ public class ShipPreTest {
 	 */
 	@Test
 	public void testMyFleet4() {
-		fail("completa el test");
+		ship.addFighters(kFleet1);
+		destroy("XWing",7);
+		destroy("AWing",12);
+		destroy("YWing",1);
+		ship.purgeFleet();
+		assertEquals("(YWing 1150 REBEL null {100,80,80})\n"
+				+ "(YWing 1151 REBEL null {100,80,80})\n",ship.showFleet());
 	}
 
 	/* Comprueba toString para una nave sin cazas */
@@ -330,7 +339,9 @@ public class ShipPreTest {
 	 */
 	@Test
 	public void testToString4() {
-		fail("completa el test");
+		ship.addFighters(kFleet0);
+		
+		assertEquals(kToString0,ship.toString());
 	}
 
 	/*************************************/
@@ -344,6 +355,7 @@ public class ShipPreTest {
 		int i=0;
 		int shield;
 		List<Fighter> list =  ship.getFleetTest();
+		
 		for (Fighter fighter : list) {
 			
 	      if (!fighter.isDestroyed()) {
