@@ -91,13 +91,24 @@ public class FighterPreTest {
 	/* Test que comprueba addAttack */
 	@Test
 	public final void testAddAttack() {
-		fail("completa el test"); // similar al anterior
+		fighter.addAttack(-100);
+		assertEquals (0, fighter.getAttack());
+		fighter.addAttack(-50);
+		assertEquals (0, fighter.getAttack());
+		fighter.addAttack(150);
+		assertEquals (150, fighter.getAttack());
+		
 	}
 
 	/* Test que comprueba addShield */
 	@Test
 	public final void testAddShield() {
-		fail("completa el test"); // similar a los anteriores, pero con alguna diferencia
+		fighter.addShield(-80);
+		assertEquals (0,fighter.getShield());
+		fighter.addShield(-20);
+		assertEquals (-20,fighter.getShield());
+		fighter.addShield(40);
+		assertEquals (20,fighter.getShield());
 	}
 
 	/* Test que coprueba el metodo setPosition y la relación de asociación con
@@ -115,11 +126,9 @@ public class FighterPreTest {
 	 */
 	@Test
 	public final void testSetPositionNull() {
-		/*
-		 * comprueba que se le asigna bien la posición a un caza, y que
-		 * después se le puede asignar null como posición 
-		 */
-		fail("completa el test");
+		
+		fighter.setPosition(null);
+		assertEquals (null, fighter.getPosition());
 	}
 
 	/* Test que comprueba  que isDestroyed es false aunque
@@ -145,8 +154,8 @@ public class FighterPreTest {
 	public final void testIsDestroyedTrue() {
 		fighter.addShield(-80);
 		assertTrue(fighter.isDestroyed());
-		// prueba con valores negativos
-		fail("completa el test con valores negativos");
+		fighter.addShield(-20);
+		assertTrue(fighter.isDestroyed());
 	}
 
 	
@@ -189,12 +198,17 @@ public class FighterPreTest {
 	 */
 	@Test
 	public final void testToString2() {
-		/*
-		 * cambia los valores de los atributos del fighter y comprueba 
-		 * que en toString se reflejan los cambios
-		 */
+		final String sout = "(XWing 1 REBEL null {100,80,100})";
+		fighter.addShield(20);
+		assertEquals(sout, fighter.toString());
 		
-		fail("completa el test");
+		final String sout2 = "(XWing 1 REBEL null {120,80,100})";
+		fighter.addVelocity(20);
+		assertEquals(sout2, fighter.toString());
+		
+		final String sout3 = "(XWing 1 REBEL null {120,100,100})";
+		fighter.addAttack(20);
+		assertEquals(sout3, fighter.toString());
 	}
 	
 	
@@ -214,11 +228,13 @@ public class FighterPreTest {
 	 * 
 	 */
 	@Test
-	public final void testFight2() {
-		/*
-		 * similar al anterior, pero al revés
-		 */
-		fail("completa el test");
+	public final void testFight2() {// completado?
+		
+		Fighter enemy = new Fighter("TIEFighter", imperialShip);
+		fighter.addShield(-150);
+		assertEquals(0,enemy.fight(fighter));
+		assertEquals(0,RandomNumber.getRandomNumberList().size());
+		
 	}
 	
 	/* Test que combrueba Fight en la lucha entre un caza y un enemigo que tienen
@@ -241,7 +257,24 @@ public class FighterPreTest {
 		 * cambia algunos valores del caza (velocidad, ataque, escudo) y
 		 * comprueba que afectan a la lucha
 		 */
-		fail("completa el test");
+		Fighter enemy = new Fighter("TIEFighter",imperialShip);
+		fighter.addShield(20);
+		assertEquals(1,fighter.fight(enemy));
+		enemy.addShield(-enemy.getShield());
+		
+	}
+	
+	@Test
+	public final void testFight5() {
+		/*
+		 * cambia algunos valores del caza (velocidad, ataque, escudo) y
+		 * comprueba que afectan a la lucha
+		 */
+		Fighter enemy = new Fighter("TIEFighter",imperialShip);
+		enemy.addShield(100);
+		enemy.addAttack(30);
+		
+		assertEquals(-1,fighter.fight(enemy));
 	}
 		
 	/* Test equals for Fighter

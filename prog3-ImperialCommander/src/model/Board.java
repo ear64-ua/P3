@@ -69,6 +69,7 @@ public class Board {
 				if (board.containsKey(f.getPosition())){
 					if (board.get(f.getPosition()).equals(f)) {
 						board.remove(f.getPosition());
+						f.setPosition(null);
 						return true;
 					}
 				}
@@ -87,14 +88,15 @@ public class Board {
 	public Boolean inside(Coordinate c) {
 		
 		Objects.requireNonNull(c);
-		
-		for (int i = 0; i < this.size;i++) {
-			
-			for (int j = 0; j < this.size; j++) {
-				if (c.equals(new Coordinate(i,j)))
-				return true;
+		if(!c.equals(null)) {
+			for (int i = 0; i < this.size;i++) {
+				for (int j = 0; j < this.size; j++) {
+					if (c.equals(new Coordinate(i,j)))
+						return true;
+				}
 			}
 		}
+		
 		return false;
 	}
 	
@@ -138,33 +140,35 @@ public class Board {
 		
 		int resultado = 0;
 		
-		if (!this.inside(c))
+		if (!this.inside(c) || f.isDestroyed())
 			return 0;
 		
 		if (this.getFighter(c) == null) {
 			if (!board.containsValue(f)) {
-				board.put(c, f);
 				f.setPosition(c);
+				board.put(c, f);
 				return 0;
 			}
 		} 
 		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
-			resultado = board.get(c).fight(f);
 			
-			if (resultado == -1) {
+			if (board.get(c).fight(f) == -1) {
 				board.get(c).getMotherShip().updateResults(-1);
 				f.getMotherShip().updateResults(1);
 				this.removeFighter(board.get(c));
-				if (!board.containsValue(f)) {
-					board.put(c, f);
+				
+				if (f.getPosition()==null) {
 					f.setPosition(c);
+					board.put(c, f);
 				}
 			}
 			
-			else if (resultado == 1) {
+			else {
 				f.getMotherShip().updateResults(-1);
 				board.get(c).getMotherShip().updateResults(1);
+				this.removeFighter(f);
+				
 			}
 		}
 		

@@ -233,7 +233,7 @@ public class BoardPreTest {
 		addFightersNeighborhoodOnBoard(c);
 		rebelShip.addFighters("1/ZWing");
 		Fighter rebel = rebelShip.getFleetTest().get(0);
-		rebel.addShield(300);
+		rebel.addShield(500);
 		board.launch(c,rebel); 
 		board.patrol(rebel); 
 		int i=0;
@@ -244,6 +244,7 @@ public class BoardPreTest {
 			   assertNotNull(board.getFighter(coord));
 			i++;
 		}
+		
 		assertNull(board.getFighter(c));
 		assertNull(rebel.getPosition());
 	}
@@ -259,10 +260,18 @@ public class BoardPreTest {
 		addFightersNeighborhoodOnBoard(c);
 		rebelShip.addFighters("1/ZWing");
 		Fighter rebel = rebelShip.getFleetTest().get(0);
-		rebel.addShield(300);
+		rebel.addShield(499);
 		board.launch(c,rebel); 
 		board.patrol(rebel); 
-
+		
+		
+		assertEquals(rebelShip.getWins(),5);
+		assertEquals(imperialShip.getLosses(),5);
+		assertEquals(board.getFighter(new Coordinate(3,4)).getShield(),0);
+		assertEquals(board.getFighter(new Coordinate(3,5)).getShield(),0);
+		assertEquals(board.getFighter(new Coordinate(3,6)).getShield(),0);
+		assertEquals(board.getFighter(new Coordinate(4,4)).getShield(),0);
+		assertEquals(board.getFighter(new Coordinate(4,6)).getShield(),0);
 		fail("completa el test como se indica en el comentario");
 	}
 	

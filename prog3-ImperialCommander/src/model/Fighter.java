@@ -15,6 +15,8 @@ public class Fighter {
 	
 	private int velocity, attack, shield, id;
 	
+	private final int kDamage = 300;
+	
 	private static int nextId = 1;
 	
 	private Ship motherShip;
@@ -128,7 +130,7 @@ public class Fighter {
 	}
 	
 	/**
-	 * addAttack añade un valor, sea negativo o positivo al valor 
+	 * addAttack agrega un valor, sea negativo o positivo al valor 
 	 * que tiene ya ataque. Si el resultado es negativo, sera cero.
 	 * @param at es el valor al que se le va a sumar al ataque
 	 */
@@ -140,7 +142,7 @@ public class Fighter {
 	}
 
 	/**
-	 * addVelocity añade un valor, sea negativo o positivo al valor 
+	 * addVelocity agrega un valor, sea negativo o positivo al valor 
 	 * que tiene ya la velocidad. Si este llega a ser negativo, sera cero.
 	 * @param vel es el valor al que se le va a sumar a la velocidad
 	 */
@@ -152,7 +154,7 @@ public class Fighter {
 	}
 	
 	/**
-	 * addShield añade un valor, sea negativo o positivo al valor 
+	 * addShield agrega , sea negativo o positivo al valor 
 	 * que tiene ya la velocidad.
 	 * @param sh es el valor al que se le va a sumar al escudo
 	 */
@@ -179,8 +181,7 @@ public class Fighter {
 	 * @return el valor resultante de la formula
 	 */
 	public int getDamage(int n, Fighter enemy) {
-		return (n*this.attack)/300;
-		
+		return (n*this.attack)/kDamage;
 	}
 	
 	/**
@@ -196,16 +197,14 @@ public class Fighter {
 		if (enemy.isDestroyed() || this.isDestroyed())
 			return 0;
 		
-		else {
+  		else {
 			do {
-				
-				n = RandomNumber.newRandomNumber(99);
-
+				n = RandomNumber.newRandomNumber(100);
 				if (((this.velocity*100)/(this.velocity+enemy.velocity)) <= n) 
-					enemy.shield = enemy.shield - getDamage(n,enemy);
+					enemy.addShield(- this.getDamage(n,enemy));
 				
 				else
-					this.shield = this.shield - enemy.getDamage(100-n,this);
+					this.addShield(- enemy.getDamage(100-n,this));
 				
 			}while(!enemy.isDestroyed() && !this.isDestroyed());
 			
@@ -228,7 +227,7 @@ public class Fighter {
 	/**
 	 * hashCode() nos permite localizar el objeto en un mapa
 	 * @return un valor hash code del objeto
-	 * @see Objects#hash 
+	 * @see Objects#hashCode() 
 	 */
 	@Override
 	public int hashCode() {
@@ -254,7 +253,4 @@ public class Fighter {
 		return id == other.id;
 	}
 
-
-	
-	
 }

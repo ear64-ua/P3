@@ -15,7 +15,7 @@ public class MainP2 {
 
 		Board b = new Board(10);  // 10x10
 		
-		/*System.out.println("getNeighborhood (5,5)");
+		System.out.println("getNeighborhood (5,5)");
 		Set<Coordinate> sc = b.getNeighborhood(new Coordinate(5,5));
 		for (Coordinate c:sc)
 			System.out.println(c);
@@ -25,7 +25,7 @@ public class MainP2 {
 		sc = b.getNeighborhood(new Coordinate(0,0));
 		for (Coordinate c:sc)
 			System.out.println(c);
-		*/
+		
 
 		System.out.println("-----------------------------");
 		
@@ -38,22 +38,22 @@ public class MainP2 {
 		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
 		Fighter fi = imperialCommander.getFirstAvailableFighter("TIEFighter");
 		b.launch(new Coordinate(1,1), fi);
-		Fighter fi2 = imperialCommander.getFirstAvailableFighter("TIEFighter");
-		System.out.println(fi2.getType() + " " + fi2.getPosition());
+		//Fighter fi2 = imperialCommander.getFirstAvailableFighter("TIEFighter");
+		//System.out.println(fi2.getType() + " " + fi2.getPosition());
 
-		b.launch(new Coordinate(1,0),fi2);
-		System.out.println(fi2.getType() + " " + fi2.getPosition());
+		//b.launch(new Coordinate(1,0),fi2);
+		//System.out.println(fi2.getType() + " " + fi2.getPosition());
 
 		Fighter fr = rebel.getFirstAvailableFighter("");
 		b.launch(new Coordinate(0,1), fr);
 		
 
-/*
+
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		
 		System.out.println(rebel+"\n"+rebel.showFleet());
 		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
-		*/
+		
 		
 		
 		System.out.println("Patrol "+fr);
@@ -61,16 +61,16 @@ public class MainP2 {
 		
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		System.out.println(rebel+"\n"+rebel.showFleet());
-		//System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
+		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
 		imperialCommander.purgeFleet();
-		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
-		System.out.println(rebel+"\n"+rebel.showFleet());
+		//System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
+		//System.out.println(rebel+"\n"+rebel.showFleet());
 		
-		Fighter fi3 = imperialCommander.getFirstAvailableFighter("TIEFighter");
-		fi3.setPosition(new Coordinate(2,2));
-		System.out.println(fi3);
+		//Fighter fi3 = imperialCommander.getFirstAvailableFighter("TIEFighter");
+		//fi3.setPosition(new Coordinate(2,2));
+		//System.out.println(fi3);
 
-		System.out.println(b.removeFighter(fi3));
+		//System.out.println(b.removeFighter(fi3));
 		 
 	}
 	
