@@ -147,7 +147,7 @@ public class Ship {
 	
 	
 	/**
-	 * recorre el la flota y elimina de ella, las navesdestruidas
+	 * recorre el la flota y elimina de ella, las naves destruidas
 	 */
 	public void purgeFleet() {
 		List<Fighter> toRemove = new ArrayList<Fighter>();
@@ -179,7 +179,7 @@ public class Ship {
 	 * unicos y se ordenan de la forma en la que se agregan sus elementos.
 	 * Usamos un contador de iteraccion y de duplicados para lograr que nuestra
 	 * funcion funcione correctamente
-	 * @return un String con el formato "duplicados/tipo:*"
+	 * @return un String con el formato "duplicados/tipo:*" *repeticion
 	 * @see LinkedHashSet
 	 */
 	public String myFleet() {

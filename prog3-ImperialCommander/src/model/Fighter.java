@@ -175,7 +175,7 @@ public class Fighter {
 	}
 	
 	/**
-	 * getDamage utiliza una formula que obtiene el daño que hace 
+	 * getDamage utiliza una formula que hace que se debilite el escudo del enemigo
 	 * @param n es un numero aleatorio
 	 * @param enemy lo usamos para conocer el ataque que tiene 
 	 * @return el valor resultante de la formula
