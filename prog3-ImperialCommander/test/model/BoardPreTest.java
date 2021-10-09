@@ -276,19 +276,26 @@ public class BoardPreTest {
 		rebelShip.addFighters("1/ZWing");
 		Fighter rebel = rebelShip.getFleetTest().get(0);
 		rebel.addShield(300);
+		
 		board.launch(c,rebel); 
 		board.patrol(rebel); 
 		
 		
 		assertEquals(rebelShip.getWins(),5);
 		assertEquals(imperialShip.getLosses(),5);
+		assertEquals(imperialShip.getWins(),1);
+		assertEquals(rebelShip.getLosses(),1);
 		
-		assertEquals(board.getFighter(new Coordinate(4,5)).getShield(),0);
-		assertEquals(board.getFighter(new Coordinate(3,5)).getShield(),0);
-		assertEquals(board.getFighter(new Coordinate(3,6)).getShield(),0);
-		assertEquals(board.getFighter(new Coordinate(4,4)).getShield(),0);
-		assertEquals(board.getFighter(new Coordinate(4,6)).getShield(),0);
-		fail("completa el test como se indica en el comentario");
+		
+		assertTrue(imperialShip.getFleetTest().get(0).getShield()<=0);
+		assertTrue(imperialShip.getFleetTest().get(1).getShield()<=0);
+		assertTrue(imperialShip.getFleetTest().get(2).getShield()<=0);
+		assertTrue(imperialShip.getFleetTest().get(3).getShield()<=0);
+		assertTrue(imperialShip.getFleetTest().get(4).getShield()<=0);
+		
+		assertFalse(imperialShip.getFleetTest().get(5).getShield()<=0);
+		assertFalse(imperialShip.getFleetTest().get(6).getShield()<=0);
+		
 	}
 	
 	
