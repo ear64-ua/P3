@@ -15,7 +15,14 @@ import java.util.TreeSet;
 
 public class Board {
 	
+	/**
+	 * Dimension del tablero
+	 */
 	private int size;
+	
+	/**
+	 * Mapa del tablero
+	 */
 	private Map<Coordinate, Fighter> board;
 	
 	/**

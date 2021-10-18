@@ -13,6 +13,9 @@ import java.util.TreeSet;
 
 public class Coordinate implements Comparable<Coordinate> {	/** Empezamos creando nuestra clase Coordinate **/
 	
+	/**
+	 * Variables que componen la coordenada de dos dimensiones 
+	 */
 	private int x, y;
 	
 	/** Se crea un constructor con dos argumentos enteros 

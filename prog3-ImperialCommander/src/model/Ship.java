@@ -15,12 +15,30 @@ import java.util.LinkedHashSet;
 
 public class Ship {
 	
+	/**
+	 * Nombre de la nave
+	 */
 	private String name;
+	
+	/**
+	 * Numero de victorias de la flota
+	 */
 	private int wins;
+	/**
+	 * Numero de derrotas de la flota
+	 */
 	private int losses;
 	
+	/**
+	 * Conjunto de cazas de la nave
+	 * @see Fighter
+	 */
 	private ArrayList<Fighter> fleet;
 	
+	/**
+	 * Lado al que pertenece la flota
+	 * @see Side
+	 */
 	private Side side;
 	
 	/**

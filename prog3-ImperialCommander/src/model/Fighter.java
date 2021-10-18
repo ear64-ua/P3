@@ -11,16 +11,40 @@ import java.util.Objects;
 
 public class Fighter {
 	
+	/**
+	 * El tipo de caza
+	 */
 	private String type;
 	
-	private int velocity, attack, shield, id;
+	/**
+	 * Caracteristicas del caza
+	 */
+	private int velocity, attack, shield;
 	
+	/**
+	 * Numero de identificacion del caza
+	 */
+	private int id;
+	
+	/**
+	 * Constante utilizada en el daño
+	 * @see #getDamage
+	 */
 	private final int kDamage = 300;
 	
+	/**
+	 * El id estatica de los cazas
+	 */
 	private static int nextId = 1;
 	
+	/**
+	 * Nave nodriza del caza
+	 */
 	private Ship motherShip;
 	
+	/**
+	 * Posicion del caza
+	 */
 	private Coordinate position; 
 		
 	/**
