@@ -39,6 +39,7 @@ public class Ship {
 	}
 	
 	/**
+	 * Getter de side
 	 * @return el lado por el que pertenece la nave
 	 */
 	public Side getSide() {
@@ -46,6 +47,7 @@ public class Ship {
 	}
 
 	/**
+	 * Getter de name
 	 * @return el nombre de la nave
 	 */
 	public String getName() {
@@ -53,6 +55,7 @@ public class Ship {
 	}
 
 	/**
+	 * Getter de wins
 	 * @return victorias de la nave
 	 */
 	public int getWins() {
@@ -60,6 +63,7 @@ public class Ship {
 	}
 
 	/**
+	 * Getter de losses
 	 * @return derrotas de la nave
 	 */
 	public int getLosses() {
@@ -67,6 +71,7 @@ public class Ship {
 	}
 	
 	/**
+	 * Getter de fleet
 	 * @return la flota por la que esta formada la nave
 	 */
 	public List<Fighter>  getFleetTest() {
@@ -74,7 +79,7 @@ public class Ship {
 	}
 	
 	/**
-	 * addFighters se encarga de separar el string leido y contenerlo 
+	 * El metodo addFighters se encarga de separar el string leido y contenerlo 
 	 * en sus respectivos campos
 	 * @param fd  esta formado por un string del formato "duplicados/tipo:*"
 	 * @see Integer#parseInt(String) parseInt(String)
@@ -106,7 +111,7 @@ public class Ship {
 	}
 	
 	/**
-	 * actualiza las derrotas o victorias de cada nave
+	 * El metodo update Results actualiza las derrotas o victorias de cada nave
 	 * @param r	si obtiene el valor de 1, se suma uno a las victorias,
 	 * 		  	y lo equivalente a las derrotas si le llega -1
 	 */
@@ -120,7 +125,7 @@ public class Ship {
 	}
 	
 	/**
-	 * getFighterAvailable realiza una busqueda de una nave 
+	 * El metodo getFighterAvailable realiza una busqueda de una nave 
 	 * no destruida
 	 * @param type	va a ser el tipo objetivo nuestra busqueda
 	 * @return {@code .null} si el parametro esta vacio, o 
@@ -147,7 +152,7 @@ public class Ship {
 	
 	
 	/**
-	 * recorre el la flota y elimina de ella, las naves destruidas
+	 * El metodo purgeFleet recorre el la flota y elimina de ella, las naves destruidas
 	 */
 	public void purgeFleet() {
 		List<Fighter> toRemove = new ArrayList<Fighter>();
@@ -161,6 +166,7 @@ public class Ship {
 	
 	
 	/**
+	 * El metodo showFleet enseña los datos de cada caza dentro de la misma flota
 	 * @return un string con la informacion de cada luchador y si esta destruido o no
 	 */
 	public String showFleet() {
@@ -175,7 +181,7 @@ public class Ship {
 	
 	
 	/**
-	 * myFleet usa la clase LinkedHashSet, que crea un mapa con valores 
+	 * El metodo myFleet usa la clase LinkedHashSet, que crea un mapa con valores 
 	 * unicos y se ordenan de la forma en la que se agregan sus elementos.
 	 * Usamos un contador de iteraccion y de duplicados para lograr que nuestra
 	 * funcion funcione correctamente
@@ -209,6 +215,7 @@ public class Ship {
 	}
 	
 	/**
+	 * Devuelve la informacion de la flota entera
 	 * @return un string del formato  Ship [nombre victorias/derrotas miFlota]
 	 * @see Class#getSimpleName() getSimpleName
 	 */

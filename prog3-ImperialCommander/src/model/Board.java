@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- *  Esta diseñada para contener en un mapa, 
+ *  Creada para contener en un mapa, 
  *  nuestros cazas.
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
@@ -19,7 +19,7 @@ public class Board {
 	private Map<Coordinate, Fighter> board;
 	
 	/**
-	 * Es el constructor que inicializa el tamaño 
+	 * Es el constructor que inicializa las dimensiones del tablero 
 	 * y crea la instancia de un HashMap
 	 * @param size dimension del cual se va a crear el tablero (size x size)
 	 * @see HashMap
@@ -30,7 +30,7 @@ public class Board {
 	}
 	
 	/**
-	 * getFighter es un getter del objeto Fighter 
+	 *  Getter del objeto Fighter 
 	 * en el cual hace una copia defensiva de dicho objeto 
 	 * contenido en el tablero
 	 * @param c Coordenada en la que buscaremos si tiene valor 
@@ -47,6 +47,7 @@ public class Board {
 	}
 	
 	/**
+	 * Getter de size
 	 * @return la dimension del tablero
 	 */
 	public int getSize() {
@@ -54,7 +55,7 @@ public class Board {
 	}
 	
 	/**
-	 * RemoveFighter compara la posicion del caza
+	 * El metodo removeFighter compara la posicion del caza
 	 * dentro del tablero con el caza y lo elimina 
 	 * @param f caza que va a ser removido
 	 * @return true si se ha podido remover, o false en caso 
@@ -80,7 +81,7 @@ public class Board {
 	}
 	
 	/**
-	 * inside se encarga de controlar que la coordenada se
+	 * El metodo inside se encarga de controlar que la coordenada se
 	 * encuentra dentro del tablero
 	 * @param c Coordenada a analizar dentro del tablero
 	 * @return true si se encuentra dentro, y false si no
@@ -101,7 +102,7 @@ public class Board {
 	}
 	
 	 /**
-	  * getNeighborhood() deviuelve las coordenadas que le rodean y que estan dentro del tablero
+	  * El metodo getNeighborhood devuelve las coordenadas que le rodean y que estan dentro del tablero
 	  * @param c es la coordenada de la que sacaremos sus coordenadas vecinas
 	  * @return conjunto  de valores que rodean a la coordenada
 	  * @see Coordinate#getNeighborhood() getNeighborhood from Coordinate
@@ -123,7 +124,7 @@ public class Board {
 	}
 	
 	/**
-	 * alfaFighter() hace que luchen dos cazas y saber su resultado, a la vez
+	 * El metodo alphaFighter hace que luchen dos cazas y saber su resultado, a la vez
 	 * que se le actualizan los resultados de cada nave nodriza
 	 * @param f1 el primer luchador invasor
 	 * @param f2 el segundo luchador colocado en el tablero
@@ -150,13 +151,12 @@ public class Board {
 	}
 	
 	/**
-	 * launch() lanza un caza al tablero y entra en conflicto dependiendo la casilla y 
+	 * El metodo launch lanza un caza al tablero y entra en conflicto dependiendo la casilla y 
 	 * el caza que la ocupa. Si el caza ya esta en el tablero, es decir que esta patrullando,
 	 * no se le asignara ninguna casilla nueva.
 	 * @param c coordenada donde el caza va a intentar colocarse
 	 * @param f caza que va a ser lanzado
 	 * @return el resultado del conflicto llamando al metodo alfaFighter
-	 * @see #alphaFighter(Fighter,Fighter) alphaFighter
 	 * @see Fighter#fight(Fighter) fight(Fighter)
 	 * @see Map#containsValue(Object) containsValue(Object)
 	 */
@@ -189,7 +189,7 @@ public class Board {
 	}
 	
 	/**
-	 * patrol realiza movimientos alrededor suya intentando 
+	 * El metodo patrol realiza movimientos alrededor suya intentando 
 	 * encontrar contrincantes con los que luchar
 	 * @param f caza que va a realizar la patrulla
 	 * @see #launch(Coordinate,Fighter) launch
