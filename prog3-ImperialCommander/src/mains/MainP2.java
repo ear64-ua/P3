@@ -62,7 +62,7 @@ public class MainP2 {
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		System.out.println(rebel+"\n"+rebel.showFleet());
 		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
-		imperialCommander.purgeFleet();
+		//imperialCommander.purgeFleet();
 		//System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		//System.out.println(rebel+"\n"+rebel.showFleet());
 		

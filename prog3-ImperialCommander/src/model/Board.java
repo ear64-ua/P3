@@ -115,7 +115,6 @@ public class Board {
 		TreeSet<Coordinate> conjunto = new TreeSet<Coordinate>();
 		
 		for (Coordinate caux : c.getNeighborhood()) {
-			//revisar inside
 			if (this.inside(caux))
 				conjunto.add(caux);
 		}	
@@ -124,13 +123,40 @@ public class Board {
 	}
 	
 	/**
+	 * alfaFighter() hace que luchen dos cazas y saber su resultado, a la vez
+	 * que se le actualizan los resultados de cada nave nodriza
+	 * @param f1 el primer luchador invasor
+	 * @param f2 el segundo luchador colocado en el tablero
+	 * @return el resultado del conflicto
+	 */
+	private int alphaFighter(Fighter f1, Fighter f2) {
+		
+		int resultado = f1.fight(f2);
+		if (resultado == 1) {
+			f2.getMotherShip().updateResults(-1);
+			f1.getMotherShip().updateResults(1);
+			this.removeFighter(f2);
+		}
+		
+		else if (resultado == -1){
+			f1.getMotherShip().updateResults(-1);
+			f2.getMotherShip().updateResults(1);
+			this.removeFighter(f1);
+			
+		}
+		
+		return resultado;
+		
+	}
+	
+	/**
 	 * launch() lanza un caza al tablero y entra en conflicto dependiendo la casilla y 
 	 * el caza que la ocupa. Si el caza ya esta en el tablero, es decir que esta patrullando,
 	 * no se le asignara ninguna casilla nueva.
 	 * @param c coordenada donde el caza va a intentar colocarse
 	 * @param f caza que va a ser lanzado
-	 * @return el resultado del conflicto llamando al
-	 * 		   metodo fight de la clase Fighter, y cero si c esta fuera del tablero 
+	 * @return el resultado del conflicto llamando al metodo alfaFighter
+	 * @see #alphaFighter(Fighter,Fighter) alphaFighter
 	 * @see Fighter#fight(Fighter) fight(Fighter)
 	 * @see Map#containsValue(Object) containsValue(Object)
 	 */
@@ -152,23 +178,10 @@ public class Board {
 		} 
 		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
-			resultado = f.fight(board.get(c));
-			if (resultado == 1) {
-				board.get(c).getMotherShip().updateResults(-1);
-				f.getMotherShip().updateResults(1);
-				this.removeFighter(board.get(c));
-				
-				if (f.getPosition()==null) {
-					f.setPosition(c);
-					board.put(c, f);
-				}
-			}
-			
-			else if (resultado == -1){
-				f.getMotherShip().updateResults(-1);
-				board.get(c).getMotherShip().updateResults(1);
-				this.removeFighter(f);
-				
+			resultado = alphaFighter(f,board.get(c));
+			if (resultado == 1) {		
+				f.setPosition(c);
+				board.put(c, f);
 			}
 		}
 		
@@ -187,8 +200,10 @@ public class Board {
 		
 		if (board.containsValue(f)) {
 			for (Coordinate c : this.getNeighborhood(f.getPosition())) {
-				this.launch(c,f);
-			}
+				if ((board.get(c) != null) && !(f.getSide().equals(this.getFighter(c).getSide()))) 
+					 alphaFighter(f,board.get(c));
+					
+			}	
 		}
 	}
 }
