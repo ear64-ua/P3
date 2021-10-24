@@ -120,12 +120,15 @@ public class Board {
 		
 		Objects.requireNonNull(c);
 
-		TreeSet<Coordinate> conjunto = new TreeSet<Coordinate>();
+		TreeSet<Coordinate> conjunto = (TreeSet<Coordinate>)c.getNeighborhood();
+		TreeSet<Coordinate> conjaux = new TreeSet<Coordinate>();
 		
 		for (Coordinate caux : c.getNeighborhood()) {
-			if (this.inside(caux))
-				conjunto.add(caux);
+			if (!this.inside(caux))
+				conjaux.add(caux);
 		}	
+		
+		conjunto.removeAll(conjaux);
 			
 		return conjunto;
 	}

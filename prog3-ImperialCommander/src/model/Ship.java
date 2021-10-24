@@ -214,7 +214,8 @@ public class Ship {
 		int iteration = 0;
 		
 		for(Fighter f: fleet) {
-			mapa.add(f.getType());
+			if (!f.isDestroyed())
+				mapa.add(f.getType());
 		}
 		
 		for(String m: mapa) {

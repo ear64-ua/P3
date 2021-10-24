@@ -71,6 +71,11 @@ public class MainP2 {
 		//System.out.println(fi3);
 
 		//System.out.println(b.removeFighter(fi3));
+		System.out.println(rebel.getFleetTest().size());
+		rebel.purgeFleet();
+		System.out.println(rebel.getFleetTest().size());
+		
+		
 		 
 	}
 	
