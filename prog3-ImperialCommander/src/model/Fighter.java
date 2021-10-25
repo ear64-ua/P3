@@ -9,12 +9,7 @@ import java.util.Objects;
  * 
  **/
 
-public class Fighter {
-	
-	/**
-	 * El tipo de caza
-	 */
-	private String type;
+public abstract class Fighter {
 	
 	/**
 	 * Caracteristicas del caza
@@ -52,12 +47,11 @@ public class Fighter {
 	 * @param type se le asigna el tipo pasado al objeto que se crea
 	 * @param mother es la nave nodriza a la que pertenece y se asigna
 	 */
-	Fighter(String type, Ship mother){
+	protected Fighter(Ship mother){
 	  
 		this.velocity = 100;
 		this.attack = 80;
 		this.shield = 80;
-		this.type = type;
 		this.id = nextId;
 		this.position = null;
 		nextId++;
@@ -70,12 +64,11 @@ public class Fighter {
 	 * constructor de copia de Fighter
 	 * @param f es el objeto a replicar
 	 */
-	public Fighter(Fighter f) {
+	protected Fighter(Fighter f) {
 		
 		this.velocity = f.velocity;
 		this.attack = f.attack;
 		this.shield = f.shield;
-		this.type = f.type;
 		this.position = f.position;
 		this.id = f.id;
 		this.motherShip = f.motherShip;
@@ -89,10 +82,21 @@ public class Fighter {
 	}
 	
 	/**
-	 * @return el tipo del luchador
+	 * @returns una copia del objeto Fighter
+	 */
+	public abstract Fighter copy();
+		
+	/**
+	 * @return el tipo de caza
+	 */
+	public abstract char getSymbol();
+		
+	
+	/**
+	 * @return el simbolo del tipo de luchador
 	 */
 	public String getType() {
-		return this.type;
+		return getClass().getSimpleName();
 	}
 	
 	/**
@@ -244,7 +248,7 @@ public class Fighter {
 	 */
 	@Override
 	public String toString() {
-		return "(" + this.type + " " + this.id + " " + this.getSide() + " " + position 
+		return "(" + this.getType() + " " + this.id + " " + this.getSide() + " " + position 
 				+ " {" + this.velocity + "," + this.attack + "," + this.shield + "})";
 	}
 	
