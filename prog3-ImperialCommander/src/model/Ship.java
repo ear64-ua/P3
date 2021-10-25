@@ -112,7 +112,7 @@ public class Ship {
 				
 				String saux2[] = saux1[i].split("/");
 				for(int j = 0; j < Integer.parseInt(saux2[0]); j++) {
-					Fighter f1 = new Fighter(saux2[1],this);
+					Fighter f1 = FighterFactory.createFighter(saux2[1],this);
 					fleet.add(f1);
 				}
 			}
@@ -122,7 +122,7 @@ public class Ship {
 			String saux1[] = fd.split("/");
 			
 			for (int i = 0; i < Integer.parseInt(saux1[0]); i++) {
-				Fighter f1 = new Fighter(saux1[1],this);
+				Fighter f1 = FighterFactory.createFighter(saux1[1],this);
 				fleet.add(f1);
 			}
 		}

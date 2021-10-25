@@ -48,7 +48,7 @@ public class Board {
 	public Fighter getFighter(Coordinate c) {
 		Objects.requireNonNull(c);
 		if (board.containsKey(c))
-			return new Fighter (board.get(c));
+			return board.get(c).copy();
 		else
 			return null;
 	}
