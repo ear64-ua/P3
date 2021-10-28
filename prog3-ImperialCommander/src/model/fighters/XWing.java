@@ -10,6 +10,9 @@ public class XWing extends model.Fighter{
 	 */
 	public XWing(Ship mother) {
 		super(mother);
+		super.addVelocity(10);
+		super.addAttack(20);
+
 	}
 	
 	/**
@@ -20,17 +23,11 @@ public class XWing extends model.Fighter{
 		super(f);
 	}
 	
-	/**
-	 * @return una copia del objeto
-	 */
 	@Override
 	public model.Fighter copy() {
 		return new XWing(this);
 	}
 	
-	/**
-	 * @return el simbolo del caza XWing
-	 */
 	@Override
 	public char getSymbol() {
 		return 'X';

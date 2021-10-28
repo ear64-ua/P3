@@ -11,6 +11,9 @@ public class YWing extends model.Fighter{
 	 */
 	public YWing(Ship mother) {
 		super(mother);
+		super.addVelocity(-20);
+		super.addAttack(-10);
+		super.addShield(30);
 	}
 	
 	/**
@@ -21,17 +24,11 @@ public class YWing extends model.Fighter{
 		super(f);
 	}
 	
-	/**
-	 * @return una copia del objeto
-	 */
 	@Override
 	public model.Fighter copy() {
 		return new YWing(this);
 	}
 	
-	/**
-	 * @return el simbolo del caza YWing
-	 */
 	@Override
 	public char getSymbol() {
 		return 'Y';

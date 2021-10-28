@@ -1,11 +1,9 @@
 package mains;
 
-import java.util.Set;
 
 import model.Board;
 import model.Coordinate;
 import model.Fighter;
-import model.RandomNumber;
 import model.Ship;
 import model.Side;
 
@@ -14,18 +12,6 @@ public class MainP2 {
 	public static void main(String[] args) {
 
 		Board b = new Board(10);  // 10x10
-		
-		System.out.println("getNeighborhood (5,5)");
-		Set<Coordinate> sc = b.getNeighborhood(new Coordinate(5,5));
-		for (Coordinate c:sc)
-			System.out.println(c);
-
-		System.out.println("getNeighborhood (0,0)");
-		
-		sc = b.getNeighborhood(new Coordinate(0,0));
-		for (Coordinate c:sc)
-			System.out.println(c);
-		
 
 		System.out.println("-----------------------------");
 		
@@ -35,24 +21,20 @@ public class MainP2 {
 		imperialCommander.addFighters("8/TIEFighter:8/TIEBomber:5/TIEInterceptor:2/TIEFighter");
 		rebel.addFighters("10/XWing:7/YWing:4/AWing:1/YWing");
 	
-		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
 		Fighter fi = imperialCommander.getFirstAvailableFighter("TIEFighter");
+		System.out.println(fi);
+		
+		
 		b.launch(new Coordinate(1,1), fi);
-		//Fighter fi2 = imperialCommander.getFirstAvailableFighter("TIEFighter");
-		//System.out.println(fi2.getType() + " " + fi2.getPosition());
-
-		//b.launch(new Coordinate(1,0),fi2);
-		//System.out.println(fi2.getType() + " " + fi2.getPosition());
 
 		Fighter fr = rebel.getFirstAvailableFighter("");
 		b.launch(new Coordinate(0,1), fr);
 		
-
+		System.out.println("-----------------------------");
 
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		
 		System.out.println(rebel+"\n"+rebel.showFleet());
-		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
 		
 		
 		
@@ -61,19 +43,12 @@ public class MainP2 {
 		
 		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 		System.out.println(rebel+"\n"+rebel.showFleet());
-		System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
-		//imperialCommander.purgeFleet();
-		//System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
-		//System.out.println(rebel+"\n"+rebel.showFleet());
 		
-		//Fighter fi3 = imperialCommander.getFirstAvailableFighter("TIEFighter");
-		//fi3.setPosition(new Coordinate(2,2));
-		//System.out.println(fi3);
-
-		//System.out.println(b.removeFighter(fi3));
-		System.out.println(rebel.getFleetTest().size());
+		System.out.println(imperialCommander.getFleetTest().size());
 		rebel.purgeFleet();
-		System.out.println(rebel.getFleetTest().size());
+		System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
+
+		System.out.println(imperialCommander.getFleetTest().size());
 		
 		
 		 

@@ -11,6 +11,9 @@ public class TIEInterceptor extends model.Fighter{
 	 */
 	public TIEInterceptor(Ship mother) {
 		super(mother);
+		super.addVelocity(45);
+		super.addAttack(5);
+		super.addShield(-20);
 	}
 	
 	/**
@@ -21,17 +24,11 @@ public class TIEInterceptor extends model.Fighter{
 		super(f);
 	}
 	
-	/**
-	 * @return una copia del objeto
-	 */
 	@Override
 	public model.Fighter copy() {
 		return new TIEInterceptor(this);
 	}
 	
-	/**
-	 * @return el simbolo del caza TIEInterceptor
-	 */
 	@Override
 	public char getSymbol() {
 		return 'i';

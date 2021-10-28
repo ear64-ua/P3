@@ -10,6 +10,10 @@ public class TIEFighter extends model.Fighter{
 	 */
 	public TIEFighter(Ship mother) {
 		super(mother);
+		super.addVelocity(10);
+		super.addAttack(5);
+		super.addShield(-10);
+
 	}
 	
 	/**
@@ -20,17 +24,11 @@ public class TIEFighter extends model.Fighter{
 		super(f);
 	}
 	
-	/**
-	 * @return una copia del objeto
-	 */
 	@Override
 	public model.Fighter copy() {
 		return new TIEFighter(this);
 	}
 	
-	/**
-	 * @return el simbolo del caza TIEFighter
-	 */
 	@Override
 	public char getSymbol() {
 		return 'f';

@@ -3,7 +3,7 @@ package model.fighters;
 import model.Fighter;
 import model.Ship;
 
-public class AWing extends model.Fighter{
+public class AWing extends Fighter{
 
 	/**
 	 * Constructor de AWing
@@ -11,6 +11,9 @@ public class AWing extends model.Fighter{
 	 */
 	public AWing(Ship mother) {
 		super(mother);
+		super.addVelocity(40);
+		super.addAttack(5);
+		super.addShield(-50);
 	}
 	
 	/**
@@ -21,17 +24,12 @@ public class AWing extends model.Fighter{
 		super(f);
 	}
 	
-	/**
-	 * @return una copia del objeto
-	 */
+	
 	@Override
-	public model.Fighter copy() {
+	public Fighter copy() {
 		return new AWing(this);
 	}
 	
-	/**
-	 * @return el simbolo del caza AWing
-	 */
 	@Override
 	public char getSymbol() {
 		return 'A';

@@ -11,6 +11,9 @@ public class TIEBomber extends model.Fighter{
 	 */
 	public TIEBomber(Ship mother) {
 		super(mother);
+		super.addVelocity(-30);
+		super.addAttack(-50);
+		super.addShield(35);
 	}
 	
 	/**
@@ -21,17 +24,11 @@ public class TIEBomber extends model.Fighter{
 		super(f);
 	}
 	
-	/**
-	 * @return una copia del objeto
-	 */
 	@Override
 	public Fighter copy() {
 		return new TIEBomber(this);
 	}
 	
-	/**
-	 * @return el simbolo del caza TIEBomber
-	 */
 	@Override
 	public char getSymbol() {
 		return 'b';
