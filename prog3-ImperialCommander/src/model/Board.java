@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
+import model.exceptions.FighterAlreadyInBoardException;
+import model.exceptions.FighterIsDestroyedException;
+import model.exceptions.FighterNotInBoardException;
+import model.exceptions.InvalidSizeException;
+import model.exceptions.OutOfBoundsException;
+
 /**
  *  Creada para contener en un mapa, 
  *  nuestros cazas.
@@ -29,9 +35,12 @@ public class Board {
 	 * Es el constructor que inicializa las dimensiones del tablero 
 	 * y crea la instancia de un HashMap
 	 * @param size dimension del cual se va a crear el tablero (size x size)
+	 * @throws InvalidSizeException 
 	 * @see HashMap
 	 */
-	public Board(int size) {
+	public Board(int size) throws InvalidSizeException {
+		if (size < 5)
+			throw new InvalidSizeException(size);
 		this.size=size;
 		board = new HashMap<Coordinate,Fighter>();
 	}
@@ -67,21 +76,21 @@ public class Board {
 	 * @param f caza que va a ser removido
 	 * @return true si se ha podido remover, o false en caso 
 	 * 	contrario
+	 * @throws FighterNotInBoardException 
 	 */
-	public Boolean removeFighter(Fighter f) {
+	public Boolean removeFighter(Fighter f) throws FighterNotInBoardException{
 		
 		Objects.requireNonNull(f);
 		
 		if(f.getPosition()!=null) {
-			if (this.inside(f.getPosition())){
-				if (board.containsKey(f.getPosition())){
-					if (board.get(f.getPosition()).equals(f)) {
-						board.remove(f.getPosition());
-						f.setPosition(null);
-						return true;
-					}
-				}
-			}	
+			if (board.containsKey(f.getPosition()) && board.get(f.getPosition()).equals(f)){
+				board.remove(f.getPosition());
+				f.setPosition(null);
+				return true;
+			}
+				
+			else 
+				throw new FighterNotInBoardException(f);
 		}
 		 
 		return false;
@@ -92,8 +101,9 @@ public class Board {
 	 * encuentra dentro del tablero
 	 * @param c Coordenada a analizar dentro del tablero
 	 * @return true si se encuentra dentro, y false si no
+	 * @throws OutOfBoundsException 
 	 */
-	public Boolean inside(Coordinate c) {
+	public Boolean inside(Coordinate c) throws OutOfBoundsException {
 		
 		Objects.requireNonNull(c);
 		if(!c.equals(null)) {
@@ -105,7 +115,7 @@ public class Board {
 			}
 		}
 		
-		return false;
+		throw new OutOfBoundsException(c);
 	}
 	
 	 /**
@@ -116,7 +126,7 @@ public class Board {
 	  * @see TreeSet
 	  */
 	
-	public Set<Coordinate> getNeighborhood(Coordinate c) {
+	public Set<Coordinate> getNeighborhood(Coordinate c){
 		
 		Objects.requireNonNull(c);
 
@@ -124,9 +134,14 @@ public class Board {
 		TreeSet<Coordinate> conjaux = new TreeSet<Coordinate>();
 		
 		for (Coordinate caux : c.getNeighborhood()) {
-			if (!this.inside(caux))
+			try{
+				if (!this.inside(caux)) 
 				conjaux.add(caux);
-		}	
+		
+				
+			} catch(OutOfBoundsException e){
+				throw new RuntimeException();}
+		}
 		
 		conjunto.removeAll(conjaux);
 			
@@ -140,24 +155,27 @@ public class Board {
 	 * @param f2 el segundo luchador colocado en el tablero
 	 * @return el resultado del conflicto
 	 */
-	private int alphaFighter(Fighter f1, Fighter f2) {
+	private int alphaFighter(Fighter f1, Fighter f2) throws FighterNotInBoardException {
+		try {
+			int resultado = f1.fight(f2);
+
+			if (resultado == 1) {
+				f2.getMotherShip().updateResults(-1);
+				f1.getMotherShip().updateResults(1);
+				this.removeFighter(f2);
+			}
 		
-		int resultado = f1.fight(f2);
-		if (resultado == 1) {
-			f2.getMotherShip().updateResults(-1);
-			f1.getMotherShip().updateResults(1);
-			this.removeFighter(f2);
+			else if (resultado == -1){
+				f1.getMotherShip().updateResults(-1);
+				f2.getMotherShip().updateResults(1);
+				this.removeFighter(f1);
+			}
+		
+			return resultado;
+		} catch(FighterIsDestroyedException e){
+			e.getMessage();
+			throw new RuntimeException();
 		}
-		
-		else if (resultado == -1){
-			f1.getMotherShip().updateResults(-1);
-			f2.getMotherShip().updateResults(1);
-			this.removeFighter(f1);
-			
-		}
-		
-		return resultado;
-		
 	}
 	
 	/**
@@ -167,10 +185,13 @@ public class Board {
 	 * @param c coordenada donde el caza va a intentar colocarse
 	 * @param f caza que va a ser lanzado
 	 * @return el resultado del conflicto llamando al metodo alfaFighter
+	 * @throws FighterAlreadyInBoardException 
+	 * @throws OutOfBoundsException
+	 * @throws FighterNotInBoardException 
 	 * @see Fighter#fight(Fighter) fight(Fighter)
 	 * @see Map#containsValue(Object) containsValue(Object)
 	 */
-	public int launch(Coordinate c, Fighter f) {
+	public int launch(Coordinate c, Fighter f) throws FighterAlreadyInBoardException, OutOfBoundsException, FighterNotInBoardException {
 		Objects.requireNonNull(c);
 		Objects.requireNonNull(f);
 		
@@ -179,6 +200,7 @@ public class Board {
 		if (!this.inside(c) || f.isDestroyed())
 			return 0;
 		
+		
 		if (this.getFighter(c) == null) {
 			if (!board.containsValue(f)) {
 				f.setPosition(c);
@@ -186,6 +208,10 @@ public class Board {
 				return 0;
 			}
 		} 
+		
+		if (board.containsValue(f))
+			throw new FighterAlreadyInBoardException(f);
+		
 		
 		else if (!this.getFighter(c).getSide().equals(f.getSide())) {
 			resultado = alphaFighter(f,board.get(c));
@@ -202,10 +228,11 @@ public class Board {
 	 * El metodo patrol realiza movimientos alrededor suya intentando 
 	 * encontrar contrincantes con los que luchar
 	 * @param f caza que va a realizar la patrulla
+	 * @throws FighterNotInBoardException 
 	 * @see #launch(Coordinate,Fighter) launch
 	 * @see Map#containsValue(Object) containsValue(Object)
 	 */
-	public void patrol(Fighter f) {
+	public void patrol(Fighter f) throws FighterNotInBoardException {
 		Objects.requireNonNull(f);
 		
 		if (board.containsValue(f)) {
@@ -215,5 +242,10 @@ public class Board {
 					
 			}	
 		}
+		
+		else 
+			throw new FighterNotInBoardException(f);
+		
+		
 	}
 }

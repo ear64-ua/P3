@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import model.exceptions.NoFighterAvailableException;
+
 import java.util.LinkedHashSet;
 
 /**
@@ -146,24 +149,17 @@ public class Ship {
 	 * @param type	va a ser el tipo objetivo nuestra busqueda
 	 * @return {@code .null} si el parametro esta vacio, o 
 	 * 		   la flota que coincide
+	 * @throws NoFighterAvailableException 
 	 */
-	public Fighter getFirstAvailableFighter(String type) {
-		
-		if(type.equals("")) {
-			for(Fighter f : fleet) {
-				if (!f.isDestroyed() && f.getPosition()==null)
-					return f;
-			}
+	public Fighter getFirstAvailableFighter(String type) throws NoFighterAvailableException {
+	
+		for(Fighter f : fleet) {
+			if((f.getType().equals(type) || type.equals("")) && !f.isDestroyed() && f.getPosition()==null)
+				return f;
+			
 		}
 		
-		else {
-			for(Fighter f : fleet) {
-				if(f.getType().equals(type) && !f.isDestroyed() && f.getPosition()==null)
-					return f;
-			}
-		}
-		
-		return null;
+		throw new NoFighterAvailableException(type);
 	}
 	
 	

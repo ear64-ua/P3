@@ -9,14 +9,14 @@ import model.Side;
 import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.FighterNotInBoardException;
 import model.exceptions.InvalidSizeException;
-import model.exceptions.NoFighterAvalailableException;
+import model.exceptions.NoFighterAvailableException;
 import model.exceptions.OutOfBoundsException;
 
 public class MainP3 {
 
 	public static void main(String[] args) {
 		Board b;
-		//try {
+		try {
 			b = new Board(10);
 			Ship imperialCommander = new Ship("Imperial Commander 1",Side.IMPERIAL);
 			Ship rebel = new Ship("Corellian Cruiser",Side.REBEL);
@@ -26,13 +26,12 @@ public class MainP3 {
 		
 			System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
 			Fighter fi = imperialCommander.getFirstAvailableFighter("TIEFighter");
-		/*
 			try {
 				b.launch(new Coordinate(1,1), fi);
 			} catch (OutOfBoundsException e) {
-				e.printStackTrace();   // error de ejecución
+				e.printStackTrace();   // error de ejecuciÃ³n
 			} catch (FighterAlreadyInBoardException e) {
-				e.printStackTrace();   // error de ejecución
+				e.printStackTrace();   // error de ejecuciÃ³n
 			}
 			
 			Fighter fr = rebel.getFirstAvailableFighter("");
@@ -54,14 +53,9 @@ public class MainP3 {
 			System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
 			System.out.println(rebel+"\n"+rebel.showFleet());
 			System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
-		} catch (InvalidSizeException | NoFighterAvalailableException | FighterNotInBoardException e1) {
-			e1.printStackTrace();  // error de ejecución
-		}*/
-	
-			System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
-			System.out.println(rebel+"\n"+rebel.showFleet());
-	
+		} catch (InvalidSizeException | NoFighterAvailableException | FighterNotInBoardException e1) {
+			e1.printStackTrace();  // error de ejecuciÃ³n
+		}
 	}
-	
 	
 }

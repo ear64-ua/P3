@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Objects;
+import model.exceptions.*;
 
 /**
  *  Representa cada caza que forma la flota
@@ -218,13 +219,14 @@ public abstract class Fighter {
 	 * @param enemy en el contrincante del objeto actual
 	 * @return 1 si el objeto actual gana, -1 si ha perdido o 0 si ya hay uno destruido
 	 * @see RandomNumber#newRandomNumber(int) newRandomNumber
+	 * @throws FighterIsDestroyedException
 	 */
-	public int fight(Fighter enemy) {//revisar si la batalla es correcta con profe
+	public int fight(Fighter enemy) throws FighterIsDestroyedException{
 		
 		int n;
 				
 		if (enemy.isDestroyed() || this.isDestroyed())
-			return 0;
+			throw new FighterIsDestroyedException(enemy.isDestroyed() ? enemy : this);
 		
   		else {
 			do {
