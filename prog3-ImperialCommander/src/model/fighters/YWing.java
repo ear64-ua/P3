@@ -37,10 +37,10 @@ public class YWing extends model.Fighter{
 	public int getDamage(int n, Fighter enemy) {
 		
 		if ((enemy.getSymbol()=='f') || (enemy.getSymbol()=='i'))
-			return (1/3)*super.getDamage(n, enemy);
+			return super.getDamage(n, enemy)/3;
 		
 		else if (enemy.getSymbol()=='b')
-			return (1/2)*super.getDamage(n, enemy);
+			return super.getDamage(n, enemy)/2;
 		
 		return super.getDamage(n, enemy);
 	}

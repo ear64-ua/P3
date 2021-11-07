@@ -85,7 +85,6 @@ public abstract class Fighter {
 	/**
 	 * @return una copia del objeto Fighter
 	 */
-	
 	public abstract Fighter copy();
 		
 	/**

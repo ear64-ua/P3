@@ -40,7 +40,7 @@ public class TIEInterceptor extends model.Fighter{
 			return 2*super.getDamage(n, enemy);
 		
 		else if (enemy.getSymbol()=='A')
-			return (1/2)*super.getDamage(n, enemy);
+			return super.getDamage(n, enemy)/2;
 		
 		return super.getDamage(n, enemy);
 	}

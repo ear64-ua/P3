@@ -115,7 +115,9 @@ public class Ship {
 				
 				String saux2[] = saux1[i].split("/");
 				for(int j = 0; j < Integer.parseInt(saux2[0]); j++) {
-					fleet.add(FighterFactory.createFighter(saux2[1],this));
+					Fighter f;
+					if((f = FighterFactory.createFighter(saux2[1],this)) != null)
+						fleet.add(f);
 				}
 			}
 		}
@@ -124,7 +126,9 @@ public class Ship {
 			String saux1[] = fd.split("/");
 			
 			for (int i = 0; i < Integer.parseInt(saux1[0]); i++) {
-				fleet.add(FighterFactory.createFighter(saux1[1],this));
+				Fighter f;
+				if((f = FighterFactory.createFighter(saux1[1],this)) != null)
+					fleet.add(f);
 			}
 		}
 	}
@@ -156,7 +160,6 @@ public class Ship {
 		for(Fighter f : fleet) {
 			if((f.getType().equals(type) || type.equals("")) && !f.isDestroyed() && f.getPosition()==null)
 				return f;
-			
 		}
 		
 		throw new NoFighterAvailableException(type);

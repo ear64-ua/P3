@@ -37,10 +37,10 @@ public class TIEBomber extends model.Fighter{
 	public int getDamage(int n, Fighter enemy) {
 		
 		if ((enemy.getSymbol()=='X') || (enemy.getSymbol()=='Y'))
-			return (1/2)*super.getDamage(n, enemy);
+			return super.getDamage(n, enemy)/2;
 		
 		else if (enemy.getSymbol()=='A')
-			return (1/3)*super.getDamage(n, enemy);
+			return super.getDamage(n, enemy)/3;
 		
 		return super.getDamage(n, enemy);
 	}
