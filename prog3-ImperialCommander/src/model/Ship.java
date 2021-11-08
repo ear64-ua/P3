@@ -153,7 +153,7 @@ public class Ship {
 	 * @param type	va a ser el tipo objetivo nuestra busqueda
 	 * @return {@code .null} si el parametro esta vacio, o 
 	 * 		   la flota que coincide
-	 * @throws NoFighterAvailableException 
+	 * @throws NoFighterAvailableException cuando no encuentra ningun fighter
 	 */
 	public Fighter getFirstAvailableFighter(String type) throws NoFighterAvailableException {
 	

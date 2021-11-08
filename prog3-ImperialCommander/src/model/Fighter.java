@@ -218,7 +218,7 @@ public abstract class Fighter {
 	 * @param enemy en el contrincante del objeto actual
 	 * @return 1 si el objeto actual gana, -1 si ha perdido o 0 si ya hay uno destruido
 	 * @see RandomNumber#newRandomNumber(int) newRandomNumber
-	 * @throws FighterIsDestroyedException
+	 * @throws FighterIsDestroyedException cuando alguno de los cazas ya están destruidos
 	 */
 	public int fight(Fighter enemy) throws FighterIsDestroyedException{
 		

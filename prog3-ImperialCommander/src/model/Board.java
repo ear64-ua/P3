@@ -35,7 +35,7 @@ public class Board {
 	 * Es el constructor que inicializa las dimensiones del tablero 
 	 * y crea la instancia de un HashMap
 	 * @param size dimension del cual se va a crear el tablero (size x size)
-	 * @throws InvalidSizeException 
+	 * @throws InvalidSizeException cuando el valor size es menor a 5
 	 * @see HashMap
 	 */
 	public Board(int size) throws InvalidSizeException {
@@ -76,7 +76,7 @@ public class Board {
 	 * @param f caza que va a ser removido
 	 * @return true si se ha podido remover, o false en caso 
 	 * 	contrario
-	 * @throws FighterNotInBoardException 
+	 * @throws FighterNotInBoardException cuando el caza no se encuentra en el tablero
 	 */
 	public void removeFighter(Fighter f) throws FighterNotInBoardException {
 		
@@ -117,7 +117,7 @@ public class Board {
 	  * El metodo getNeighborhood devuelve las coordenadas que le rodean y que estan dentro del tablero
 	  * @param c es la coordenada de la que sacaremos sus coordenadas vecinas
 	  * @return conjunto  de valores que rodean a la coordenada
-	 * @throws OutOfBoundsException 
+	  * @throws OutOfBoundsException cuando la coordenada esta fuera de los limites
 	  * @see Coordinate#getNeighborhood() getNeighborhood from Coordinate
 	  * @see TreeSet
 	  */
@@ -177,8 +177,8 @@ public class Board {
 	 * @param c coordenada donde el caza va a intentar colocarse
 	 * @param f caza que va a ser lanzado
 	 * @return el resultado del conflicto llamando al metodo alfaFighter
-	 * @throws FighterAlreadyInBoardException 
-	 * @throws OutOfBoundsException
+	 * @throws FighterAlreadyInBoardException cuando el caza ya se encuentra en el tablero
+	 * @throws OutOfBoundsException cuando la coordenada esta fuera de los limites
 	 * @see Fighter#fight(Fighter) fight(Fighter)
 	 * @see Map#containsValue(Object) containsValue(Object)
 	 */
@@ -213,7 +213,6 @@ public class Board {
 						f.setPosition(c);
 						board.put(c, f);
 					}
-						
 				}
 			}
 				 
@@ -226,7 +225,7 @@ public class Board {
 	 * El metodo patrol realiza movimientos alrededor suya intentando 
 	 * encontrar contrincantes con los que luchar
 	 * @param f caza que va a realizar la patrulla
-	 * @throws FighterNotInBoardException 
+	 * @throws FighterNotInBoardException cuando el caza no se encuentra en el tablero
 	 * @see #alphaFighter(Fighter,Fighter) AlphaFighter
 	 * @see Map#containsValue(Object) containsValue(Object)
 	 */
