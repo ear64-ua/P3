@@ -330,7 +330,6 @@ public class BoardTestP2 {
 		//assertEquals(imperial.getShield(),0); 1070 BIEN
 		//assertEquals(rebel.getShield(),0); 80 BIEN
 		board.launch(c,imperial);
-		
 		assertEquals(-1,board.launch(c,rebel)); //Gana fimperial (que ya estaba en la coordenada)
 		
 		assertEquals(imperial, board.getFighter(c));

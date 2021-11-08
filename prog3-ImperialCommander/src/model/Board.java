@@ -152,11 +152,13 @@ public class Board {
 	 */
 	private int alphaFighter(Fighter f1, Fighter f2){
 		try {
+		
 			int resultado = f1.fight(f2);
 			
 			if (resultado == 1) {
 				f2.getMotherShip().updateResults(-1);
 				f1.getMotherShip().updateResults(1);
+				this.removeFighter(f2);
 			}
 		
 			else if (resultado == -1){
@@ -165,7 +167,7 @@ public class Board {
 			}
 			
 			return resultado;
-		} catch(FighterIsDestroyedException e){throw new RuntimeException();}
+		} catch(FighterIsDestroyedException | FighterNotInBoardException e){throw new RuntimeException();}
 	}
 	
 	/**
@@ -206,22 +208,10 @@ public class Board {
 				
 				// si son del mismo bando
 				if (!this.getFighter(c).getSide().equals(f.getSide()) && board.containsKey(c)) {
-					
-					resultado = alphaFighter(f,board.get(c));
-					
+						resultado = alphaFighter(f,board.get(c));
 					if (resultado == 1) {		
 						f.setPosition(c);
 						board.put(c, f);
-						try {
-							this.removeFighter(board.get(c));
-						}catch(FighterNotInBoardException e) {throw new RuntimeException();}
-					}
-					else if (resultado == -1) {
-						try {
-							this.removeFighter(f);
-						}catch(FighterNotInBoardException e) {throw new RuntimeException();}
-							
-					
 					}
 						
 				}
@@ -250,12 +240,11 @@ public class Board {
 						if ((board.get(c) != null) && !(f.getSide().equals(this.getFighter(c).getSide()))) {
 								resultado = alphaFighter(f,board.get(c));
 								
-								if (resultado == 1) {	
-									this.removeFighter(board.get(c));
-									
-								}
-								else if (resultado == -1) {
-									this.removeFighter(f);
+								if (resultado==-1) {
+									try{
+										this.removeFighter(f);
+									}catch(FighterNotInBoardException e) {throw new RuntimeException();}
+									break;
 								}
 						}
 							
