@@ -6,7 +6,18 @@ import model.fighters.TIEFighter;
 import model.fighters.TIEInterceptor;
 import model.fighters.TIEBomber;
 
+/**
+ *  Clase en donde van a ser creadas nuestros distintos cazas.
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ **/
 public class FighterFactory {
+	/**
+	 * CreateFighter se encarga de crear los tipos cazas adecuados
+	 * @param type del caza que va a intentar crearse 
+	 * @param mother perteneciente al caza que va a ser creado
+	 * @return una subclase de fighter del tipo elegido
+	 */
 	static public Fighter createFighter(String type, Ship mother) {
 		
 		switch(type) {

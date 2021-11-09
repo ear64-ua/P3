@@ -45,7 +45,6 @@ public abstract class Fighter {
 		
 	/**
 	 * Se crea un constructor de Fighter con valores predeterminados
-	 * @param type se le asigna el tipo pasado al objeto que se crea
 	 * @param mother es la nave nodriza a la que pertenece y se asigna
 	 */
 	protected Fighter(Ship mother){
@@ -218,7 +217,7 @@ public abstract class Fighter {
 	 * @param enemy en el contrincante del objeto actual
 	 * @return 1 si el objeto actual gana, -1 si ha perdido o 0 si ya hay uno destruido
 	 * @see RandomNumber#newRandomNumber(int) newRandomNumber
-	 * @throws FighterIsDestroyedException cuando alguno de los cazas ya están destruidos
+	 * @throws FighterIsDestroyedException cuando alguno de los cazas ya estan destruidos
 	 */
 	public int fight(Fighter enemy) throws FighterIsDestroyedException{
 		

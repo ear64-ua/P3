@@ -3,6 +3,12 @@ package model.fighters;
 import model.Fighter;
 import model.Ship;
 
+/**
+ *  Subclase de la clase Fighter
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ *  @see model.Fighter Fighter
+ **/
 public class TIEBomber extends model.Fighter{
 
 	/**
@@ -34,6 +40,7 @@ public class TIEBomber extends model.Fighter{
 		return 'b';
 	}
 	
+	@Override
 	public int getDamage(int n, Fighter enemy) {
 		
 		if ((enemy.getSymbol()=='X') || (enemy.getSymbol()=='Y'))

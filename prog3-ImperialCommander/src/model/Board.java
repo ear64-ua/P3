@@ -74,8 +74,6 @@ public class Board {
 	 * El metodo removeFighter compara la posicion del caza
 	 * dentro del tablero con el caza y lo elimina 
 	 * @param f caza que va a ser removido
-	 * @return true si se ha podido remover, o false en caso 
-	 * 	contrario
 	 * @throws FighterNotInBoardException cuando el caza no se encuentra en el tablero
 	 */
 	public void removeFighter(Fighter f) throws FighterNotInBoardException {

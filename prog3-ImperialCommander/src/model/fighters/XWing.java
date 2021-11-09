@@ -2,6 +2,12 @@ package model.fighters;
 
 import model.Ship;
 
+/**
+ *  Subclase de la clase Fighter
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ *  @see model.Fighter Fighter
+ **/
 public class XWing extends model.Fighter{
 
 	/**
