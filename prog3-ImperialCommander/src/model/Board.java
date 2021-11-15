@@ -29,7 +29,7 @@ public class Board {
 	/**
 	 * Mapa del tablero
 	 */
-	private Map<Coordinate, Fighter> board;
+	protected Map<Coordinate, Fighter> board;
 	
 	/**
 	 * Es el constructor que inicializa las dimensiones del tablero 
@@ -186,15 +186,16 @@ public class Board {
 		
 		int resultado = 0;
 		
-		// si c no pertenece al tablero --> Exception
-		if (!this.inside(c))
-			throw new OutOfBoundsException(c);
+		// si f ya tiene una coordenada --> Exception
+		if (f.getPosition()!=null)
+			throw new FighterAlreadyInBoardException(f);
+		
 		
 		// si c sí pertenece al tablero
 		else{
-			// si f ya tiene una coordenada --> Exception
-			if (board.containsValue(f))
-				throw new FighterAlreadyInBoardException(f);
+			// si c no pertenece al tablero --> Exception
+			if (!this.inside(c))
+				throw new OutOfBoundsException(c);
 			// si f no tiene ya una coordenada
 			else {
 				// si no hay fighter en c 
@@ -231,6 +232,12 @@ public class Board {
 		Objects.requireNonNull(f);
 		int resultado;
 		
+		if(f.getPosition()==null)
+			throw new FighterNotInBoardException(f);
+		
+		if(!inside(f.getPosition()))
+			throw new RuntimeException();
+		
 		if (board.containsValue(f)) {
 				try {
 					for (Coordinate c : this.getNeighborhood(f.getPosition())) {
@@ -248,9 +255,6 @@ public class Board {
 					}
 				} catch (OutOfBoundsException e) {throw new RuntimeException();}
 		}
-		
-		else
-			throw new FighterNotInBoardException(f);
 		
 		
 		

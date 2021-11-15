@@ -36,7 +36,7 @@ public class Ship {
 	 * Conjunto de cazas de la nave
 	 * @see Fighter
 	 */
-	private ArrayList<Fighter> fleet;
+	protected ArrayList<Fighter> fleet;
 	
 	/**
 	 * Lado al que pertenece la flota
