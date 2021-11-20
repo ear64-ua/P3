@@ -5,7 +5,8 @@ package model.game.exceptions;
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  **/
-public class WrongFighterIdException {
+@SuppressWarnings("serial")
+public class WrongFighterIdException extends Exception{
 	/**
 	 * Coordinate usado en su constructor
 	 */

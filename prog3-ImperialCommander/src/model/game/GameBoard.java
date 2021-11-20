@@ -7,8 +7,8 @@ public class GameBoard extends Board {
 
 	
 	
-	public GameBoard(int size) throws InvalidSizeException {
-		super(size);
+	public GameBoard(int size) throws InvalidSizeException { 
+		super(size); 
 	}
 	
 	public int numFighters(Side side) {
