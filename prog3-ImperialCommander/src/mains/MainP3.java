@@ -11,20 +11,21 @@ import model.exceptions.FighterNotInBoardException;
 import model.exceptions.InvalidSizeException;
 import model.exceptions.NoFighterAvailableException;
 import model.exceptions.OutOfBoundsException;
+import model.game.GameBoard;
 
 public class MainP3 {
 
 	public static void main(String[] args) {
 		Board b;
 		try {
-			b = new Board(10);
+			b = new GameBoard(10);
 			Ship imperialCommander = new Ship("Imperial Commander 1",Side.IMPERIAL);
 			Ship rebel = new Ship("Corellian Cruiser",Side.REBEL);
 		
 			imperialCommander.addFighters("8/TIEFighter:8/TIEBomber:5/TIEInterceptor:2/TIEFighter");
 			rebel.addFighters("10/XWing:7/YWing:4/AWing:1/YWing");
 		
-			System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
+			
 			Fighter fi = imperialCommander.getFirstAvailableFighter("TIEFighter");
 			try {
 				b.launch(new Coordinate(1,1), fi);
@@ -34,28 +35,39 @@ public class MainP3 {
 				e.printStackTrace();   // error de ejecuciÃ³n
 			}
 			
-			Fighter fr = rebel.getFirstAvailableFighter("");
+			
+			Fighter fA = rebel.getFirstAvailableFighter("AWing");
+			Fighter fB = rebel.getFirstAvailableFighter("XWing");
 			try {
-				b.launch(new Coordinate(0,1), fr);
+				b.launch(new Coordinate(1,3), fB);
+				b.launch(new Coordinate(1,2), fA);
 			} catch (OutOfBoundsException e) {
 				e.printStackTrace();
 			} catch (FighterAlreadyInBoardException e) {
 				e.printStackTrace();
 			}
 			
-			System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
-			System.out.println(rebel+"\n"+rebel.showFleet());
-			System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
+			System.out.println(b);
 			
-			System.out.println("Patrol "+fr);
-			b.patrol(fr);
+			b.patrol(fi);
+			System.out.println(b);
 			
-			System.out.println(imperialCommander+"\n"+imperialCommander.showFleet());
-			System.out.println(rebel+"\n"+rebel.showFleet());
-			System.out.println("Random numbers="+RandomNumber.getRandomNumberList());
-		} catch (InvalidSizeException | NoFighterAvailableException | FighterNotInBoardException e1) {
+			
+		} catch (InvalidSizeException | NoFighterAvailableException e1) {
 			e1.printStackTrace();  // error de ejecuciÃ³n
+		} catch (FighterNotInBoardException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
+		/*try {
+			GameBoard g = new GameBoard(10);
+			System.out.println(g);
+		} catch (InvalidSizeException e) {}
+		*/
+		
+	
 	}
 	
 }
