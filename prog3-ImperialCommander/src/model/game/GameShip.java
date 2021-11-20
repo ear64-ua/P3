@@ -8,12 +8,26 @@ import model.exceptions.FighterNotInBoardException;
 import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
 
+/**
+ *  -------------------
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ **/
 public class GameShip extends Ship {
 
+	/**
+	 * 
+	 * @param name
+	 * @param side
+	 */
 	public GameShip(String name, Side side) { 
 		super(name, side); 
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isFleetDestroyed() {
 		
 		for (Fighter f : super.fleet) {
@@ -24,6 +38,12 @@ public class GameShip extends Ship {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws WrongFighterIdException
+	 */
 	private Fighter getFighter(int id) throws WrongFighterIdException{
 		
 		for (Fighter f : super.fleet) {
@@ -34,6 +54,11 @@ public class GameShip extends Ship {
 		throw new WrongFighterIdException(id);
 	}
 	
+	/**
+	 * 
+	 * @param where
+	 * @return
+	 */
 	public List<Integer> getFightersId(String where){
 		
 		List<Integer> l = new ArrayList<>();
@@ -52,13 +77,22 @@ public class GameShip extends Ship {
 				break;
 				
 				default: 
-					if (f.getPosition()!=null)
+					if (!f.isDestroyed())
 						l.add(f.getId());
 			}
 		}
 		return l;
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param c
+	 * @param b
+	 * @throws WrongFighterIdException
+	 * @throws FighterAlreadyInBoardException
+	 * @throws OutOfBoundsException
+	 */
 	public void launch(int id, Coordinate c, Board b) throws WrongFighterIdException, FighterAlreadyInBoardException, OutOfBoundsException {
 		
 		Fighter f = this.getFighter(id);
@@ -66,6 +100,13 @@ public class GameShip extends Ship {
 		b.launch(c, f);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param b
+	 * @throws WrongFighterIdException
+	 * @throws FighterNotInBoardException
+	 */
 	public void patrol(int id,Board b) throws WrongFighterIdException, FighterNotInBoardException {
 		
 		Fighter f = this.getFighter(id);
@@ -73,6 +114,13 @@ public class GameShip extends Ship {
 		b.patrol(f);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param qty
+	 * @param b
+	 * @throws WrongFighterIdException
+	 */
 	public void improveFighter(int id,int qty, Board b) throws WrongFighterIdException {
 		
 		Fighter f = this.getFighter(id);

@@ -3,14 +3,28 @@ package model.game;
 import model.*;
 import model.exceptions.InvalidSizeException;
 
+/**
+ *  -------------------
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ **/
 public class GameBoard extends Board {
 
 	
-	
+	/**
+	 * 
+	 * @param size
+	 * @throws InvalidSizeException
+	 */
 	public GameBoard(int size) throws InvalidSizeException { 
 		super(size); 
 	}
 	
+	/**
+	 * 
+	 * @param side
+	 * @return
+	 */
 	public int numFighters(Side side) {
 		
 		int num = 0, j, i;
@@ -30,28 +44,24 @@ public class GameBoard extends Board {
 		return num;
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
 	private String positionType(Coordinate c) {
 		
-		Fighter f;
+		Fighter f = super.getFighter(c);
 		
-		for (int i = 0; i < super.getSize(); i++) {
-			for (int j = 0; j < super.getSize(); j++) {
-				f = super.getFighter(new Coordinate(i,j));
-				
-				if (f != null) {
-					if(f.getPosition()!=null ) {
-						if (f.getPosition().equals(c)) {
-						
-							return ""+f.getSymbol();
-						}
-					}
-				}
-			}
-		}
+		if (f != null) 
+			return ""+f.getSymbol();
 		
 		return " ";
 	}
 	
+	/**
+	 * 
+	 */
 	public String toString() {
 		
 		String s = "";
