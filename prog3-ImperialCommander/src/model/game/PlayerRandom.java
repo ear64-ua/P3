@@ -22,7 +22,7 @@ public class PlayerRandom implements IPlayer {
 	
 	public PlayerRandom(Side side, int numFighters) {
 		this.numFighters = numFighters;
-		ship = new GameShip("PlayerRandom" + ((side == Side.REBEL) ? "REBEL" : "IMPERIAL" ) + super.getClass().getSimpleName() ,side);
+		ship = new GameShip("PlayerRandom " + ((side == Side.REBEL) ? "REBEL" : "IMPERIAL" ) + " Ship" ,side);
 	}
 	
 	public void setBoard(GameBoard g) {

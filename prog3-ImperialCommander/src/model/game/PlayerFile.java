@@ -39,7 +39,7 @@ public class PlayerFile implements IPlayer {
 	 */
 	public PlayerFile(Side side, BufferedReader br) {
 		
-		ship = new GameShip("PlayerFile" + ((side == Side.REBEL) ? "REBEL" : "IMPERIAL" ) + super.getClass().getSimpleName() ,side);
+		ship = new GameShip("PlayerFile " + ((side == Side.REBEL) ? "REBEL" : "IMPERIAL" ) + " Ship" ,side);
 		this.br = br;
 	}
 

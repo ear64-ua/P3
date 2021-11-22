@@ -28,8 +28,7 @@ public class GameBoard extends Board {
 	public int numFighters(Side side) {
 		
 		int num = 0, j, i;
-		System.out.println(super.getSize());
-		System.out.println(side);
+		
 		for ( i = 0; i < super.getSize(); i++) {
 			for (j = 0; j < super.getSize(); j++) {
 				
@@ -86,7 +85,7 @@ public class GameBoard extends Board {
 						else if(j == -1)
 							s += "|";
 						else
-							s = s + (positionType(new Coordinate(i,j)));
+							s = s + (positionType(new Coordinate(j,i)));
 					}
 				}
 			}

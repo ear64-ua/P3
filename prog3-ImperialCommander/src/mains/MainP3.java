@@ -3,7 +3,6 @@ package mains;
 import model.Board;
 import model.Coordinate;
 import model.Fighter;
-import model.RandomNumber;
 import model.Ship;
 import model.Side;
 import model.exceptions.FighterAlreadyInBoardException;
