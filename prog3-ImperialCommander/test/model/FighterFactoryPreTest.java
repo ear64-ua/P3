@@ -5,9 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.exceptions.NoFighterAvailableException;
 import model.fighters.*;
 
-public class FighterFactoryTest {
+public class FighterFactoryPreTest {
 	Fighter fighter;
 	Ship ship;
 	@Before
@@ -41,6 +42,14 @@ public class FighterFactoryTest {
 		assertNull(FighterFactory.createFighter("TIEbomber", ship));
 		assertNull(FighterFactory.createFighter("TIEIntercepto", ship));
 		assertNull(FighterFactory.createFighter("ZWing", ship));
+		try {
+			FighterFactory.createFighter(null, ship);
+			fail("ERROR: Debió lanzar NullPointerException");
+		}catch (NullPointerException e) {}
+		try {
+			FighterFactory.createFighter("XWing", null);
+			fail("ERROR: Debió lanzar NullPointerException");
+		}catch (NullPointerException e) {}
 	}
 	
 

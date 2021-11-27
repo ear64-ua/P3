@@ -1,49 +1,59 @@
 package model.game;
 
 /**
- *  -------------------
+ *  Interfaz que modela un jugador del juego
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  **/
 public interface IPlayer {
 
 		/**
-		 * 
-		 * @param gb
+		 * Cadena de tipo String que contiene los diferentes tipos de caza del bando Imperial
+	 	 */
+		public final static String[] imperialType = {"TIEFighter", "TIEBomber", "TIEInterceptor"}; 
+	
+		/**
+		 * Cadena de tipo String que contiene los diferentes tipos de caza del bando Rebel
+	 	 */
+		public final static String[] rebelType = {"XWing", "YWing", "AWing"}; 
+		
+		/**
+		 * Asigna el tablero pasado como parametro al atributo {@code board} del jugador
+		 * @param gb usado para igualarlo al atributo {@code board} del jugador
 		 */
 		public void setBoard(GameBoard gb);
 		
 		/**
-		 * 
-		 * @return
+		 * Getter de GameShip
+		 * @return el objeto GameShip al que pertenece
 		 */
 		public GameShip getGameShip();
 		
 		/**
-		 * 
+		 * Obtiene una cadena para inicializar los cazas de cada jugador
 		 */
 		public void initFighters();
 		
 		/**
-		 * 
-		 * @return
+		 * Llama al metodo del mismo nombre de la nave del jugador
+		 * @return {@code true} si la nave se encuentra destruida, {@code false} en caso contrario
 		 */
 		public boolean isFleetDestroyed();
 		
 		/**
-		 * 
-		 * @return
+		 * Metodo que muestra una cadena con informacion acerca de la nave
+		 * @return una cadena formada por el metodo toString, un cambio de linea y la cadena devuelta por el metodo showFleet
 		 */
 		public String showShip();
 		
 		/**
-		 * 
+		 * Llama al metodo del mismo nombre de la nave del jugador
 		 */
 		public void purgeFleet();
 		
 		/**
-		 * 
-		 * @return
+		 * Metodo que se dedica a analizar la siguiente jugada de un jugador
+		 * @return {@code true} si sigue jugando, o {@code false} si el jugador abandona
 		 */
 		public boolean nextPlay();
 		

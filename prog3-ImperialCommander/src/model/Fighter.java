@@ -48,7 +48,7 @@ public abstract class Fighter {
 	 * @param mother es la nave nodriza a la que pertenece y se asigna
 	 */
 	protected Fighter(Ship mother){
-	  
+		Objects.requireNonNull(mother);
 		this.velocity = 100;
 		this.attack = 80;
 		this.shield = 80;
@@ -65,7 +65,7 @@ public abstract class Fighter {
 	 * @param f es el objeto a replicar
 	 */
 	protected Fighter(Fighter f) {
-		
+		Objects.requireNonNull(f);
 		this.velocity = f.velocity;
 		this.attack = f.attack;
 		this.shield = f.shield;
@@ -209,6 +209,8 @@ public abstract class Fighter {
 	 * @return el valor resultante de la formula
 	 */
 	public int getDamage(int n, Fighter enemy) {
+		Objects.requireNonNull(enemy);
+		Objects.requireNonNull(n);
 		return (n*this.attack)/kDamage;
 	}
 	
@@ -220,7 +222,7 @@ public abstract class Fighter {
 	 * @throws FighterIsDestroyedException cuando alguno de los cazas ya estan destruidos
 	 */
 	public int fight(Fighter enemy) throws FighterIsDestroyedException{
-		
+		Objects.requireNonNull(enemy);
 		int n;
 				
 		if (enemy.isDestroyed() || this.isDestroyed())

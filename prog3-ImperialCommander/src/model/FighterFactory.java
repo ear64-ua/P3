@@ -1,4 +1,6 @@
 package model;
+import java.util.Objects;
+
 import model.fighters.AWing;
 import model.fighters.YWing;
 import model.fighters.XWing;
@@ -19,7 +21,8 @@ public class FighterFactory {
 	 * @return una subclase de fighter del tipo elegido
 	 */
 	static public Fighter createFighter(String type, Ship mother) {
-		
+		Objects.requireNonNull(type);
+		Objects.requireNonNull(mother);
 		switch(type) {
 			case "AWing":
 				return new AWing(mother);

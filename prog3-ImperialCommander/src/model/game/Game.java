@@ -1,5 +1,7 @@
 package model.game;
 
+import java.util.Objects;
+
 import model.Side;
 import model.exceptions.InvalidSizeException;
 
@@ -14,6 +16,9 @@ public class Game {
 	private GameBoard board;
 	
 	public Game(IPlayer imperial, IPlayer rebel) {
+		Objects.requireNonNull(imperial);
+		Objects.requireNonNull(rebel);
+		
 		this.imperial=imperial;
 		this.rebel=rebel;
 		try {

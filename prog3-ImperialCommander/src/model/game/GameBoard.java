@@ -4,26 +4,25 @@ import model.*;
 import model.exceptions.InvalidSizeException;
 
 /**
- *  -------------------
+ *  Subclase de Board que se usa en el juego
  *	@author Enrique Abma Romero X9853366M
  *	@version 1.8 2011
  **/
 public class GameBoard extends Board {
 
-	
 	/**
-	 * 
-	 * @param size
-	 * @throws InvalidSizeException
+	 * Constructor de GameBoard que llama al constructor de la clase padre
+	 * @param size dimension del cual se va a crear el tablero (size x size)
+	 * @throws InvalidSizeException cuando el valor size es menor a 5
 	 */
 	public GameBoard(int size) throws InvalidSizeException { 
 		super(size); 
 	}
 	
 	/**
-	 * 
-	 * @param side
-	 * @return
+	 * Metodo que devuelve el numero de cazas dependiendo del bando al que pertenezcan
+	 * @param side lado que utilizaremos en la busqueda
+	 * @return la cantidad de cazas
 	 */
 	public int numFighters(Side side) {
 		
@@ -39,14 +38,13 @@ public class GameBoard extends Board {
 					}
 			}
 		}
-		
 		return num;
 	}
 	
 	/**
-	 * 
-	 * @param c
-	 * @return
+	 * Devuelve el tipo de caza posicionado en dicha coordenada
+	 * @param c Coordenada del caza a buscar
+	 * @return el tipo del caza dentro de c
 	 */
 	private String positionType(Coordinate c) {
 		
@@ -59,8 +57,9 @@ public class GameBoard extends Board {
 	}
 	
 	/**
-	 * 
+	 * Devuelve una cadena con la representacion del tablero
 	 */
+	@Override
 	public String toString() {
 		
 		String s = "";

@@ -2,6 +2,7 @@ package model.game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Objects;
 
 import model.*;
 import model.exceptions.FighterAlreadyInBoardException;
@@ -10,34 +11,41 @@ import model.exceptions.NoFighterAvailableException;
 import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
 
+/**
+ *  Clase permite leer los movimientos de un jugador desde un fichero o desde la consola
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ **/
 public class PlayerFile implements IPlayer {
 	
 	/**
-	 * 
+	 * Constante usada cuando hay error de sintaxis
 	 */
 	private final String ERR_SYNTAX = "ERROR: wrong syntax";
 	
 	/**
-	 * 
+	 * Atributo de la nave
 	 */
 	private GameShip ship;
 	
 	/**
-	 * 
+	 * Atributo del tablero
 	 */
 	private GameBoard board;
 	
 	/**
-	 * 
+	 * Atributo de la clase BufferedReader
 	 */
 	private BufferedReader br;
 	
 	/**
-	 * 
-	 * @param side
-	 * @param br
+	 * Constructor de PlayerFile
+	 * @param side bando al que va a pertenecer
+	 * @param br lector de los movimientos del jugador
 	 */
 	public PlayerFile(Side side, BufferedReader br) {
+		Objects.requireNonNull(side);
+		Objects.requireNonNull(br);
 		
 		ship = new GameShip("PlayerFile " + ((side == Side.REBEL) ? "REBEL" : "IMPERIAL" ) + " Ship" ,side);
 		this.br = br;
@@ -45,6 +53,7 @@ public class PlayerFile implements IPlayer {
 
 	@Override
 	public void setBoard(GameBoard gb) {
+		Objects.requireNonNull(gb);
 		board = gb;
 	}
 
@@ -77,6 +86,12 @@ public class PlayerFile implements IPlayer {
 		ship.purgeFleet();
 	}
 
+	/**
+	 * Metodo privado encargado de lanzar los cazas
+	 * @param x
+	 * @param y
+	 * @param s
+	 */
 	private void launch(int x, int y, String s) {
 		Coordinate c = new Coordinate(x,y);
 		int id = 0;
@@ -172,8 +187,6 @@ public class PlayerFile implements IPlayer {
 				System.out.println(ERR_SYNTAX);
 							
 		}
-		
-		
 		
 		return true;
 	}
