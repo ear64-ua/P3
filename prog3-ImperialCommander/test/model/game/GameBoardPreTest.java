@@ -2,6 +2,9 @@ package model.game;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +21,7 @@ import model.Side;
 import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.InvalidSizeException;
 import model.exceptions.OutOfBoundsException;
+import model.game.exceptions.WrongFighterIdException;
 
 public class GameBoardPreTest {
 
@@ -129,7 +133,50 @@ public class GameBoardPreTest {
 	@Test
 	public void testToStringExample() throws FighterAlreadyInBoardException, OutOfBoundsException, InvalidSizeException {
 		
-		fail("Termina de realizar el test");
+		//launches a mano
+		String inputImp = "1/TIEInterceptor:1/TIEBomber\nlaunch 1 6\nlaunch 6 7\nexit\n";
+		Reader stringReaderImp = new StringReader(inputImp);
+		BufferedReader brI = new BufferedReader(stringReaderImp);
+		PlayerFile plimperial = new PlayerFile(Side.IMPERIAL, brI);
+		
+		String inputReb = "4/AWing:3/XWing:2/YWing\nlaunch 3 0\nlaunch 8 0\nlaunch 7 3\nlaunch 3 5\n"
+						+ "launch 4 2\nlaunch 9 0\nlaunch 8 7\n"
+						+ "launch 3 6\nlaunch 3 7\nexit\n";
+		Reader stringReaderReb = new StringReader(inputReb);
+		BufferedReader brR = new BufferedReader(stringReaderReb);
+		PlayerFile plrebel = new PlayerFile(Side.REBEL, brR);
+		
+		plrebel.initFighters();
+		plimperial.initFighters();
+		plrebel.setBoard(gameBoard);
+		plimperial.setBoard(gameBoard);
+		
+		try {
+			plrebel.getGameShip().launch(1, new Coordinate(3,0), gameBoard);
+			plrebel.getGameShip().launch(2, new Coordinate(8,0), gameBoard);
+			plrebel.getGameShip().launch(3, new Coordinate(7,3), gameBoard);
+			plrebel.getGameShip().launch(4, new Coordinate(3,5), gameBoard);
+			
+			plrebel.getGameShip().launch(5, new Coordinate(4,2), gameBoard);
+			plrebel.getGameShip().launch(6, new Coordinate(9,0), gameBoard);
+			plrebel.getGameShip().launch(7, new Coordinate(8,7), gameBoard);
+			
+			plrebel.getGameShip().launch(8, new Coordinate(3,6), gameBoard);
+			plrebel.getGameShip().launch(9, new Coordinate(4,7), gameBoard);
+			
+		} catch (WrongFighterIdException | FighterAlreadyInBoardException | OutOfBoundsException e) { }
+		
+		try {
+			plimperial.getGameShip().launch(10, new Coordinate(1,6), gameBoard);
+			plimperial.getGameShip().launch(11, new Coordinate(6,7), gameBoard);
+			
+		} catch (WrongFighterIdException | FighterAlreadyInBoardException | OutOfBoundsException e) { }
+		System.out.println(gameBoard.toString());
+		compareLines(kEXAMPLEBOARD, gameBoard.toString());
+		
+		
+		
+		
 	}
 
 	/*************************

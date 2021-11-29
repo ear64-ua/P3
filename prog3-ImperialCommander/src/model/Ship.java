@@ -54,6 +54,7 @@ public class Ship {
 	 */
 	public Ship(String name, Side side) {
 		Objects.requireNonNull(side);
+		Objects.requireNonNull(name);
 		this.wins = 0;
 		this.losses = 0;
 		this.name = name;

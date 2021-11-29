@@ -95,9 +95,8 @@ public class GameShip extends Ship {
 	 * @throws OutOfBoundsException cuando la coordenada esta fuera de los limites
 	 */
 	public void launch(int id, Coordinate c, Board b) throws WrongFighterIdException, FighterAlreadyInBoardException, OutOfBoundsException {
-		Objects.requireNonNull(id);
 		Objects.requireNonNull(c);
-		Objects.requireNonNull(b);;
+		Objects.requireNonNull(b);
 		
 		Fighter f = this.getFighter(id);
 		
@@ -112,7 +111,6 @@ public class GameShip extends Ship {
 	 * @throws FighterNotInBoardException cuando el caza no se encuentra en el tablero
 	 */
 	public void patrol(int id,Board b) throws WrongFighterIdException, FighterNotInBoardException {
-		Objects.requireNonNull(id);
 		Objects.requireNonNull(b);
 		
 		Fighter f = this.getFighter(id);
@@ -128,8 +126,6 @@ public class GameShip extends Ship {
 	 * @throws WrongFighterIdException cuando no se encuentra el caza con el id pasado
 	 */
 	public void improveFighter(int id,int qty, Board b) throws WrongFighterIdException {
-		Objects.requireNonNull(id);
-		Objects.requireNonNull(qty);
 		Objects.requireNonNull(b);
 		
 		Fighter f = this.getFighter(id);

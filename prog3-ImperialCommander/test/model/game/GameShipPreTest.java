@@ -191,7 +191,7 @@ public class GameShipPreTest {
 
 	/* Añade cazas a un GameShip y pon a patrullar a uno con una id que
 	 * no existe en el tablero. Como no está en él, comprueba que se lanza 
-	 * la excepción FighterNotInBoardException y no otra.
+	 * la excepción WrongFighterIdException y no otra.
 	 */
 	//TODO
 	@Test
@@ -201,7 +201,7 @@ public class GameShipPreTest {
 	
 	/* Añade cazas a un GameShip y pon un TIEInterceptor en un tablero.
 	 * Añade una mejora de 97 al caza del tablero. Comprueba que ya no está en
-	 * el tablero y que el ataque ahora es de 132 y el escudo de 108.
+	 * el tablero y que el ataque ahora es de 133 y el escudo de 109.
 	 */
 	@Test
 	public void testImproveFighter() throws WrongFighterIdException, FighterAlreadyInBoardException, OutOfBoundsException, InvalidSizeException {

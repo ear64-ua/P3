@@ -48,7 +48,6 @@ public class PlayerRandom implements IPlayer {
 	 */
 	public PlayerRandom(Side side, int numFighters) {
 		Objects.requireNonNull(side);
-		Objects.requireNonNull(numFighters);
 		this.numFighters = numFighters;
 		ship = new GameShip("PlayerRandom " + ((side == Side.REBEL) ? "REBEL" : "IMPERIAL" ) + " Ship" ,side);
 	}
@@ -137,7 +136,8 @@ public class PlayerRandom implements IPlayer {
 		if (option == 99)
 			return false;
 		
-		List<Integer> l = (0 <= option && option <= 24) ? ship.getFightersId("board") : ship.getFightersId("ship") ;
+		List<Integer> l = (0 <= option && option <= 24) ? ship.getFightersId("board") : (25 <= option && option <= 84) ? 
+				ship.getFightersId("ship") : ship.getFightersId("");
 		
 		if (l.isEmpty()) {
 			if (25 <= option && option <= 84)

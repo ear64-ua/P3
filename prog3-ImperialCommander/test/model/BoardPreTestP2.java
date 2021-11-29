@@ -478,8 +478,25 @@ public class BoardPreTestP2 {
 	 */
 	@Test
 	public void testRequireNonNull() throws FighterAlreadyInBoardException, OutOfBoundsException, FighterNotInBoardException  {
+		try {
+			board.launch(null, null);
+			fail("Se debió lanzar NullPointerException");
+		}catch(NullPointerException e1) { }
 		
-		fail("Realiza las comprobaciones de los métodos");
+		try {
+			board.removeFighter(null);
+			fail("Se debió lanzar NullPointerException");
+		}catch(NullPointerException e1) { }
+		
+		try {
+			board.getFighter(null);
+			fail("Se debió lanzar NullPointerException");
+		}catch(NullPointerException e1) { }
+		
+		try {
+			board.getNeighborhood(null);
+			fail("Se debió lanzar NullPointerException");
+		}catch(NullPointerException e1) { }
 	}
 	
 	

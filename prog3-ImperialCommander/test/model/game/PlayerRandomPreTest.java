@@ -76,7 +76,10 @@ public class PlayerRandomPreTest {
 		gs = playerRandom.getGameShip();
 		assertEquals(Side.REBEL,gs.getSide());
 		assertEquals("PlayerRandom REBEL Ship", gs.getName());
-		fail("Comprueba que el objeto playerRandom es una instancia de IPlayer");
+		
+		if (!(playerRandom instanceof IPlayer)) {
+			fail("playerRandom no es una instancia de IPlayer");
+		}
 	}
 
 
@@ -92,13 +95,16 @@ public class PlayerRandomPreTest {
 	}
 	
 	/* Crea un PlayerRandom Imperial, con numSize de 500. Invoca a initFighters() y
-	 * comprueba que el fleet del GameShip asociado tiene 960 cazas y
+	 * comprueba que el fleet del GameShip asociado tiene 920 cazas y
 	 * que el ship es correcto (coincide con kIMPERIALGAMESHIP)
 	 */
 	//TODO
 	@Test
 	public void testInitFightersImperial() {
-		fail("Realiza el test");
+		PlayerRandom pr = new PlayerRandom(Side.IMPERIAL,500);
+		pr.initFighters();
+		assertEquals(pr.getGameShip().getFleetTest().size(),920);
+		
 	}
 
 	/* Para un PlayerRandom sin iniciar (sin cazas en la nave) se comprueba que isFleetDestroyed es true
@@ -136,7 +142,8 @@ public class PlayerRandomPreTest {
 	public void testPurgeFleet() {
 		playerRandom.initFighters();
 		assertEquals(20,playerRandom.getGameShip().getFleetTest().size());
-		fail("Termina el test");
+		playerRandom.purgeFleet();
+		assertEquals(20,playerRandom.getGameShip().getFleetTest().size());
 	}
 
 	/* Se inicia playerRandom con cazas en su nave. Se le añade un tablero. 
@@ -180,9 +187,20 @@ public class PlayerRandomPreTest {
 	/* Realiza el test de comprobación de los parámetros null en PlayerRandom del constructor y de setBoard */
 	//TODO
 	@Test
-	public void testRequireNonNull()  {
+	public void testRequireNonNull() throws InvalidSizeException  {
+		try {
+		@SuppressWarnings("unused")
+		PlayerRandom pr = new PlayerRandom(null,5);
+		fail("Se debió lanzar NullPointerException");
+		}catch(NullPointerException e) {
+			PlayerRandom pr = new PlayerRandom(Side.IMPERIAL,5);
+			try{
+				pr.setBoard(null);
+				fail("Se debió lanzar NullPointerException");
+				
+			}catch(NullPointerException e2) { }
+		}
 		
-		fail("Realiza el test");
 	}
 
 	/***************************
