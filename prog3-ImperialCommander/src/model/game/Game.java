@@ -5,16 +5,37 @@ import java.util.Objects;
 import model.Side;
 import model.exceptions.InvalidSizeException;
 
-
+/**
+ *  Clase principal que engloba el juego
+ *	@author Enrique Abma Romero X9853366M
+ *	@version 1.8 2011
+ **/
 public class Game {
+	/**
+	 * Las dimensiones del tablero como constante
+	 */
 	private final int BOARD_SIZE = 10;
 	
+	/**
+	 * Atributo que sirve como jugador del lado imperial
+	 */
 	private IPlayer imperial;
 	
+	/**
+	 * Atributo que sirve como jugador del lado rebelde
+	 */
 	private IPlayer rebel;
 	
+	/**
+	 * Atributo privado de GameBoard
+	 */
 	private GameBoard board;
 	
+	/**
+	 * Constructor de Game
+	 * @param imperial se iguala al parametro pasado
+	 * @param rebel se iguala al parametro pasado
+	 */
 	public Game(IPlayer imperial, IPlayer rebel) {
 		Objects.requireNonNull(imperial);
 		Objects.requireNonNull(rebel);
@@ -23,15 +44,26 @@ public class Game {
 		this.rebel=rebel;
 		try {
 			board = new GameBoard(BOARD_SIZE);
+			rebel.setBoard(board);
+			imperial.setBoard(board);
 		} catch (InvalidSizeException e) {
 			throw new RuntimeException();
 		}
 	}
 	
+	/**
+	 * Getter del tablero
+	 * @return el tablero
+	 */
 	public GameBoard getGameBoard() {
 		return board;
 	}
 	
+	/**
+	 * Metodo privado que realiza los movimientos del lado rebelde y los muestra
+	 * @param numRebel numero de cazas en el tablero
+	 * @return {@code -1} si no sigue jugando {@code 1} en caso contrario
+	 */
 	private int rebelMove(int numRebel) {
 
 		System.out.println(board);
@@ -51,6 +83,11 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Metodo privado que realiza los movimientos del lado imperial y los muestra
+	 * @param numRebel numero de cazas en el tablero
+	 * @return {@code 0} si no sigue jugando {@code 1} en caso contrario
+	 */
 	private int imperialMove(int numImperial) {
 		
 		System.out.println("BEFORE IMPERIAL");
@@ -66,6 +103,11 @@ public class Game {
 			return 1;
 	}
 	
+	/**
+	 * Metodo privado que prueba que alguna flota haya sido desrtuida
+	 * @return {@code 2} si la flota imperial ha sido destruida, {@code -2} 
+	 * si la flota rebelde ha sido destruida y {@code 1} en caso contrario
+	 */
 	private int checkFleet() {
 		
 		if (imperial.isFleetDestroyed())
@@ -76,24 +118,28 @@ public class Game {
 		return 1;
 	}
 	
+	/**
+	 * Metodo que simula el juego entre dos jugadores
+	 * @return el lado del bando que gana
+	 */
 	public Side play() {
 		imperial.initFighters();
 		rebel.initFighters();
-		
-		rebel.setBoard(board);
-		imperial.setBoard(board);
 
 		int play = 1;
 		
 		while(play==1){
 			
 			play = imperialMove(board.numFighters(Side.IMPERIAL));
-			play =checkFleet();
+			play = checkFleet();
 			
 			play = rebelMove(board.numFighters(Side.REBEL));
 			play = checkFleet();
 			
 		}
+		
+		imperial.purgeFleet();
+		rebel.purgeFleet();
 		
 		switch(play) {
 			case(-1)://exit rebel

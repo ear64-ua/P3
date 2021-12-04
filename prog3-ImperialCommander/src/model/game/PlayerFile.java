@@ -123,10 +123,9 @@ public class PlayerFile implements IPlayer {
 		
 		try {
 			s = br.readLine();
-			
 		} catch (IOException e) { throw new RuntimeException(); }
 		
-		String saux[] = s.split(" ");
+		String[] saux = s.split(" ");
 		switch(saux[0]) {
 			case "exit":
 				return false;
@@ -147,9 +146,7 @@ public class PlayerFile implements IPlayer {
 				if(saux.length == 2) {
 					try {
 						ship.patrol(Integer.parseInt(saux[1]), board);
-					} catch (WrongFighterIdException | FighterNotInBoardException e) {
-						e.getMessage();
-					}
+					} catch (WrongFighterIdException | FighterNotInBoardException e) { e.getMessage(); }
 				}
 					
 				else
@@ -164,10 +161,7 @@ public class PlayerFile implements IPlayer {
 							
 							this.launch(Integer.parseInt(saux[1]),Integer.parseInt(saux[2]), ""+ship.getFirstAvailableFighter("").getId());
 						
-						} catch ( NoFighterAvailableException e) {
-						
-							e.getMessage();
-						}
+						} catch ( NoFighterAvailableException e) { e.getMessage(); }
 						
 					break;
 						

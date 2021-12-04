@@ -104,13 +104,38 @@ public class GameBoardPreTest {
 	 * Se comprueba que el numFighers para los cazas rebeldes e imperiales coinciden respectivamente
 	 * con los que están en el tablero.
 	 */
-	//TODO
 	@Test
 	public void testNumFighters2() throws FighterAlreadyInBoardException, OutOfBoundsException {
 		gameShip.addFighters("7/AWing:6/XWing:2/YWing");
+		int i=0;
+		int j=0;
+		for (Fighter f : gameShip.getFleetTest()) {
+			if (i==5) {
+				break;
+			}
+			gameBoard.launch(new Coordinate(i,j), f);
+			i++;
+			
+		}
+		// 5 del bandio rebelde
+		assertEquals(5,gameBoard.numFighters(Side.REBEL));
+		
+		j++;
+		i=0;
+		
 		GameShip gameImperialShip = new GameShip("Lanzadera T-4a", Side.IMPERIAL);
 		gameImperialShip.addFighters("3/TIEBomber:9/TIEInterceptor:2/TIEFighter");
-		fail("Termina el test");
+		
+		for (Fighter f : gameImperialShip.getFleetTest()) {
+			
+			if(i==6) {
+				break;
+			}
+			gameBoard.launch(new Coordinate(i,j), f);
+			i++;
+		}
+		//6 del bando imperial
+		assertEquals(6,gameBoard.numFighters(Side.IMPERIAL));
 	}
 	
 	/* Se prueba toString para un tablero de 15x15 vacío
@@ -171,7 +196,6 @@ public class GameBoardPreTest {
 			plimperial.getGameShip().launch(11, new Coordinate(6,7), gameBoard);
 			
 		} catch (WrongFighterIdException | FighterAlreadyInBoardException | OutOfBoundsException e) { }
-		System.out.println(gameBoard.toString());
 		compareLines(kEXAMPLEBOARD, gameBoard.toString());
 		
 		

@@ -490,7 +490,19 @@ public class ShipPreTestP2 {
 	@Test
 	public void testRequireNonNull() throws NoFighterAvailableException {
 		
-		fail("Realiza las comprobaciones de los métodos");
+		for (int i = 0; i < 3; i++) {
+			try {
+				switch(i) {
+					case 0 :new Ship(null,null);
+					fail("Se debió lanzar NullPointerException");
+					case 1 :ship.addFighters(null);
+					fail("Se debió lanzar NullPointerException");
+					case 2 :ship.getFirstAvailableFighter(null);
+					fail("Se debió lanzar NullPointerException");
+				}
+			} catch(NullPointerException e) { }
+			
+		}
 	}
 
 	/*************************************/

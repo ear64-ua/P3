@@ -13,7 +13,7 @@ import model.game.PlayerRandom;
 public class MainP4min {
 
 	public static void main(String[] args) {
-		String inputImp = "2/TIEInterceptor\nlaunch 1 1\nlaunch 2 2\npatrol 2\nexit\n";
+		String inputImp = "2/TIEInterceptor\nlaunch 1 1\nlaunch 2 2\npatrol 2\nexit\n";		
 		Reader stringReaderImp = new StringReader(inputImp);
 		BufferedReader brI = new BufferedReader(stringReaderImp);
 		PlayerFile plimperial = new PlayerFile(Side.IMPERIAL, brI);
