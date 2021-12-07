@@ -67,7 +67,8 @@ public class PlayerFile implements IPlayer {
 		
 		try {
 			String s = br.readLine();
-			ship.addFighters(s);
+			if (s!=null)
+				ship.addFighters(s);
 		} catch (IOException e) { throw new RuntimeException(); }
 	}
 
@@ -99,20 +100,19 @@ public class PlayerFile implements IPlayer {
 		try {
 			id = Integer.parseInt(s);
 			
-		} catch(NumberFormatException e) {
+		} catch(NumberFormatException e_num) {
 			try {
 				id = ship.getFirstAvailableFighter(s).getId();
 			} catch (NoFighterAvailableException e1) {
-				e.getMessage();
+				System.out.println(e1.getMessage());
 				return;
-				//comprobar si lanza dos mensajes de excepciones
 			}
 		}
 		
 		try {
 			ship.launch(id, c, board);
 		} catch (WrongFighterIdException | FighterAlreadyInBoardException | OutOfBoundsException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -120,12 +120,17 @@ public class PlayerFile implements IPlayer {
 	public boolean nextPlay() {
 		
 		String s = "";
+		String saux[]= {""};
 		
 		try {
 			s = br.readLine();
 		} catch (IOException e) { throw new RuntimeException(); }
 		
-		String[] saux = s.split(" ");
+		
+		try {
+			saux = s.split(" ");
+		}catch(NullPointerException e_null) {System.out.println("ERROR: out of movements");return true;}
+
 		switch(saux[0]) {
 			case "exit":
 				return false;
@@ -133,9 +138,12 @@ public class PlayerFile implements IPlayer {
 			case "improve":
 				if(saux.length == 3) {
 					try {
-						ship.improveFighter(Integer.parseInt(saux[1]), Integer.parseInt(saux[2]), board);
+						if( Integer.parseInt(saux[2])<100)
+							ship.improveFighter(Integer.parseInt(saux[1]), Integer.parseInt(saux[2]), board);
+						else
+							System.out.println("ERROR: quantity must be less than 100");
 					
-					} catch (WrongFighterIdException e) { e.getMessage(); }
+					} catch (WrongFighterIdException e) { System.out.println(e.getMessage()); }
 				}
 				
 				else 
@@ -146,7 +154,7 @@ public class PlayerFile implements IPlayer {
 				if(saux.length == 2) {
 					try {
 						ship.patrol(Integer.parseInt(saux[1]), board);
-					} catch (WrongFighterIdException | FighterNotInBoardException e) { e.getMessage(); }
+					} catch (WrongFighterIdException | FighterNotInBoardException e) {  System.out.println(e.getMessage()); }
 				}
 					
 				else
@@ -161,7 +169,7 @@ public class PlayerFile implements IPlayer {
 							
 							this.launch(Integer.parseInt(saux[1]),Integer.parseInt(saux[2]), ""+ship.getFirstAvailableFighter("").getId());
 						
-						} catch ( NoFighterAvailableException e) { e.getMessage(); }
+						} catch ( NoFighterAvailableException e) {  System.out.println(e.getMessage()); }
 						
 					break;
 						

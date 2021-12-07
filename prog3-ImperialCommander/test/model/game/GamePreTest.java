@@ -2,6 +2,8 @@ package model.game;
 
 import static org.junit.Assert.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,8 +80,8 @@ public class GamePreTest {
 	 * Se comprueba que el que gana es el player REBEL y que la salida de play() coincide con el resultado
 	 * solución que está en el fichero "files/testPlayEmptyShips.out"
 	 */
-	@Test
-	public void testPlayEmptyShips() {
+	@Test 
+	public void testPlayEmptyShips() throws IOException {
 		String inputImp = "2/TIEInterceptores\nlaunch 1 1";
 		stringReader = new StringReader(inputImp);
 		BufferedReader br = new BufferedReader(stringReader);
@@ -94,6 +96,7 @@ public class GamePreTest {
 		standardIO2Stream(); //Cambia salida standard a un Stream
 		Side winner = game.play();
 		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
+		//System.out.println(sout);
 		assertEquals(Side.REBEL, winner);
 		String solution = readSolutionFromFile("files/testPlayEmptyShips.out");
 		compareLines(solution, sout, false);
@@ -111,8 +114,17 @@ public class GamePreTest {
 		stringReader = new StringReader(inputImp);
 		BufferedReader br = new BufferedReader(stringReader);
 		plfImperial = new PlayerFile(Side.IMPERIAL, br);
+		plfRebel = new PlayerFile(Side.REBEL,new BufferedReader(new StringReader("")));
 		
-		fail("Termina el test");
+		game = new Game(plfImperial,plfRebel);
+		standardIO2Stream(); //Cambia salida standard a un Stream
+		Side winner = game.play();
+		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
+		System.out.println(sout);
+		assertEquals(Side.IMPERIAL, winner);
+		String solution = readSolutionFromFile("files/testPlayEmptyRebelShip.out");
+		compareLines(solution, sout, false);
+		
 	}
 	
 	/* Game del MainP4min.
@@ -143,7 +155,7 @@ public class GamePreTest {
 	}
 	
 	/*Test como MainP4min, IMPERIAL hace exit 
-	 */
+	 
 	@Test
 	public void testPlayMainImpExit() {
 		String inputImp = "2/TIEInterceptor\nlaunch 1 1\nlaunch 2 2\nexit\n";
@@ -163,7 +175,7 @@ public class GamePreTest {
 		String solution = readSolutionFromFile("files/testPlayMainImpExit.out");
 		compareLines(solution, sout, false);
 	}
-
+*/
 
 	/***************************
 	 * METODOS DE APOYO
@@ -223,6 +235,14 @@ public class GamePreTest {
 				sb.append(sc.nextLine()+"\n");			
 			sc.close();
 			return (sb.toString());
-		}
+	}
+	
+	private void writeResults2File(String toWrite) throws IOException {
+		File myObj = new File("result.txt");
+	      myObj.createNewFile();
+	      FileWriter myWriter = new FileWriter("result.txt");
+	      myWriter.write(toWrite);
+	      myWriter.close();
+	}
 	
 }

@@ -65,24 +65,23 @@ public class Game {
 	 * @return {@code -1} si no sigue jugando {@code 1} en caso contrario
 	 */
 	private int rebelMove(int numRebel) {
+		
+		System.out.println("REBEL("+numRebel+"): ");
 
+		if (!rebel.nextPlay())
+			return -1;
+		
+		System.out.println("AFTER REBEL");
+		showBoardFleet();
+		return 1;
+		
+	}
+	
+	private void showBoardFleet() {
 		System.out.println(board);
 		System.out.println(imperial.showShip());
 		System.out.println(rebel.showShip());
-		
-		boolean keep = rebel.nextPlay();
-
-		if (!keep)
-			return -1;
-		else{
-			System.out.println("REBEL("+numRebel+"): AFTER REBEL");
-			System.out.println(board);
-			System.out.println(imperial.showShip());
-			System.out.println(rebel.showShip());
-			return 1;
-		}
 	}
-	
 	/**
 	 * Metodo privado que realiza los movimientos del lado imperial y los muestra
 	 * @param numRebel numero de cazas en el tablero
@@ -91,16 +90,16 @@ public class Game {
 	private int imperialMove(int numImperial) {
 		
 		System.out.println("BEFORE IMPERIAL");
-		System.out.println(board);
-		System.out.println(imperial.showShip());
-		System.out.println(rebel.showShip());
-		boolean keep = imperial.nextPlay();
-		System.out.println("IMPERIAL("+numImperial+"): AFTER IMPERIAL, BEFORE REBEL");
+		showBoardFleet();
+		System.out.println("IMPERIAL("+numImperial+"): ");
 		
-		if (!keep)
+		if (!imperial.nextPlay())
 			return 0;
-		else
-			return 1;
+		
+		System.out.println("AFTER IMPERIAL, BEFORE REBEL");
+		showBoardFleet();
+		
+		return 1;
 	}
 	
 	/**
@@ -134,10 +133,10 @@ public class Game {
 			play = checkFleet();
 			
 			play = rebelMove(board.numFighters(Side.REBEL));
-			play = checkFleet();
-			
+			imperial.purgeFleet();
+			rebel.purgeFleet();
+			play = checkFleet();	
 		}
-		
 		imperial.purgeFleet();
 		rebel.purgeFleet();
 		

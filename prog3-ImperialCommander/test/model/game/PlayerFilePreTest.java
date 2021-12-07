@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import model.Coordinate;
 import model.Fighter;
+import model.FighterFactory;
 import model.Side;
 import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.FighterNotInBoardException;
@@ -22,6 +23,7 @@ import model.game.exceptions.WrongFighterIdException;
 
 public class PlayerFilePreTest {
 	PlayerFile playerFile;
+	PlayerFile playerFile2;
 	GameShip gs;
 	GameBoard gb;
 	String inputFighter;
@@ -118,8 +120,14 @@ public class PlayerFilePreTest {
 	//TODO
 	@Test
 	public void testInitFightersImperial() {
-		inputFighter = "155/TIEInterceptor:210/TIEBomber:170/TIEFighter\nlaunch 1 5\nlaunch 2 2\npatrol 2\nexit\n";
-		fail("Realiza el test");
+		String inputFighter = "155/TIEInterceptor:210/TIEBomber:170/TIEFighter\nlaunch 1 5\nlaunch 2 2\npatrol 2\nexit\n";
+		stringReader = new StringReader(inputFighter);
+		br = new BufferedReader(stringReader);
+		playerFile2 = new PlayerFile(Side.IMPERIAL, br);
+		playerFile2.initFighters();
+		gs = playerFile2.getGameShip();
+		assertEquals(535,gs.getFleetTest().size());
+		compareLines(kIMPERIALGAMESHIP, playerFile2.getGameShip().toString());
 	}
 
 	
@@ -155,14 +163,19 @@ public class PlayerFilePreTest {
 	 * Se destruyen todos los cazas. Se ejecuta purgeFleet(). Se comprueba que ahora
 	 * no existe ningún caza en la nave.
 	 */
-	//TODO
 	@Test
 	public void testPurgeFleet() {
 		playerFile.initFighters();
 		assertEquals(42,playerFile.getGameShip().getFleetTest().size());
 		playerFile.purgeFleet();
 		assertEquals(42,playerFile.getGameShip().getFleetTest().size());
-		fail("Termina el test");
+		
+		for (int i = 0; i < 42; i++) {
+			playerFile.getGameShip().getFleetTest().get(i).addShield(-200);
+		}
+		playerFile.purgeFleet();
+		assertEquals(0,playerFile.getGameShip().getFleetTest().size());
+		
 	}
 	
 	/* Inicia playerFile con cazas en su nave. Añadele un tablero. 
@@ -172,7 +185,6 @@ public class PlayerFilePreTest {
 	 * devuelve false.
 	 * Comprueba que está en el tablero en esa posición.
 	 */
-	//TODO
 	@Test
 	public void testNextPlay() {
 		String s = "10/AWing:25/XWing\nlaunch 4 6 1\nexit";
@@ -184,7 +196,8 @@ public class PlayerFilePreTest {
 		playerFile.setBoard(gb);
 		assertTrue (playerFile.nextPlay()); //Pone un caza en el tablero (id=1)
 		assertFalse (playerFile.nextPlay()); //Sale con exit	
-		fail("Comprueba que el caza con id=1 está en el tablero");
+		
+		assertEquals(1,gb.getFighter(new Coordinate(4,6)).getId());
 	}
 
 	/* Inicia playerFile con cazas en su nave. Añadele un tablero. 
@@ -200,19 +213,53 @@ public class PlayerFilePreTest {
 	 *  las opciones
 	 * 
 	 */
-	//TODO
 	@Test
-	public void testNextPlay1() {
-		fail("Crea el String inputFighter que realice todas las operaciones indicadas");
+	public void testNextPlay1() throws FighterAlreadyInBoardException, OutOfBoundsException {
+		String inputFighter = "10/AWing:25/XWing:7/YWing\nlaunch 2 3 1\nlaunch 1 2 YWing\nlaunch 1 3\nimprove 1 10\npatrol 2\nexit";
+		
+		//lanzamos un caza con el que pelear
+		Fighter fi = FighterFactory.createFighter("TIEBomber", new GameShip("Imperial", Side.IMPERIAL));
+		fi.addShield(-10);
+		gb.launch(new Coordinate(1,4), fi);
 		stringReader = new StringReader(inputFighter);
 		br = new BufferedReader(stringReader);
 		playerFile = new PlayerFile(Side.REBEL, br);
 		gs = playerFile.getGameShip();
 		Fighter.resetNextId();
+		
 		playerFile.initFighters();
 		playerFile.setBoard(gb);
 		gs = playerFile.getGameShip();
-		fail("Termina el ejercicio");
+		//launch 2 3 id=1
+		assertTrue (playerFile.nextPlay()); 
+		assertEquals((Integer) 1,playerFile.getGameShip().getFightersId("board").get(0));		
+		assertEquals(1,gb.getFighter(new Coordinate(2,3)).getId());
+		
+		//launch 1 2 type=YWing
+		assertTrue (playerFile.nextPlay()); 
+		assertEquals(36,gb.getFighter(new Coordinate(1,2)).getId());
+		
+		//launch 1 3
+		assertTrue (playerFile.nextPlay());
+		assertEquals(2,gb.getFighter(new Coordinate(1,3)).getId());
+		
+		//improve 1 10
+		assertTrue (playerFile.nextPlay());
+		assertEquals(null,gb.getFighter(new Coordinate(2,3)));
+		assertEquals(35,gs.getFleetTest().get(0).getShield());
+		assertEquals(90,gs.getFleetTest().get(0).getAttack());
+
+		//patrol 2
+		assertTrue (playerFile.nextPlay());
+		assertNotNull(gb.getFighter(new Coordinate(1,3)).getShield());
+		try {
+			gb.getFighter(new Coordinate(1,4)).getShield();
+			fail("Debió saltar la excepción NullPointerException");
+		}catch(NullPointerException e) {}
+		
+		//exit
+		assertFalse (playerFile.nextPlay());
+		
 	}
 	
 	
@@ -242,6 +289,34 @@ public class PlayerFilePreTest {
 		String serr = Stream2StandardIO(); //Restauramos la salida estandar a la consola.
 		errorsControl(serr,5); //Comprobamos que serr contiene cinco líneas que empiezan con 'ERROR:'
 	}
+	
+	/* Tras iniciar playerFile con cazas y asignarles un tablero de 10x10, se invoca cinco veces a nextPlay() 
+	 * que debe ejecutar tres instrucciones launch erróneas:
+	 *  - con launch
+	 *  - con launch y un numero
+	 *  - con launch y 4 cadenas más
+	 *  - con launch y tres cadenas más con un id que no existe
+	 *  - con launch y tres cadenas más con un tipo que no existe
+	 *  - con una opción launch mal escrita: 'launches'
+	 * Se comprueba que se emitieron los mensajes de error y que éstos empiezan con la 
+	 * subcadena "ERROR:".
+	 */
+	@Test
+	public void testNextPlayWithErrorsInLaunch() {
+		
+		String s = "2/AWing:4/XWing:1/YWing\nlaunch\nlaunch 1\nimprove 2 1 1 1\nlaunch 3 3 8\nlaunch 3 2 TIEWing\nlaunches 1 1";
+		stringReader = new StringReader(s);
+		br = new BufferedReader(stringReader);
+		playerFile = new PlayerFile(Side.REBEL, br);
+		gs = playerFile.getGameShip();
+		playerFile.initFighters();
+		playerFile.setBoard(gb);
+		standardIO2Stream(); //Cambiamos la salida estandard a un nuevo stream
+		for (int i=0; i<6; i++)
+			assertTrue (playerFile.nextPlay()); 
+		String serr = Stream2StandardIO(); //Restauramos la salida estandar a la consola.
+		errorsControl(serr,6); //Comprobamos que serr contiene cinco líneas que empiezan con 'ERROR:'
+	}
 
 	/* Tras iniciar playerFile con cazas y asignarles un tablero de 10x10, se invoca cinco veces a nextPlay() 
 	 * que debe ejecutar 6 instrucciones una launch correcta y 5 patrol erróneas:
@@ -257,7 +332,28 @@ public class PlayerFilePreTest {
 	@Test
 	public void testNextPlayWithErrorsInPatrol() throws FighterAlreadyInBoardException, OutOfBoundsException {
 		
-		fail("Realiza el test");
+		String inputFighter = "1/AWing:2/XWing:7/YWing"+"\nlaunch 2 3 1"+
+		"\npatrol\npatrol 1 1\npatrol 2\npatrol 15\npatrols 1\nexit";
+		stringReader = new StringReader(inputFighter);
+		br = new BufferedReader(stringReader);
+		playerFile = new PlayerFile(Side.REBEL, br);
+		gs = playerFile.getGameShip();
+		Fighter.resetNextId();
+		
+		playerFile.initFighters();
+		playerFile.setBoard(gb);
+		gs = playerFile.getGameShip();
+		
+		standardIO2Stream(); //Cambiamos la salida estandard a un nuevo stream
+		for (int i=0; i<6; i++)
+			assertTrue (playerFile.nextPlay()); 
+		
+		String serr = Stream2StandardIO();
+		errorsControl(serr,5);
+		
+		assertFalse (playerFile.nextPlay()); 
+		
+		
 	}
 	
 	/* Test de comprobación de los parámetros null en PlayerFile */

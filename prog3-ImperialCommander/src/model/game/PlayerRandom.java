@@ -131,7 +131,6 @@ public class PlayerRandom implements IPlayer {
 	public boolean nextPlay() {
 		
 		int option = RandomNumber.newRandomNumber(100);
-		System.out.println(option);
 		
 		if (option == 99)
 			return false;
