@@ -34,12 +34,12 @@ public class PlayerRandom implements IPlayer {
 	/**
 	 * Cadena de tipo String que contiene los diferentes tipos de caza del bando Imperial
  	 */
-	private final String[] imperialType = IPlayer.imperialType; 
+	public final String[] imperialType = {"TIEFighter", "TIEBomber", "TIEInterceptor"}; 
 	
 	/**
 	 * Cadena de tipo String que contiene los diferentes tipos de caza del bando Rebel
  	 */
-	private final String[] rebelType = IPlayer.rebelType; 
+	public final String[] rebelType = {"XWing", "YWing", "AWing"}; 
 	
 	/**
 	 * Constructor de PlayerRandom
@@ -124,7 +124,6 @@ public class PlayerRandom implements IPlayer {
 			throw new RuntimeException(e);
 		}
 		
-
 	}
 	
 	@Override

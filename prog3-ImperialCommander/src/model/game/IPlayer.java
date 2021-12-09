@@ -6,16 +6,6 @@ package model.game;
  *	@version 1.8 2011
  **/
 public interface IPlayer {
-
-		/**
-		 * Cadena de tipo String que contiene los diferentes tipos de caza del bando Imperial
-	 	 */
-		public final static String[] imperialType = {"TIEFighter", "TIEBomber", "TIEInterceptor"}; 
-	
-		/**
-		 * Cadena de tipo String que contiene los diferentes tipos de caza del bando Rebel
-	 	 */
-		public final static String[] rebelType = {"XWing", "YWing", "AWing"}; 
 		
 		/**
 		 * Asigna el tablero pasado como parametro al atributo {@code board} del jugador

@@ -120,7 +120,7 @@ public class GamePreTest {
 		standardIO2Stream(); //Cambia salida standard a un Stream
 		Side winner = game.play();
 		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
-		System.out.println(sout);
+		//System.out.println(sout);
 		assertEquals(Side.IMPERIAL, winner);
 		String solution = readSolutionFromFile("files/testPlayEmptyRebelShip.out");
 		compareLines(solution, sout, false);
@@ -138,6 +138,7 @@ public class GamePreTest {
 		
 		String sout = Stream2StandardIO(); //Cambia salida standard a un Stream
 		assertEquals(Side.IMPERIAL, winner);
+		
 		String solution = readSolutionFromFile("files/testPlayMain1.out"); //Cambia salida de Stream a la consola
 		compareLines(solution, sout, false);
 	}
@@ -151,10 +152,22 @@ public class GamePreTest {
 	//TODO
 	@Test
 	public void testPlayMain2() {
-		fail("Realiza el test del MainP4");
+		PlayerRandom plimperial = new PlayerRandom(Side.IMPERIAL,3);
+		PlayerRandom plrebel = new PlayerRandom(Side.REBEL,3);
+		
+		Game g = new Game(plimperial,plrebel);
+
+		standardIO2Stream(); //Cambia salida standard a un Stream
+		g.play();
+		String sout = Stream2StandardIO(); //Cambia salida standard a un Stream
+		try {
+			writeResults2File(sout,"Main2result");
+		} catch (IOException e) {}
+		String solution = readSolutionFromFile("files/testPlayMain2.out"); //Cambia salida de Stream a la consola
+		compareLines(solution, sout, false);
 	}
 	
-	/*Test como MainP4min, IMPERIAL hace exit 
+	//Test como MainP4min, IMPERIAL hace exit 
 	 
 	@Test
 	public void testPlayMainImpExit() {
@@ -175,7 +188,7 @@ public class GamePreTest {
 		String solution = readSolutionFromFile("files/testPlayMainImpExit.out");
 		compareLines(solution, sout, false);
 	}
-*/
+
 
 	/***************************
 	 * METODOS DE APOYO
@@ -237,10 +250,20 @@ public class GamePreTest {
 			return (sb.toString());
 	}
 	
-	private void writeResults2File(String toWrite) throws IOException {
-		File myObj = new File("result.txt");
-	      myObj.createNewFile();
-	      FileWriter myWriter = new FileWriter("result.txt");
+	private void writeResults2File(String toWrite, String name) throws IOException {
+		try {
+		      File myObj = new File("files/"+name+".txt");
+		      if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		        System.out.println("File already exists.");
+		      }
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		
+	      FileWriter myWriter = new FileWriter("files/"+name+".txt");
 	      myWriter.write(toWrite);
 	      myWriter.close();
 	}

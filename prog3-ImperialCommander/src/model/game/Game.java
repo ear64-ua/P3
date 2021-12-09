@@ -56,7 +56,12 @@ public class Game {
 	 * @return el tablero
 	 */
 	public GameBoard getGameBoard() {
-		return board;
+		try {
+			GameBoard gb = new GameBoard(board.getSize());
+			gb = board;
+			return gb;
+		} catch (InvalidSizeException e) {}
+		return null;
 	}
 	
 	/**
@@ -64,19 +69,22 @@ public class Game {
 	 * @param numRebel numero de cazas en el tablero
 	 * @return {@code -1} si no sigue jugando {@code 1} en caso contrario
 	 */
-	private int rebelMove(int numRebel) {
+	private int rebelMove(int numRebel,int play) {
 		
-		System.out.println("REBEL("+numRebel+"): ");
-
+		System.out.print("REBEL("+numRebel+"):");
+	
 		if (!rebel.nextPlay())
 			return -1;
-		
+			
 		System.out.println("AFTER REBEL");
 		showBoardFleet();
-		return 1;
 		
+		return play;
 	}
 	
+	/**
+	 * Metodo privado que se encarga de mostrar el tablero y las naves
+	 */
 	private void showBoardFleet() {
 		System.out.println(board);
 		System.out.println(imperial.showShip());
@@ -87,20 +95,20 @@ public class Game {
 	 * @param numRebel numero de cazas en el tablero
 	 * @return {@code 0} si no sigue jugando {@code 1} en caso contrario
 	 */
-	private int imperialMove(int numImperial) {
+	private int imperialMove(int numImperial,int play) {
 		
 		System.out.println("BEFORE IMPERIAL");
 		showBoardFleet();
-		System.out.println("IMPERIAL("+numImperial+"): ");
-		
+		System.out.print("IMPERIAL("+numImperial+"):");
+			
 		if (!imperial.nextPlay())
 			return 0;
-		
+			
 		System.out.println("AFTER IMPERIAL, BEFORE REBEL");
 		showBoardFleet();
 		
-		return 1;
-	}
+		return 1;		
+}
 	
 	/**
 	 * Metodo privado que prueba que alguna flota haya sido desrtuida
@@ -118,6 +126,34 @@ public class Game {
 	}
 	
 	/**
+	 * Metodo privado que se encarga del bucle en el que se basa el juego
+	 * @return el valor del resultado de la jugada, distinto de 1
+	 */
+	private int loopPlay() {
+		int play = 1;
+		
+		while(true){
+			play = imperialMove(board.numFighters(Side.IMPERIAL),play);
+			
+			if(play==0) break;
+			
+			play = checkFleet();
+			
+			if(play!=1) break;
+				
+			play = rebelMove(board.numFighters(Side.REBEL),play);
+			
+			if(play==0) break;
+			
+			imperial.purgeFleet();
+			rebel.purgeFleet();
+			play = checkFleet();				
+		}
+		
+		return play;
+	}
+	
+	/**
 	 * Metodo que simula el juego entre dos jugadores
 	 * @return el lado del bando que gana
 	 */
@@ -125,18 +161,8 @@ public class Game {
 		imperial.initFighters();
 		rebel.initFighters();
 
-		int play = 1;
+		int play = loopPlay();
 		
-		while(play==1){
-			
-			play = imperialMove(board.numFighters(Side.IMPERIAL));
-			play = checkFleet();
-			
-			play = rebelMove(board.numFighters(Side.REBEL));
-			imperial.purgeFleet();
-			rebel.purgeFleet();
-			play = checkFleet();	
-		}
 		imperial.purgeFleet();
 		rebel.purgeFleet();
 		
