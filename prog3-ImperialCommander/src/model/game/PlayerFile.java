@@ -89,9 +89,9 @@ public class PlayerFile implements IPlayer {
 
 	/**
 	 * Metodo privado encargado de lanzar los cazas
-	 * @param x
-	 * @param y
-	 * @param s
+	 * @param x coordenada X
+	 * @param y coordenada Y
+	 * @param s cadena a leer
 	 */
 	private void launch(int x, int y, String s) {
 		Coordinate c = new Coordinate(x,y);
@@ -116,6 +116,72 @@ public class PlayerFile implements IPlayer {
 		}
 	}
 	
+	/**
+	 * Metodo privado encargado de mejorar un caza
+	 * @param saux cadenas a leer
+	 */
+	private void improve(String saux[]) {
+		if(saux.length == 3) {
+			try {
+				if( Integer.parseInt(saux[2])<100)
+					ship.improveFighter(Integer.parseInt(saux[1]), Integer.parseInt(saux[2]), board);
+				else
+					System.out.println("ERROR: quantity must be less than 100");
+			
+			} catch (WrongFighterIdException e) { System.out.println(e.getMessage()); }
+		}
+		
+		else 
+			System.out.println(ERR_SYNTAX);
+	}
+	
+	/**
+	 * Metodo privado que se encarga de decidir el movimiento que se va a realizar
+	 * @param saux cadenas de las cuales serviran para decidir la jugada
+	 * @return true si sigue jugando o false en caso contrario
+	 */
+	private boolean decidePlay(String saux[]) {
+		
+		switch(saux[0]) {
+			case "exit":
+				return false;
+			
+			case "improve":
+				improve(saux);
+				break;
+				
+			case "patrol":
+				if(saux.length==2) {
+					try {
+						ship.patrol(Integer.parseInt(saux[1]), board);
+					} catch (WrongFighterIdException | FighterNotInBoardException e) {  System.out.println(e.getMessage()); }
+				}
+					
+				else
+					System.out.println(ERR_SYNTAX);
+				break;
+			
+			case "launch":
+				if(saux.length==3) {
+					try {
+						this.launch(Integer.parseInt(saux[1]),Integer.parseInt(saux[2]), ""+ship.getFirstAvailableFighter("").getId());
+					} catch ( NoFighterAvailableException e) {  System.out.println(e.getMessage()); }
+				}
+				else if(saux.length==4) 
+					this.launch(Integer.parseInt(saux[1]),Integer.parseInt(saux[2]),saux[3]);
+				
+				else
+					System.out.println(ERR_SYNTAX);
+				
+				break;
+				
+			default:
+				System.out.println(ERR_SYNTAX);
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public boolean nextPlay() {
 		
@@ -131,66 +197,8 @@ public class PlayerFile implements IPlayer {
 			saux = s.split(" ");
 		}catch(NullPointerException e_null) {System.out.println("ERROR: out of movements");return true;}
 
-		switch(saux[0]) {
-			case "exit":
-				return false;
-			
-			case "improve":
-				if(saux.length == 3) {
-					try {
-						if( Integer.parseInt(saux[2])<100)
-							ship.improveFighter(Integer.parseInt(saux[1]), Integer.parseInt(saux[2]), board);
-						else
-							System.out.println("ERROR: quantity must be less than 100");
-					
-					} catch (WrongFighterIdException e) { System.out.println(e.getMessage()); }
-				}
-				
-				else 
-					System.out.println(ERR_SYNTAX);
-				break;
-				
-			case "patrol":
-				if(saux.length == 2) {
-					try {
-						ship.patrol(Integer.parseInt(saux[1]), board);
-					} catch (WrongFighterIdException | FighterNotInBoardException e) {  System.out.println(e.getMessage()); }
-				}
-					
-				else
-					System.out.println(ERR_SYNTAX);
-				break;
-			
-			case "launch":
-				switch(saux.length) {
-					case 3:
-						
-						try {
-							
-							this.launch(Integer.parseInt(saux[1]),Integer.parseInt(saux[2]), ""+ship.getFirstAvailableFighter("").getId());
-						
-						} catch ( NoFighterAvailableException e) {  System.out.println(e.getMessage()); }
-						
-					break;
-						
-					case 4:
-						
-						this.launch(Integer.parseInt(saux[1]),Integer.parseInt(saux[2]),saux[3]);
-							
-						break;
-						
-					default:
-						System.out.println(ERR_SYNTAX);
-				}
-				
-				break;
-				
-			default:
-				System.out.println(ERR_SYNTAX);
-							
-		}
+		return decidePlay(saux);
 		
-		return true;
 	}
 
 }
