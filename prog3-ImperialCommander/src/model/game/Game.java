@@ -77,7 +77,7 @@ public class Game {
 			return -1;
 			
 		System.out.println("AFTER REBEL");
-		showBoardFleet();
+		showBoardFleet(play);
 		
 		return play;
 	}
@@ -85,10 +85,13 @@ public class Game {
 	/**
 	 * Metodo privado que se encarga de mostrar el tablero y las naves
 	 */
-	private void showBoardFleet() {
+	private void showBoardFleet(int play) {
 		System.out.println(board);
 		System.out.println(imperial.showShip());
-		System.out.println(rebel.showShip());
+		System.out.print(rebel.showShip());
+		
+		if (play==1)
+			System.out.println();
 	}
 	/**
 	 * Metodo privado que realiza los movimientos del lado imperial y los muestra
@@ -98,14 +101,14 @@ public class Game {
 	private int imperialMove(int numImperial,int play) {
 		
 		System.out.println("BEFORE IMPERIAL");
-		showBoardFleet();
+		showBoardFleet(play);
 		System.out.print("IMPERIAL("+numImperial+"): ");
 			
 		if (!imperial.nextPlay())
 			return 0;
 			
 		System.out.println("AFTER IMPERIAL, BEFORE REBEL");
-		showBoardFleet();
+		showBoardFleet(play);
 		
 		return 1;		
 }

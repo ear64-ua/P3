@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileWriter;
 import java.io.FileReader;
+import java.awt.Desktop;
 
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -96,10 +97,9 @@ public class GamePreTest {
 		writeResults2File(sout,"testPlayEmptyShips");  //Escribe la salida en un fichero
 		
 		assertEquals(Side.REBEL, winner);
-		String solution = readSolutionFromFile("files/testPlayEmptyShips.out");
+		String solution = readSolutionFromFile("files/testPlayEmptyShips.txt");
 		compareLines(solution, sout, false);
-		
-		assertTrue(compareLineXLine("files/testPlayEmptyShips.out","files/results/testPlayEmptyShips(result).txt"));
+		assertTrue(compareLineXLine("files/testPlayEmptyShips.txt","files/results/testPlayEmptyShips(result).txt"));
 	}
 	
 	/* Game con la nave REBEL inicialmente vacía.
@@ -124,12 +124,10 @@ public class GamePreTest {
 		writeResults2File(sout,"testPlayEmptyRebelShip");  //Escribe la salida en un fichero
 		
 		assertEquals(Side.IMPERIAL, winner);
-		String solution = readSolutionFromFile("files/testPlayEmptyRebelShip.out");
+		String solution = readSolutionFromFile("files/testPlayEmptyRebelShip.txt");
 		compareLines(solution, sout, false);
 		
-		assertTrue(compareLineXLine("files/testPlayEmptyRebelShip.out","files/results/testPlayEmptyRebelShip(result).txt"));
-
-		
+		assertTrue(compareLineXLine("files/testPlayEmptyRebelShip.txt","files/results/testPlayEmptyRebelShip(result).txt"));
 	}
 	
 	/* Game del MainP4min.
@@ -146,9 +144,9 @@ public class GamePreTest {
 		assertEquals(Side.IMPERIAL, winner);
 		
 		
-		String solution = readSolutionFromFile("files/testPlayMain1.out");
+		String solution = readSolutionFromFile("files/testPlayMain1.txt");
 		compareLines(solution, sout, false);
-		assertTrue(compareLineXLine("files/testPlayMain1.out","files/results/testPlayMain1(result).txt"));
+		assertTrue(compareLineXLine("files/testPlayMain1.txt","files/results/testPlayMain1(result).txt")); 
 
 	}
 	
@@ -171,9 +169,9 @@ public class GamePreTest {
 		String sout = Stream2StandardIO();//Cambia salida de Stream a la consola
 		writeResults2File(sout,"testPlayMain2");  //Escribe la salida en un fichero
 		
-		String solution = readSolutionFromFile("files/testPlayMain2.out"); 
+		String solution = readSolutionFromFile("files/testPlayMain2.txt"); 
 		compareLines(solution, sout, false);
-		assertTrue(compareLineXLine("files/testPlayMain2.out","files/results/testPlayMain2(result).txt"));
+		assertTrue(compareLineXLine("files/testPlayMain2.txt","files/results/testPlayMain2(result).txt"));
 
 	}
 	
@@ -199,9 +197,9 @@ public class GamePreTest {
 		
 		writeResults2File(sout,"testPlayMainImpExit"); //Escribe la salida en un fichero
 		assertEquals(Side.REBEL, winner);
-		String solution = readSolutionFromFile("files/testPlayMainImpExit.out");
+		String solution = readSolutionFromFile("files/testPlayMainImpExit.txt");
 		compareLines(solution, sout, false);
-		assertTrue(compareLineXLine("files/testPlayMainImpExit.out","files/results/testPlayMainImpExit(result).txt")); // comparamos linea por linea
+		assertTrue(compareLineXLine("files/testPlayMainImpExit.txt","files/results/testPlayMainImpExit(result).txt")); // comparamos linea por linea
 
 	}
 	
@@ -318,7 +316,8 @@ public class GamePreTest {
         {
         	System.out.print("{"+origin+"} / ");
         	System.out.println("{"+result+"}");
-        	
+        	open(new File(origin));
+        	open(new File(result));
             System.out.println("Two files have different content. They differ at line "+lineNum);
              
             System.out.println("Origin has "+originLine+" \nResult has "+resultLine+" at line "+lineNum+"\n");
@@ -333,6 +332,21 @@ public class GamePreTest {
 		resultReader.close();
     return true;
 
+	}
+	
+	public static void open(File document) throws IOException {
+		try {  
+	    	if(!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not  
+	    	{  
+	    		System.out.println("not supported");  
+	    		return;  
+	    	}  
+	    	Desktop desktop = Desktop.getDesktop();  
+	    	
+	    	if(document.exists())         //checks file exists or not  
+	    	desktop.open(document);              //opens the specified file  
+	    	
+	    }catch(Exception e)  {  e.printStackTrace();  }  
 	}
 	
 }
