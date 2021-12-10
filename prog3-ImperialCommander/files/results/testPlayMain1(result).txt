@@ -173,3 +173,4 @@ Ship [PlayerFile IMPERIAL Ship 2/0] 2/TIEInterceptor
 Ship [PlayerFile REBEL Ship 0/2] 
 (YWing 3 REBEL null {80,70,-30}) (X)
 (YWing 4 REBEL null {80,70,-20}) (X)
+

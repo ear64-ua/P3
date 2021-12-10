@@ -65,9 +65,9 @@ public class PlayerRandom implements IPlayer {
 	
 	@Override
 	public void initFighters() {
-		
+
 		String[] type = (ship.getSide() == Side.REBEL ) ? rebelType : imperialType;
-		
+
 		for (int i = 0; i < type.length; i++) {
 			
 			int random = RandomNumber.newRandomNumber(numFighters);
@@ -139,9 +139,11 @@ public class PlayerRandom implements IPlayer {
 		
 		if (l.isEmpty()) {
 			if (25 <= option && option <= 84)
-				System.out.println("ERROR: empty ship");
+				System.out.println("ERROR: empty "+ship.getSide()+" ship");
+			else if (0 <= option && option <= 24)
+				System.out.println("ERROR: empty "+ship.getSide()+" board");
 			else
-				System.out.println("ERROR: empty board");
+				System.out.println("ERROR: no "+ship.getSide()+" fighters available");
 			return true;
 		}
 		

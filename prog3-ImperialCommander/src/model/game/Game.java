@@ -71,7 +71,7 @@ public class Game {
 	 */
 	private int rebelMove(int numRebel,int play) {
 		
-		System.out.print("REBEL("+numRebel+"):");
+		System.out.print("REBEL("+numRebel+"): ");
 	
 		if (!rebel.nextPlay())
 			return -1;
@@ -99,7 +99,7 @@ public class Game {
 		
 		System.out.println("BEFORE IMPERIAL");
 		showBoardFleet();
-		System.out.print("IMPERIAL("+numImperial+"):");
+		System.out.print("IMPERIAL("+numImperial+"): ");
 			
 		if (!imperial.nextPlay())
 			return 0;
@@ -143,11 +143,13 @@ public class Game {
 				
 			play = rebelMove(board.numFighters(Side.REBEL),play);
 			
-			if(play==0) break;
+			if(play==-1) break;
 			
 			imperial.purgeFleet();
 			rebel.purgeFleet();
-			play = checkFleet();				
+			play = checkFleet();	
+			
+			if(play!=1) break;
 		}
 		
 		return play;

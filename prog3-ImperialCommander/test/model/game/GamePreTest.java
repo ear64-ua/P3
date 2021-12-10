@@ -3,6 +3,8 @@ package model.game;
 import static org.junit.Assert.*;
 
 import java.io.FileWriter;
+import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -16,15 +18,9 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Coordinate;
 import model.Fighter;
 import model.RandomNumber;
 import model.Side;
-import model.exceptions.FighterAlreadyInBoardException;
-import model.exceptions.FighterNotInBoardException;
-import model.exceptions.InvalidSizeException;
-import model.exceptions.OutOfBoundsException;
-import model.game.exceptions.WrongFighterIdException;
 
 public class GamePreTest {
 	PlayerFile plfRebel, plfImperial;
@@ -96,10 +92,14 @@ public class GamePreTest {
 		standardIO2Stream(); //Cambia salida standard a un Stream
 		Side winner = game.play();
 		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
-		//System.out.println(sout);
+		
+		writeResults2File(sout,"testPlayEmptyShips");  //Escribe la salida en un fichero
+		
 		assertEquals(Side.REBEL, winner);
 		String solution = readSolutionFromFile("files/testPlayEmptyShips.out");
 		compareLines(solution, sout, false);
+		
+		assertTrue(compareLineXLine("files/testPlayEmptyShips.out","files/results/testPlayEmptyShips(result).txt"));
 	}
 	
 	/* Game con la nave REBEL inicialmente vacía.
@@ -109,7 +109,7 @@ public class GamePreTest {
 	 */
 	//TODO
 	@Test
-	public void testPlayEmptyRebelShip() {
+	public void testPlayEmptyRebelShip() throws IOException {
 		String inputImp = "1/TIEInterceptor\nlaunch 1 1";
 		stringReader = new StringReader(inputImp);
 		BufferedReader br = new BufferedReader(stringReader);
@@ -120,10 +120,15 @@ public class GamePreTest {
 		standardIO2Stream(); //Cambia salida standard a un Stream
 		Side winner = game.play();
 		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
-		//System.out.println(sout);
+		
+		writeResults2File(sout,"testPlayEmptyRebelShip");  //Escribe la salida en un fichero
+		
 		assertEquals(Side.IMPERIAL, winner);
 		String solution = readSolutionFromFile("files/testPlayEmptyRebelShip.out");
 		compareLines(solution, sout, false);
+		
+		assertTrue(compareLineXLine("files/testPlayEmptyRebelShip.out","files/results/testPlayEmptyRebelShip(result).txt"));
+
 		
 	}
 	
@@ -132,15 +137,19 @@ public class GamePreTest {
 	 * la misma partida del MainP4min. La iniciación de los players y los datos de entrada
 	 *  están en el setUp() */
 	@Test
-	public void testPlayMain1() {
+	public void testPlayMain1() throws IOException {
 		standardIO2Stream();
 		Side winner = game.play();
 		
-		String sout = Stream2StandardIO(); //Cambia salida standard a un Stream
+		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
+		writeResults2File(sout,"testPlayMain1");  //Escribe la salida en un fichero
 		assertEquals(Side.IMPERIAL, winner);
 		
-		String solution = readSolutionFromFile("files/testPlayMain1.out"); //Cambia salida de Stream a la consola
+		
+		String solution = readSolutionFromFile("files/testPlayMain1.out");
 		compareLines(solution, sout, false);
+		assertTrue(compareLineXLine("files/testPlayMain1.out","files/results/testPlayMain1(result).txt"));
+
 	}
 	
 	/* Game del MainP4.
@@ -151,7 +160,7 @@ public class GamePreTest {
 	 */
 	//TODO
 	@Test
-	public void testPlayMain2() {
+	public void testPlayMain2() throws IOException {
 		PlayerRandom plimperial = new PlayerRandom(Side.IMPERIAL,3);
 		PlayerRandom plrebel = new PlayerRandom(Side.REBEL,3);
 		
@@ -159,18 +168,19 @@ public class GamePreTest {
 
 		standardIO2Stream(); //Cambia salida standard a un Stream
 		g.play();
-		String sout = Stream2StandardIO(); //Cambia salida standard a un Stream
-		try {
-			writeResults2File(sout,"Main2result");
-		} catch (IOException e) {}
-		String solution = readSolutionFromFile("files/testPlayMain2.out"); //Cambia salida de Stream a la consola
+		String sout = Stream2StandardIO();//Cambia salida de Stream a la consola
+		writeResults2File(sout,"testPlayMain2");  //Escribe la salida en un fichero
+		
+		String solution = readSolutionFromFile("files/testPlayMain2.out"); 
 		compareLines(solution, sout, false);
+		assertTrue(compareLineXLine("files/testPlayMain2.out","files/results/testPlayMain2(result).txt"));
+
 	}
 	
 	//Test como MainP4min, IMPERIAL hace exit 
 	 
 	@Test
-	public void testPlayMainImpExit() {
+	public void testPlayMainImpExit() throws IOException {
 		String inputImp = "2/TIEInterceptor\nlaunch 1 1\nlaunch 2 2\nexit\n";
 		stringReader = new StringReader(inputImp);
 		BufferedReader br = new BufferedReader(stringReader);
@@ -180,16 +190,21 @@ public class GamePreTest {
 		stringReader = new StringReader(inputReb);
 		br = new BufferedReader(stringReader);
 		plfRebel = new PlayerFile(Side.REBEL, br);
+		
 		game = new Game(plfImperial,plfRebel);
-		standardIO2Stream();
+		
+		standardIO2Stream(); //Cambia salida standard a un Stream
 		Side winner = game.play();
-		String sout = Stream2StandardIO();
+		String sout = Stream2StandardIO(); //Cambia salida de Stream a la consola
+		
+		writeResults2File(sout,"testPlayMainImpExit"); //Escribe la salida en un fichero
 		assertEquals(Side.REBEL, winner);
 		String solution = readSolutionFromFile("files/testPlayMainImpExit.out");
 		compareLines(solution, sout, false);
+		assertTrue(compareLineXLine("files/testPlayMainImpExit.out","files/results/testPlayMainImpExit(result).txt")); // comparamos linea por linea
+
 	}
-
-
+	
 	/***************************
 	 * METODOS DE APOYO
 	 ***************************/
@@ -250,22 +265,74 @@ public class GamePreTest {
 			return (sb.toString());
 	}
 	
+	//Lee el string pasado y lo escribe el resultado en un fichero
 	private void writeResults2File(String toWrite, String name) throws IOException {
-		try {
-		      File myObj = new File("files/"+name+".txt");
-		      if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
-		      } else {
-		        System.out.println("File already exists.");
-		      }
-		    } catch (IOException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
+		     
+		File myObj = new File("files/results/"+name+"(result).txt");
 		
-	      FileWriter myWriter = new FileWriter("files/"+name+".txt");
+		if (myObj.createNewFile()) 
+			System.out.println("File created: " + myObj.getName());
+		      
+	      FileWriter myWriter = new FileWriter("files/results/"+name+"(result).txt");
 	      myWriter.write(toWrite);
 	      myWriter.close();
+	}
+	
+	private boolean compareLineXLine(String origin, String result) throws IOException{
+		BufferedReader originReader = new BufferedReader(new FileReader(origin));
+
+		BufferedReader resultReader = new BufferedReader(new FileReader(result));
+		
+		boolean areEqual = true;
+
+		int lineNum = 1;
+		
+		String originLine = originReader.readLine();
+
+		String resultLine = resultReader.readLine();
+		
+		while (originLine != null || resultLine != null)
+        {
+            if(originLine == null || resultLine == null)
+            {
+                areEqual = false;
+                 
+                break;
+            }
+            else if(! originLine.equalsIgnoreCase(resultLine))
+            {
+            	if (!originLine.contains("ERROR")) {
+            		areEqual = false;
+            		break;
+            	}
+            }
+             
+            originLine = originReader.readLine();
+             
+            resultLine = resultReader.readLine();
+             
+            lineNum++;
+        }
+		
+        if(!areEqual)
+        {
+        	System.out.print("{"+origin+"} / ");
+        	System.out.println("{"+result+"}");
+        	
+            System.out.println("Two files have different content. They differ at line "+lineNum);
+             
+            System.out.println("Origin has "+originLine+" \nResult has "+resultLine+" at line "+lineNum+"\n");
+            originReader.close();
+            
+    		resultReader.close();
+            return false;
+        }
+         
+		originReader.close();
+         
+		resultReader.close();
+    return true;
+
 	}
 	
 }
