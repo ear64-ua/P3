@@ -1,3 +1,5 @@
 model
 model.exceptions
 model.fighters
+model.game
+model.game.exceptions

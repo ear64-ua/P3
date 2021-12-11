@@ -190,7 +190,7 @@ public class Board {
 			throw new FighterAlreadyInBoardException(f);
 		
 		
-		// si c sí pertenece al tablero
+		// si c si pertenece al tablero
 		else{
 			// si c no pertenece al tablero --> Exception
 			if (!this.inside(c))

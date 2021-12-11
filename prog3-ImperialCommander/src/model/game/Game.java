@@ -56,17 +56,13 @@ public class Game {
 	 * @return el tablero
 	 */
 	public GameBoard getGameBoard() {
-		try {
-			GameBoard gb = new GameBoard(board.getSize());
-			gb = board;
-			return gb;
-		} catch (InvalidSizeException e) {}
-		return null;
+		return board;
 	}
 	
 	/**
 	 * Metodo privado que realiza los movimientos del lado rebelde y los muestra
 	 * @param numRebel numero de cazas en el tablero
+	 * @param play valor de la jugada
 	 * @return {@code -1} si no sigue jugando {@code 1} en caso contrario
 	 */
 	private int rebelMove(int numRebel,int play) {
@@ -77,7 +73,7 @@ public class Game {
 			return -1;
 			
 		System.out.println("AFTER REBEL");
-		showBoardFleet(play);
+		showBoardFleet();
 		
 		return play;
 	}
@@ -85,27 +81,29 @@ public class Game {
 	/**
 	 * Metodo privado que se encarga de mostrar el tablero y las naves
 	 */
-	private void showBoardFleet(int play) {
+	private void showBoardFleet() {
 		System.out.println(board);
 		System.out.println(imperial.showShip());
 		System.out.println(rebel.showShip());
 	}
+	
 	/**
 	 * Metodo privado que realiza los movimientos del lado imperial y los muestra
-	 * @param numRebel numero de cazas en el tablero
+	 * @param numImperial numero de cazas en el tablero
+	 * @param play valor de la jugada
 	 * @return {@code 0} si no sigue jugando {@code 1} en caso contrario
 	 */
 	private int imperialMove(int numImperial,int play) {
 		
 		System.out.println("BEFORE IMPERIAL");
-		showBoardFleet(play);
+		showBoardFleet();
 		System.out.print("IMPERIAL("+numImperial+"): ");
 			
 		if (!imperial.nextPlay())
 			return 0;
 			
 		System.out.println("AFTER IMPERIAL, BEFORE REBEL");
-		showBoardFleet(play);
+		showBoardFleet();
 		
 		return 1;		
 }
@@ -168,11 +166,9 @@ public class Game {
 		
 		switch(play) {
 			case(-1)://exit rebel
-				return Side.IMPERIAL;
 			case(-2)://rebel fleet destroyed
 				return Side.IMPERIAL;
 			case(0)://exit imperial
-				return Side.REBEL;
 			case(2)://imperial fleet destroyed
 				return Side.REBEL;
 		}

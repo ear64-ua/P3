@@ -23,7 +23,7 @@ public abstract class Fighter {
 	private int id;
 	
 	/**
-	 * Constante utilizada en el daño
+	 * Constante utilizada en el danyo
 	 * @see #getDamage
 	 */
 	private final int kDamage = 300;

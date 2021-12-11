@@ -186,7 +186,7 @@ public class Ship {
 	
 	
 	/**
-	 * El metodo showFleet enseña los datos de cada caza dentro de la misma flota
+	 * El metodo showFleet muestra los datos de cada caza dentro de la misma flota
 	 * @return un string con la informacion de cada luchador y si esta destruido o no
 	 */
 	public String showFleet() {

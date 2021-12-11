@@ -14,7 +14,7 @@ public class WrongFighterIdException extends Exception{
 	
 	/**
 	 * Constructor de la excepcion
-	 * @param int id que causa dicha excepcion
+	 * @param id que causa dicha excepcion
 	 */
 	public WrongFighterIdException(int id) {
 		super();
