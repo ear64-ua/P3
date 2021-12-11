@@ -88,10 +88,7 @@ public class Game {
 	private void showBoardFleet(int play) {
 		System.out.println(board);
 		System.out.println(imperial.showShip());
-		System.out.print(rebel.showShip());
-		
-		if (play==1)
-			System.out.println();
+		System.out.println(rebel.showShip());
 	}
 	/**
 	 * Metodo privado que realiza los movimientos del lado imperial y los muestra
@@ -139,11 +136,9 @@ public class Game {
 			play = imperialMove(board.numFighters(Side.IMPERIAL),play);
 			
 			if(play==0) break;
-			
 			play = checkFleet();
 			
 			if(play!=1) break;
-				
 			play = rebelMove(board.numFighters(Side.REBEL),play);
 			
 			if(play==-1) break;
