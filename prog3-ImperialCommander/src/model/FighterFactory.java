@@ -1,4 +1,6 @@
 package model;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 import model.fighters.AWing;
@@ -23,27 +25,22 @@ public class FighterFactory {
 	static public Fighter createFighter(String type, Ship mother) {
 		Objects.requireNonNull(type);
 		Objects.requireNonNull(mother);
-		switch(type) {
-			case "AWing":
-				return new AWing(mother);
-				
-			case "YWing":
-				return new YWing(mother);
-				
-			case "XWing":
-				return new XWing(mother);
-				
-			case "TIEBomber":
-				return new TIEBomber(mother);
-				
-			case "TIEFighter":
-				return new TIEFighter(mother);
-				
-			case "TIEInterceptor":
-				return new TIEInterceptor(mother);
+		Class<?> c = null;
+		try {
+			c = Class.forName("model.fighters."+type);
+			Class<?>[] paramTypes = new Class[] {Ship.class};
+			Constructor<?> m= c.getConstructor(paramTypes);
+			Object[] arguments = new Object[] {mother}; 
+			Fighter f = (Fighter) m.newInstance(arguments);
+			
+			return f;
+			
+			
+		} catch (ClassNotFoundException | SecurityException | InstantiationException 
+				| IllegalAccessException | NoSuchMethodException | IllegalArgumentException 
+				| InvocationTargetException e) {e.getStackTrace();}
 		
-			default:
-				return null;
-		}
+		return null;
+		
 	}
 }

@@ -12,11 +12,11 @@ BEFORE IMPERIAL
 8|          
 9|          
 
-Ship [PlayerFile IMPERIAL Ship 0/0] 
+Ship [PlayerRandom IMPERIAL Ship 0/0] 
 
-Ship [PlayerFile REBEL Ship 0/0] 
+Ship [PlayerRandom REBEL Ship 0/0] 
 
-IMPERIAL(0): ERROR: invalid type: 
+IMPERIAL(0):ERROR: La nave no tiene cazas
 AFTER IMPERIAL, BEFORE REBEL
   0123456789
   ----------
@@ -31,7 +31,6 @@ AFTER IMPERIAL, BEFORE REBEL
 8|          
 9|          
 
-Ship [PlayerFile IMPERIAL Ship 0/0] 
+Ship [PlayerRandom IMPERIAL Ship 0/0] 
 
-Ship [PlayerFile REBEL Ship 0/0] 
-
+Ship [PlayerRandom REBEL Ship 0/0] 

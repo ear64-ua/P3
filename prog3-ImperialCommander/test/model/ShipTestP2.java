@@ -1,21 +1,21 @@
 package model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.exceptions.FighterAlreadyInBoardException;
-import model.exceptions.FighterNotInBoardException;
-import model.exceptions.InvalidSizeException;
 import model.exceptions.NoFighterAvailableException;
-import model.exceptions.OutOfBoundsException;
-import model.game.GameBoard;
-import model.game.exceptions.WrongFighterIdException;
 
-public class ShipPreTestP2 {
+public class ShipTestP2 {
 
 	Ship ship;
 	final String kFleet1 = "5/XWing:12/AWing:3/YWing:2/XWing";
@@ -484,25 +484,27 @@ public class ShipPreTestP2 {
 		compareLines (kToString3, ship.toString());
 	}
 	
-	/* Realiza los test de comprobación de los parámetros null en Ship para los métodos
-	 * constructor, addFighters y getFirstAvailableFighter
-	 */
+	/* Test de comprobación de los parámetros null en Ship */
 	@Test
 	public void testRequireNonNull() throws NoFighterAvailableException {
 		
-		for (int i = 0; i < 3; i++) {
-			try {
-				switch(i) {
-					case 0 :new Ship(null,null);
-					fail("Se debió lanzar NullPointerException");
-					case 1 :ship.addFighters(null);
-					fail("Se debió lanzar NullPointerException");
-					case 2 :ship.getFirstAvailableFighter(null);
-					fail("Se debió lanzar NullPointerException");
-				}
-			} catch(NullPointerException e) { }
-			
-		}
+		try {
+			new Ship(null, Side.REBEL);
+			fail("ERROR: Debió lanzar NullPointerException");
+		}catch (NullPointerException e) {}
+		try {
+			new Ship("Tydirium", null);
+			fail("ERROR: Debió lanzar NullPointerException");
+		}catch (NullPointerException e) {}
+		
+		try {
+			ship.addFighters(null);
+			fail("ERROR: Debió lanzar NullPointerException");
+		}catch (NullPointerException e) {}
+		try {
+			ship.getFirstAvailableFighter(null);
+			fail("ERROR: Debió lanzar NullPointerException");
+		}catch (NullPointerException e) {}
 	}
 
 	/*************************************/
