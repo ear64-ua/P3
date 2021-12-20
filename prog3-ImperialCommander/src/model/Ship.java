@@ -103,6 +103,13 @@ public class Ship {
 	}
 	
 	/**
+	 * Metodo que actualiza los resultados
+	 */
+	public void updateResults(int r, Fighter f) {
+		
+	}
+	
+	/**
 	 * El metodo addFighters se encarga de separar el string leido y contenerlo 
 	 * en sus respectivos campos
 	 * @param fd  esta formado por un string del formato "duplicados/tipo:*"

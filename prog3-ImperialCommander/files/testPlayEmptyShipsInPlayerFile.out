@@ -14,16 +14,16 @@ BEFORE IMPERIAL
 8|          
 9|          
 
-Ship [PlayerFile IMPERIAL Ship 0/0] 1/TIEInterceptor
-(TIEInterceptor 1 IMPERIAL null {145,85,60})
+Ship [PlayerFile IMPERIAL Ship 0/0] 
 
 Ship [PlayerFile REBEL Ship 0/0] 
 
-IMPERIAL(0):AFTER IMPERIAL, BEFORE REBEL
+IMPERIAL(0):ERROR: en improve: ERROR: el Fighter con identificador 1 no existe
+AFTER IMPERIAL, BEFORE REBEL
   0123456789
   ----------
 0|          
-1| i        
+1|          
 2|          
 3|          
 4|          
@@ -33,8 +33,7 @@ IMPERIAL(0):AFTER IMPERIAL, BEFORE REBEL
 8|          
 9|          
 
-Ship [PlayerFile IMPERIAL Ship 0/0] 1/TIEInterceptor
-(TIEInterceptor 1 IMPERIAL [1,1] {145,85,60})
+Ship [PlayerFile IMPERIAL Ship 0/0] 
 
 Ship [PlayerFile REBEL Ship 0/0] 
 

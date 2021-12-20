@@ -1,5 +1,7 @@
 package model.game;
 
+import model.game.score.*;
+
 /**
  *  Interfaz que modela un jugador del juego
  *	@author Enrique Abma Romero X9853366M
@@ -47,4 +49,16 @@ public interface IPlayer {
 		 */
 		public boolean nextPlay();
 		
+		/**
+		 * Llama al metodo del mismo nombre de la nave del jugador
+		 * @return el valor de winsScore
+		 */
+		public WinsScore getWinsScore();
+		
+		/**
+		 * Llama al metodo del mismo nombre de la nave del jugador
+		 * @return el valor de destroyedFightersScore
+		 */
+		public DestroyedFightersScore getDestroyedFightersScore();
+
 }

@@ -3,13 +3,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
-import model.fighters.AWing;
-import model.fighters.YWing;
-import model.fighters.XWing;
-import model.fighters.TIEFighter;
-import model.fighters.TIEInterceptor;
-import model.fighters.TIEBomber;
-
 /**
  *  Clase en donde van a ser creadas nuestros distintos cazas.
  *	@author Enrique Abma Romero X9853366M
@@ -33,14 +26,9 @@ public class FighterFactory {
 			Object[] arguments = new Object[] {mother}; 
 			Fighter f = (Fighter) m.newInstance(arguments);
 			
-			return f;
+			return f; 
 			
-			
-		} catch (ClassNotFoundException | SecurityException | InstantiationException 
-				| IllegalAccessException | NoSuchMethodException | IllegalArgumentException 
-				| InvocationTargetException e) {e.getStackTrace();}
-		
+		} catch (Exception any) {}		
 		return null;
-		
 	}
 }

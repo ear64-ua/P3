@@ -143,6 +143,13 @@ public abstract class Fighter {
 	}
 	
 	/**
+	 * @return la suma de su ataque y su valocidad
+	 */
+	public int getValue() {
+		return velocity+attack;
+	}
+	
+	/**
 	 * setter de position
 	 * @param c coordenada a la que se le va a asignar
 	 */

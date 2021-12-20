@@ -8,6 +8,7 @@ import model.exceptions.FighterAlreadyInBoardException;
 import model.exceptions.FighterNotInBoardException;
 import model.exceptions.OutOfBoundsException;
 import model.game.exceptions.WrongFighterIdException;
+import model.game.score.*;
 
 /**
  *  Subclase de Ship que se usa en el juego
@@ -15,7 +16,10 @@ import model.game.exceptions.WrongFighterIdException;
  *	@version 1.8 2011
  **/
 public class GameShip extends Ship {
-
+	
+	WinsScore winsScore = new WinsScore(super.getSide());
+	DestroyedFightersScore destroyedFightersScore = new DestroyedFightersScore(super.getSide());
+	
 	/**
 	 * Contructor de GameShip que llama al constructor de la clase padre
 	 * @param name es el nombre asignado al objeto
@@ -83,6 +87,32 @@ public class GameShip extends Ship {
 			}
 		}
 		return l;
+	}
+	
+	/**
+	 * Getter de winsScore
+	 * @return el valor de winsScore
+	 */
+	public WinsScore getWinsScore() {
+		return winsScore;
+	}
+	
+	/**
+	 * Getter de destroyedFightersScore
+	 * @return el valor de destroyedFighterScore
+	 */
+	public DestroyedFightersScore getDestroyedFightersScore() {
+		return destroyedFightersScore;
+	}
+	
+	@Override
+	public void updateResults(int r, Fighter f) {
+		super.updateResults(r, f);
+		
+		if(r==1) {
+			winsScore.score(r);
+			destroyedFightersScore.score(f);
+		}
 	}
 	
 	/**
