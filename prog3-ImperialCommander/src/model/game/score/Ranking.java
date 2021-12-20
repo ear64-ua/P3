@@ -19,8 +19,8 @@ public class Ranking<ScoreType extends Score<?>>{
 		scoreSet=new TreeSet<>();
 	}
 	
-	public void addScore(ScoreType scoreSet) {
-		this.scoreSet.add(scoreSet);
+	public void addScore(ScoreType score) {
+		scoreSet.add(score);
 	}
 	
 	public ScoreType getWinner() {
@@ -34,14 +34,14 @@ public class Ranking<ScoreType extends Score<?>>{
 	}
 	
 	public String toString() {
-		String s = new String("| ");
+		StringBuilder s = new StringBuilder("| ");
 		for(ScoreType sc: scoreSet)
-			s += sc + " | ";
+			s.append(sc).append(" | ");
 		
 		if ((s != null) && (s.length() > 0)) {
-		      s = s.substring(0, s.length() - 1);
+		      s.substring(0, s.length() - 1);
 		 }
 		
-		return s;
+		return s+"";
 	}
 }

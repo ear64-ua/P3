@@ -22,10 +22,13 @@ public abstract class Score<T> implements Comparable<Score<T>> {
 	}
 	
 	public int compareTo(Score<T> other) {
-		if (Integer.compare(other.getScore(), this.score)==0)
-			this.side.compareTo(other.side);
+		if (Integer.compare(other.score, this.score)==0)
+			return this.side.compareTo(other.side);
 		
-		return 0; // TODO el valor de compare
+		else if (other.score>this.score)
+			return 1;
+		else 
+			return -1;
 	}
 	
 	public String toString() {
