@@ -13,26 +13,45 @@ import java.util.TreeSet;
 **/
 public class Ranking<ScoreType extends Score<?>>{
 	
+	/**
+	 * Variable que va a contener las puntuaciones segun el tipo
+	 */
 	private SortedSet<ScoreType> scoreSet;
 	
+	/**
+	 * Contructor de la clase Ranking
+	 */
 	public Ranking() {
 		scoreSet=new TreeSet<>();
 	}
 	
+	/**
+	 * Incluye el tipo a scoreSet
+	 * @param score
+	 */
 	public void addScore(ScoreType score) {
 		scoreSet.add(score);
 	}
 	
+	/**
+	 * Devuelve el ganador si no esta vacio scoreSet
+	 * @return el ganador
+	 */
 	public ScoreType getWinner() {
 		if (scoreSet.isEmpty())
 			throw new RuntimeException();
 		return this.scoreSet.first();
 	}
 	
+	/**
+	 * Getter de scoreSet
+	 * @return el valor de scoreSet
+	 */
 	public SortedSet<ScoreType> getSortedRanking(){
 		return scoreSet;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder("| ");
 		for(ScoreType sc: scoreSet)

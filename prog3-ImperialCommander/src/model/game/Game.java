@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import model.Side;
 import model.exceptions.InvalidSizeException;
+import model.game.score.DestroyedFightersScore;
+import model.game.score.Ranking;
+import model.game.score.WinsScore;
 
 /**
  *  Clase principal que engloba el juego
@@ -124,6 +127,25 @@ public class Game {
 	}
 	
 	/**
+	 * Metodo privado que se encarga de mostrar los resultados por pantalla
+	 */
+	private void showScore() {
+		Ranking<WinsScore> winsScore = new Ranking<>();
+		Ranking<DestroyedFightersScore> destroyedScore = new Ranking<>();
+		
+		winsScore.addScore(imperial.getWinsScore());
+		winsScore.addScore(rebel.getWinsScore());
+		
+		destroyedScore.addScore(imperial.getDestroyedFightersScore());
+		destroyedScore.addScore(rebel.getDestroyedFightersScore());
+		
+		System.out.println("RANKING WINS:  "+winsScore);
+		System.out.println("RANKING DESTROYED:  "+destroyedScore);
+		
+		
+	}
+	
+	/**
 	 * Metodo privado que se encarga del bucle en el que se basa el juego
 	 * @return el valor del resultado de la jugada, distinto de 1
 	 */
@@ -131,6 +153,7 @@ public class Game {
 		int play = 1;
 		
 		while(true){
+			showScore();
 			play = imperialMove(board.numFighters(Side.IMPERIAL),play);
 			
 			if(play==0) break;
@@ -147,6 +170,7 @@ public class Game {
 			
 			if(play!=1) break;
 		}
+		showScore();
 		
 		return play;
 	}

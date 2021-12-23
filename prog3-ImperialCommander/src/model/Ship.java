@@ -103,13 +103,6 @@ public class Ship {
 	}
 	
 	/**
-	 * Metodo que actualiza los resultados
-	 */
-	public void updateResults(int r, Fighter f) {
-		
-	}
-	
-	/**
 	 * El metodo addFighters se encarga de separar el string leido y contenerlo 
 	 * en sus respectivos campos
 	 * @param fd  esta formado por un string del formato "duplicados/tipo:*"
@@ -149,7 +142,7 @@ public class Ship {
 	 * @param r	si obtiene el valor de 1, se suma uno a las victorias,
 	 * 		  	y lo equivalente a las derrotas si le llega -1
 	 */
-	public void updateResults(int r) {
+	public void updateResults(int r,Fighter f) {
 		
 		if(r == 1)
 			this.wins++;

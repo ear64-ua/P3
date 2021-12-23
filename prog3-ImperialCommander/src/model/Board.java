@@ -153,14 +153,14 @@ public class Board {
 			int resultado = f1.fight(f2);
 			
 			if (resultado == 1) {
-				f2.getMotherShip().updateResults(-1);
-				f1.getMotherShip().updateResults(1);
+				f2.getMotherShip().updateResults(-1,f2);
+				f1.getMotherShip().updateResults(1,f2);
 				this.removeFighter(f2);
 			}
 		
 			else if (resultado == -1){
-				f1.getMotherShip().updateResults(-1);
-				f2.getMotherShip().updateResults(1);
+				f1.getMotherShip().updateResults(-1,f1);
+				f2.getMotherShip().updateResults(1,f1);
 			}
 			
 			return resultado;

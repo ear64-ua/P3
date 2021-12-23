@@ -7,10 +7,9 @@ import org.junit.Test;
 
 import model.Fighter;
 import model.FighterFactory;
-import model.Ship;
 import model.Side;
-import model.game
-.GameShip;public class DestroyedFightersScorePreTest {
+import model.game.GameShip;
+public class DestroyedFightersScorePreTest {
     Fighter tieBomber, tieInterceptor, tieFighter, xWing, yWing, aWing;
     GameShip imperialShip, rebelShip;
     Score<Fighter> scRebel, scImperial;
