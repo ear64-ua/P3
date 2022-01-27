@@ -64,7 +64,9 @@ public class DestroyedFightersScorePreTest {
 	public void testCompareTo() {
 		assertTrue(scRebel.compareTo(scRebel)==0);
 		assertTrue(scRebel.compareTo(scImperial)>0);
-		fail("Termina el test");
+		
+		scRebel.score(tieFighter);
+		assertTrue(scRebel.compareTo(scImperial)<0);
 		
 	}
 
@@ -77,9 +79,14 @@ public class DestroyedFightersScorePreTest {
 	public void testScoreCraft() {
 		assertEquals(0,scImperial.getScore());
 		scImperial.score(xWing);
+		
 		assertEquals(210,scImperial.getScore());
-		fail("Sigue aplicando score a scImperial con varios Fighters y comprobando "
-				+ "que los valores son correctos");
+		scImperial.score(yWing);
+		
+		assertEquals(360,scImperial.getScore());
+		scImperial.score(aWing);
+		
+		assertEquals(585,scImperial.getScore());
 	}
 
 
@@ -99,8 +106,10 @@ public class DestroyedFightersScorePreTest {
 
 		scRebel.score(tieFighter);
 		compareLines ("Player REBEL: 295",scRebel.toString());
-
-		fail("Continúa con el test");	
+		
+		scRebel.score(tieInterceptor);
+		compareLines ("Player REBEL: 525",scRebel.toString());
+	
 	}
 	
 	/*************************

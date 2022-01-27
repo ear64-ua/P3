@@ -27,7 +27,7 @@ public class Ranking<ScoreType extends Score<?>>{
 	
 	/**
 	 * Incluye el tipo a scoreSet
-	 * @param score
+	 * @param score puntuacion que se va a sumar
 	 */
 	public void addScore(ScoreType score) {
 		scoreSet.add(score);
@@ -53,9 +53,9 @@ public class Ranking<ScoreType extends Score<?>>{
 	
 	@Override
 	public String toString() {
-		StringBuilder s = new StringBuilder("| ");
+		StringBuilder s = new StringBuilder("|");
 		for(ScoreType sc: scoreSet)
-			s.append(sc).append(" | ");
+			s.append(" ").append(sc).append(" |");
 		
 		if ((s != null) && (s.length() > 0)) {
 		      s.substring(0, s.length() - 1);

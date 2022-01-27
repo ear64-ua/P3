@@ -8,12 +8,18 @@ import model.*;
 *   @param <T> el tipo de clase modelada por esta
 **/
 public abstract class Score<T> implements Comparable<Score<T>> {
+	/**
+	 * Atributo de la puntuacion
+	 */
 	protected int score;
+	/**
+	 * Lado al que pertenece
+	 */
 	private Side side;
 	
 	/**
 	 * Contructor de la clase Score
-	 * @param side
+	 * @param side lado al que va a pertenecer
 	 */
 	public Score(Side side) {
 		this.side=side;

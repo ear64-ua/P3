@@ -3,3 +3,4 @@ model.exceptions
 model.fighters
 model.game
 model.game.exceptions
+model.game.score

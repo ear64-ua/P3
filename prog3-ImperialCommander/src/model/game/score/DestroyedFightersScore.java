@@ -10,7 +10,7 @@ public class DestroyedFightersScore  extends Score<Fighter>{
 
 	/**
 	 * Contructor de la clase DestroyedFightersScore
-	 * @param side
+	 * @param side lado al que va a pertenecer
 	 */
 	public DestroyedFightersScore(Side side) {
 		super(side);

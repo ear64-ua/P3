@@ -17,7 +17,13 @@ import model.game.score.*;
  **/
 public class GameShip extends Ship {
 	
+	/**
+	 * puntuacion de tipo winsScore
+	 */
 	WinsScore winsScore = new WinsScore(super.getSide());
+	/**
+	 * puntuacion de tipo destroyedFightersScore
+	 */
 	DestroyedFightersScore destroyedFightersScore = new DestroyedFightersScore(super.getSide());
 	
 	/**
@@ -135,7 +141,7 @@ public class GameShip extends Ship {
 	
 	/**
 	 * Metodo que hace que un caza patrulle 
-	 * @param id usado para buscar el caza a lanzar
+	 * @param id usado para buscar el caza a patrullar
 	 * @param b usado para que el caza patrulle en dicho tablero 
 	 * @throws WrongFighterIdException cuando no se encuentra el caza con el id pasado
 	 * @throws FighterNotInBoardException cuando el caza no se encuentra en el tablero
@@ -147,6 +153,24 @@ public class GameShip extends Ship {
 		
 		b.patrol(f);
 	}
+	
+	
+	/**
+	 * Metodo que hace que un caza explore 
+	 * @param id usado para buscar el caza a explorar
+	 * @param b usado para que el caza explore en dicho tablero 
+	 * @throws WrongFighterIdException cuando no se encuentra el caza con el id pasado
+	 * @throws FighterNotInBoardException cuando el caza no se encuentra en el tablero
+	 */
+	public void cross(int id,Board b) throws WrongFighterIdException, FighterNotInBoardException {
+		Objects.requireNonNull(b);
+		
+		Fighter f = this.getFighter(id);
+		
+		b.cross(f);
+	}
+	
+	
 	
 	/**
 	 * Metodo que hace que un caza sea mejorado

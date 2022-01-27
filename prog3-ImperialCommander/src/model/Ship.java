@@ -141,6 +141,7 @@ public class Ship {
 	 * El metodo update Results actualiza las derrotas o victorias de cada nave
 	 * @param r	si obtiene el valor de 1, se suma uno a las victorias,
 	 * 		  	y lo equivalente a las derrotas si le llega -1
+	 * @param f caza que pierde
 	 */
 	public void updateResults(int r,Fighter f) {
 		

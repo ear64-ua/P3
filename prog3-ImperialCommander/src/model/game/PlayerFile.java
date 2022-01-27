@@ -187,6 +187,17 @@ public class PlayerFile implements IPlayer {
 				
 				break;
 				
+			case "cross":
+				if (saux.length==2) {
+					try {
+						ship.cross(Integer.parseInt(saux[1]), board);
+					} catch (WrongFighterIdException | FighterNotInBoardException e) {  System.out.println(e.getMessage()); }
+				}
+				
+				else
+					System.out.println(ERR_SYNTAX);
+				break;      
+				
 			default:
 				System.out.println(ERR_SYNTAX);
 		}

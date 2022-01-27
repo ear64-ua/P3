@@ -3,6 +3,7 @@ package model;
 import java.util.Objects;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -141,6 +142,50 @@ public class Board {
 	}
 	
 	/**
+	  * Devuelve las direcciones según la dirección 
+	  */
+	 public Set<Coordinate> getDirection(String direction, Coordinate c){
+		 
+		 Set<Coordinate> conj = new LinkedHashSet<Coordinate>();
+		 
+			 switch(direction) {
+				 case("N"): 
+					 for(int i = c.getY(); i >= 0; i--) {
+						 Coordinate c2 = new Coordinate(c.getX(),i); 
+						 conj.add(c2);
+					 }
+				 break;
+				 	
+				 case("S"): 
+					 for(int i = c.getY() ; i < size; i++) {
+						 Coordinate c2 = new Coordinate(c.getX(),i);
+						 conj.add(c2);
+					 }
+				 break;
+				 	
+				 case("E"): 
+					 for(int i = c.getY() ; i < size; i++) {
+						 Coordinate c2 = new Coordinate(i,c.getY());
+						 conj.add(c2);
+					 }
+				 break;
+				 	
+				 case("W"): 
+					 for(int i = c.getY() ; i >= 0; i--) {
+						 Coordinate c2 = new Coordinate(i,c.getY());
+						 conj.add(c2);
+					 }
+				 break;
+				 
+			 }
+			 
+			 // added after exam
+			 conj.remove(c);
+		 
+		 return conj;
+	 }
+	
+	/**
 	 * El metodo alphaFighter hace que luchen dos cazas y saber su resultado, a la vez
 	 * que se le actualizan los resultados de cada nave nodriza
 	 * @param f1 el primer luchador invasor
@@ -254,9 +299,76 @@ public class Board {
 					}
 				} catch (OutOfBoundsException e) {throw new RuntimeException();}
 		}
+	}
+	
+	/**
+	 * Recorre las 4 direcciones hasta encontrar un cazacon el que luchar 
+	 * @param f caza que va a explorar
+	 * @throws FighterNotInBoardException 
+	 */
+	public void cross(Fighter f) throws FighterNotInBoardException {
+		Objects.requireNonNull(f);
+		int resultado = 0;
 		
+		String[] directions = {"N","S","W","E"};
 		
+		if(f.getPosition()==null)
+			throw new FighterNotInBoardException(f);
 		
+		if(!inside(f.getPosition()))
+			throw new RuntimeException();
+		
+		if (board.containsValue(f)) {
+			
+			for (String dir : directions) {
+				for (Coordinate c : this.getDirection(dir, f.getPosition())) {
+					if ((board.get(c) != null) && !(f.getSide().equals(this.getFighter(c).getSide()))) {
+						resultado = alphaFighter(f,board.get(c));
+						// added after exam
+						if (resultado == 1) {
+							board.remove(f.getPosition());
+							f.setPosition(c);
+							board.put(c, f);
+						}
+						break;
+					}
+					
+					else if ((board.get(c) != null) && (f.getSide().equals(this.getFighter(c).getSide())))
+						break;
+					
+					
+				}
+				
+				if (resultado==-1) {
+					try{
+						this.removeFighter(f);
+					}catch(FighterNotInBoardException e) {throw new RuntimeException();}
+					break;
+				}
+				
+			}
+				
+		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

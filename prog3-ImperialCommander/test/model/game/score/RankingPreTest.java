@@ -17,6 +17,10 @@ public class RankingPreTest {
 	Ranking<DestroyedFightersScore> destroyedRanking;
 	WinsScore winsScore;
 	DestroyedFightersScore destroyedScore;
+	WinsScore winsScoreI;
+	DestroyedFightersScore destroyedScoreI;
+	WinsScore winsScoreR;
+	DestroyedFightersScore destroyedScoreR;
 	//IPlayer playerJulia, playerRaul;
 	IPlayer imperialPlayer, rebelPlayer;
 	//IPlayer playerLaura, playerSimon;
@@ -60,24 +64,36 @@ public class RankingPreTest {
 	@Test
 	public void testAddScore() {
 		//Iniciamos marcadores para Julia
-		winsScore = new WinsScore(Side.IMPERIAL);
-		destroyedScore = new DestroyedFightersScore(Side.IMPERIAL);
+		winsScoreI = new WinsScore(Side.IMPERIAL);
+		destroyedScoreI = new DestroyedFightersScore(Side.IMPERIAL);
+		
+		winsScoreR = new WinsScore(Side.REBEL);
+		destroyedScoreR = new DestroyedFightersScore(Side.REBEL);
 				
 		//Los añadimos al ranking
-		destroyedRanking.addScore(destroyedScore);
-		winsRanking.addScore(winsScore);
-		compareLines(SRANKING1, rankingsToString());
-		System.out.println(rankingsToString());
+		destroyedRanking.addScore(destroyedScoreI);
+		winsRanking.addScore(winsScoreI);
+		destroyedRanking.addScore(destroyedScoreR);
+		winsRanking.addScore(winsScoreR);
 				
 		//Modificamos los marcadores winsScore y destroyedScore de IMPERIAL
 		for (int i=0; i<10; i++) {
-				winsScore.score(1);
-				destroyedScore.score(FighterFactory.createFighter(kREBEL_FIGHTERS[i%3], rebelShip));
+				winsScoreI.score(1);
+				destroyedScoreI.score(FighterFactory.createFighter(kIMPERIAL_FIGHTERS[i%3], imperialShip));
 		}
-		destroyedRanking.addScore(destroyedScore);
-		winsRanking.addScore(winsScore);
-		fail ("Continúa con el test ahora para Rebel y haz la comprobación");
+		destroyedRanking.addScore(destroyedScoreI);
+		winsRanking.addScore(winsScoreI);
+														
+		//Modificamos los marcadores winsScore y destroyedScore de REBEL
+		for (int i=0; i<10; i++) {
+				winsScoreR.score(1);
+				destroyedScoreR.score(FighterFactory.createFighter(kREBEL_FIGHTERS[i%3], rebelShip));
+		}
+		destroyedRanking.addScore(destroyedScoreR);
+		winsRanking.addScore(winsScoreR);
 		
+		assertEquals("| Player IMPERIAL: 1965 | Player REBEL: 1770 |",destroyedRanking.toString());
+		assertEquals("| Player IMPERIAL: 10 | Player REBEL: 10 |",winsRanking.toString());		
 	}
 	
 	/* GetWinner debe lanzar RuntimeException cuando el ranking está vacío.
@@ -100,25 +116,26 @@ public class RankingPreTest {
 	@Test
 	public void testGetWinner() {
 		//Iniciamos marcadores para Imperial
-		winsScore = new WinsScore(Side.IMPERIAL);
-		destroyedScore = new DestroyedFightersScore(Side.IMPERIAL);
+		winsScoreI = new WinsScore(Side.IMPERIAL);
+		destroyedScoreI = new DestroyedFightersScore(Side.IMPERIAL);
 		for (int i=0; i<2000; i++) {
-			winsScore.score(1);
-			destroyedScore.score(FighterFactory.createFighter(kREBEL_FIGHTERS[i%3], rebelShip));
+			winsScoreI.score(1);
+			destroyedScoreI.score(FighterFactory.createFighter(kIMPERIAL_FIGHTERS[i%3], imperialShip));
 		}
-		destroyedRanking.addScore(destroyedScore);
-		winsRanking.addScore(winsScore);
+		destroyedRanking.addScore(destroyedScoreI);
+		winsRanking.addScore(winsScoreI);
 		
-		WinsScore winsScoreREB = new WinsScore(Side.REBEL);
-		DestroyedFightersScore destroyedScoreREB = new DestroyedFightersScore(Side.REBEL);
-		for (int i=0; i<2000; i++) {
-			winsScoreREB.score(1);
-			destroyedScoreREB.score(FighterFactory.createFighter(kREBEL_FIGHTERS[i%3], rebelShip));
+		winsScoreR = new WinsScore(Side.REBEL);
+		destroyedScoreR = new DestroyedFightersScore(Side.REBEL);
+		for (int i=0; i<1999; i++) {
+			winsScoreR.score(1);
+			destroyedScoreR.score(FighterFactory.createFighter(kREBEL_FIGHTERS[i%3], rebelShip));
 		}
-		destroyedRanking.addScore(destroyedScore);
-		winsRanking.addScore(winsScore);
-		
-		fail("Realiza algo parecido para REBEL y luego haz las comprobaciones finales con getWinner");
+		destroyedRanking.addScore(destroyedScoreR);
+		winsRanking.addScore(winsScoreR);
+		//System.out.println(winsRanking);
+		assertTrue(destroyedRanking.getWinner().toString().contains("IMPERIAL"));
+		assertTrue(winsRanking.getWinner().toString().contains("IMPERIAL"));
 	}
 
 	

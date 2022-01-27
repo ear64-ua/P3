@@ -11,7 +11,7 @@ public class WinsScore extends Score<Integer>{
 
 	/**
 	 * Constructor de la clase WinsScore
-	 * @param side
+	 * @param side lado al que va a pertenecer
 	 */
 	public WinsScore(Side side) {
 		super(side);
@@ -19,7 +19,6 @@ public class WinsScore extends Score<Integer>{
 
 	@Override
 	public void score(Integer sc) {
-		
 		
 		if (sc!=null && sc == 1)
 			super.score+=1;
